@@ -8,6 +8,7 @@
       "moduleResolution": "Node",
       "sourceMap": true,
       "rootDir": "src",
+      "strictNullChecks": true,
       "baseUrl": "src",
       "paths": {
           "@/*": [
