@@ -4,9 +4,9 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "node dist/main/server.js",
+        "start": "npm run build && node dist/main/server.js",
         "test": "jest --passWithNoTests --silent --noStackTrace --runInBand",
-        "build": "tsc -p tsconfig-build.json",
+        "build": "rm -Rf ./dist && tsc -p tsconfig-build.json",
         "dev": "nodemon -L --watch ./dist --inspect=0.0.0.0:9222 --nolazy ./dist/main/server.js",
         "prepare": "cd .. && husky install",
         "pre-commit": "lint-staged"

@@ -10,7 +10,7 @@
             "test"
         ],
         "baseUrl": "src",
-        "strictNullChecks": true,
+        "strictNullChecks": false,
         "paths": {
             "@/test/*": [
                 "../test/*"
