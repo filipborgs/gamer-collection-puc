@@ -3,6 +3,7 @@ import { LoadGameByIdController } from '@/presentation/controllers'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { type HttpRequest } from '@/presentation/protocols'
+import { mockLoadGameById } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('LoadGameByIdController', () => {
@@ -11,8 +12,9 @@ describe('LoadGameByIdController', () => {
   let httpRequest: HttpRequest
 
   beforeEach(() => {
+    jest.useFakeTimers()
     loadGameUsecase = mock()
-    loadGameUsecase.loadById.mockResolvedValue({} as any)
+    loadGameUsecase.loadById.mockResolvedValue(mockLoadGameById())
     sut = new LoadGameByIdController(loadGameUsecase)
     httpRequest = makeHttpRequest()
   })
@@ -38,7 +40,7 @@ describe('LoadGameByIdController', () => {
 
   it('Should return 200 with game if succeds', async () => {
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok({}))
+    expect(response).toEqual(ok(mockLoadGameById()))
   })
 
   it('Should return 404 LoadGameById returns null', async () => {

@@ -2,6 +2,7 @@ import { type LoadGames } from '@/domain/usecases/games'
 import { LoadGamesController } from '@/presentation/controllers'
 import { ok, serverError } from '@/presentation/helpers/http'
 import { type HttpRequest } from '@/presentation/protocols'
+import { mockLoadResultGamePreview } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('LoadGamesController', () => {
@@ -11,7 +12,7 @@ describe('LoadGamesController', () => {
 
   beforeEach(() => {
     loadGamesUsecase = mock()
-    loadGamesUsecase.load.mockResolvedValue({} as any)
+    loadGamesUsecase.load.mockResolvedValue(mockLoadResultGamePreview())
     sut = new LoadGamesController(loadGamesUsecase)
     httpRequest = makeHttpRequest()
   })
@@ -38,6 +39,6 @@ describe('LoadGamesController', () => {
 
   it('Should return 200 if succeds', async () => {
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok({}))
+    expect(response).toEqual(ok(mockLoadResultGamePreview()))
   })
 })
