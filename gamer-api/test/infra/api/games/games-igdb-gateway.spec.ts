@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { type HttpClient } from '@/infra/gateway'
-import { GamesIgdbGateway } from '@/infra/api/games/games-igdb-gateway'
+import { GamesIgdbGateway } from '@/infra/api/igdb/games/games-igdb-gateway'
 import { mock, type MockProxy } from 'jest-mock-extended'
 import { mockAuthIgdbResponse, mockLoadGameByIdIgdbResponse, mockLoadGamesIgdbResponse } from '@/test/infra/api/mocks'
 
