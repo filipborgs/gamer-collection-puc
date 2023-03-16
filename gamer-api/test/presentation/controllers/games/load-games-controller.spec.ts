@@ -4,7 +4,7 @@ import { ok, serverError } from '@/presentation/helpers/http'
 import { type HttpRequest } from '@/presentation/protocols'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
-describe('', () => {
+describe('LoadGamesController', () => {
   let sut: LoadGamesController
   let loadGamesUsecase: MockProxy<LoadGames>
   let httpRequest: HttpRequest
