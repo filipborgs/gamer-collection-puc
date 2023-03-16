@@ -2,6 +2,7 @@
 import { type HttpClient } from '@/infra/gateway'
 import { GamesIgdbGateway } from '@/infra/api/games/games-igdb-gateway'
 import { mock, type MockProxy } from 'jest-mock-extended'
+import { mockAuthIgdbResponse, mockLoadGamesIgdbResponse } from '@/test/infra/api/mocks'
 
 describe('GamesIgdbGateway', () => {
   let sut: GamesIgdbGateway
@@ -12,11 +13,7 @@ describe('GamesIgdbGateway', () => {
   describe('auth', () => {
     beforeEach(() => {
       httpClientMock = mock()
-      httpClientMock.post.mockResolvedValue({
-        access_token: 'token',
-        expires_in: 5297317,
-        token_type: 'bearer'
-      })
+      httpClientMock.post.mockResolvedValue(mockAuthIgdbResponse())
 
       sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
     })
@@ -43,7 +40,7 @@ describe('GamesIgdbGateway', () => {
 
     beforeEach(() => {
       httpClientMock = mock()
-      httpClientMock.post.mockResolvedValue([{ count: 1 }, { result: [] }])
+      httpClientMock.post.mockResolvedValue(mockLoadGamesIgdbResponse())
 
       sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
 
@@ -75,9 +72,10 @@ describe('GamesIgdbGateway', () => {
 
     it('Should return correct LoadResult with GamePreview', async () => {
       const loadResult = await sut.load(search, offset)
+      const [count, result] = mockLoadGamesIgdbResponse()
       expect(loadResult).toEqual({
-        count: 1,
-        items: [],
+        count: count.count,
+        items: result.result,
         limit,
         offset
       })

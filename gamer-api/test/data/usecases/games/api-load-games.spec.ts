@@ -1,8 +1,8 @@
 import { type LoadGamesGateway } from '@/data/protocols/api/games'
 import { ApiLoadGames } from '@/data/usecases/games'
-import { type GamePreview, type LoadResult } from '@/domain/entities'
 import { type LoadGamesParams } from '@/domain/usecases/games'
-import { type MockProxy, mock } from 'jest-mock-extended'
+import { mockLoadGamesParams, mockLoadResultGamePreview } from '@/test/domain/usecases/mocks'
+import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('ApiLoadGames', () => {
   let sut: ApiLoadGames
@@ -13,28 +13,9 @@ describe('ApiLoadGames', () => {
     gatewayLoadGames = mock<LoadGamesGateway>()
     gatewayLoadGames.load.mockResolvedValue(mockLoadResultGamePreview())
 
-    params = {
-      search: 'any_query',
-      offset: 0
-    }
+    params = mockLoadGamesParams()
 
     sut = new ApiLoadGames(gatewayLoadGames)
-  })
-
-  const mockLoadResultGamePreview = (): LoadResult<GamePreview> => ({
-    items: [mockGamePreview()],
-    limit: 10,
-    count: 10,
-    offset: 0
-  })
-
-  const mockGamePreview = (): GamePreview => ({
-    id: 1,
-    name: 'any_name',
-    platforms: [{
-      id: 1,
-      name: 'any_platform'
-    }]
   })
 
   it('Should call LoadGamesGateway with query', async () => {
