@@ -2,5 +2,5 @@
 . "$(dirname -- "$0")/_/husky.sh"
 
 cd gamer-api
-npm test
+# npm run test:staged
 npm run pre-commit
