@@ -2,7 +2,7 @@
 import { type HttpClient } from '@/infra/gateway'
 import { GamesIgdbGateway } from '@/infra/api/games/games-igdb-gateway'
 import { mock, type MockProxy } from 'jest-mock-extended'
-import { mockAuthIgdbResponse, mockLoadGamesIgdbResponse } from '@/test/infra/api/mocks'
+import { mockAuthIgdbResponse, mockLoadGameByIdIgdbResponse, mockLoadGamesIgdbResponse } from '@/test/infra/api/mocks'
 
 describe('GamesIgdbGateway', () => {
   let sut: GamesIgdbGateway
@@ -46,6 +46,7 @@ describe('GamesIgdbGateway', () => {
     let authSpy
 
     beforeEach(() => {
+      jest.resetAllMocks()
       httpClientMock = mock()
       httpClientMock.post.mockResolvedValue(mockLoadGamesIgdbResponse())
 
@@ -61,6 +62,11 @@ describe('GamesIgdbGateway', () => {
 
       search = 'any_search'
       offset = 0
+    })
+
+    it('Should call auth request', async () => {
+      await sut.load(search, offset)
+      expect(authSpy).toHaveBeenCalledTimes(1)
     })
 
     it('Should make load request with correct query', async () => {
@@ -91,6 +97,62 @@ describe('GamesIgdbGateway', () => {
         limit,
         offset
       })
+    })
+  })
+
+  describe('LoadGameByIdGateway', () => {
+    let id: number
+    let authSpy
+
+    beforeEach(() => {
+      jest.resetAllMocks()
+      httpClientMock = mock()
+      httpClientMock.post.mockResolvedValue(mockLoadGameByIdIgdbResponse())
+
+      sut = new GamesIgdbGateway(
+        httpClientMock,
+        clientId,
+        secret,
+        twitchAuthUrl,
+        igdbUrl)
+
+      authSpy = jest.spyOn(GamesIgdbGateway.prototype as any, 'auth')
+      authSpy.mockReturnValue('token')
+
+      id = 1
+    })
+
+    it('Should call auth request', async () => {
+      await sut.loadById(id)
+      expect(authSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('Should make load game by id request with correct query', async () => {
+      const data = `fields name,platforms,cover.*; where id = ${id};`
+
+      const config = {
+        url: `${igdbUrl}/v4/games`,
+        headers: {
+          'Client-ID': clientId,
+          Authorization: 'Bearer token',
+          Accept: 'application/json',
+          'Content-Type': 'text/plain'
+        },
+        data
+      }
+      await sut.loadById(id)
+      expect(httpClientMock.post).toBeCalledWith(config)
+    })
+
+    it('Should return correct game if succeeds', async () => {
+      const game = await sut.loadById(id)
+      const [gameResponse] = mockLoadGameByIdIgdbResponse()
+      expect(game).toEqual(gameResponse)
+    })
+
+    it('Should return null if the request return the wrong game', async () => {
+      const game = await sut.loadById(2)
+      expect(game).toBeNull()
     })
   })
 })
