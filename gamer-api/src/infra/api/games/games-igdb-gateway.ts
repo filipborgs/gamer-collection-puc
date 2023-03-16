@@ -1,8 +1,9 @@
 import { type LoadGamesGateway } from '@/data/protocols/api/games'
-import { type GamePreview, type LoadResult } from '@/domain/entities'
+import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
+import { type Game, type GamePreview, type LoadResult } from '@/domain/entities'
 import { type HttpClient } from '@/infra/gateway'
 
-export class GamesIgdbGateway implements LoadGamesGateway {
+export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
   constructor (
     private readonly httpClient: HttpClient,
     private readonly clientId: string,
@@ -39,6 +40,24 @@ export class GamesIgdbGateway implements LoadGamesGateway {
       items,
       offset
     }
+  }
+
+  public async loadById (id: number): Promise<Game> {
+    const token = this.auth()
+    const data = `fields name,platforms,cover.*; where id = ${id};`
+    const config = {
+      url: `${this.igdbUrl}/v4/games`,
+      headers: {
+        'Client-ID': this.clientId,
+        Authorization: `Bearer ${await token}`,
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data
+    }
+    const [game] = await this.httpClient.post(config)
+    if (game.id !== id) return null
+    return game
   }
 
   private async auth (): Promise<string> {

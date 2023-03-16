@@ -28,3 +28,14 @@ export const mockLoadGamesIgdbResponse = () => ([
     }]
   }
 ])
+
+export const mockLoadGameByIdIgdbResponse = () => ([
+  {
+    id: 1,
+    name: 'any_name',
+    platforms: [{
+      id: 3,
+      name: 'any_platform_2'
+    }]
+  }
+])
