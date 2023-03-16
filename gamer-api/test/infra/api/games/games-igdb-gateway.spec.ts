@@ -9,19 +9,26 @@ describe('GamesIgdbGateway', () => {
   let httpClientMock: MockProxy<HttpClient>
   const clientId = 'any_id'
   const secret = 'any_secret'
+  const twitchAuthUrl = 'any_auth_url'
+  const igdbUrl = 'any_igdb_url'
 
   describe('auth', () => {
     beforeEach(() => {
       httpClientMock = mock()
       httpClientMock.post.mockResolvedValue(mockAuthIgdbResponse())
 
-      sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
+      sut = new GamesIgdbGateway(
+        httpClientMock,
+        clientId,
+        secret,
+        twitchAuthUrl,
+        igdbUrl)
     })
 
     it('Should make auth request with correct values', async () => {
       await sut['auth']()
       const config = {
-        url: `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${secret}&grant_type=client_credentials`
+        url: `${twitchAuthUrl}?client_id=${clientId}&client_secret=${secret}&grant_type=client_credentials`
       }
       expect(httpClientMock.post).toBeCalledWith(config)
     })
@@ -42,7 +49,12 @@ describe('GamesIgdbGateway', () => {
       httpClientMock = mock()
       httpClientMock.post.mockResolvedValue(mockLoadGamesIgdbResponse())
 
-      sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
+      sut = new GamesIgdbGateway(
+        httpClientMock,
+        clientId,
+        secret,
+        twitchAuthUrl,
+        igdbUrl)
 
       authSpy = jest.spyOn(GamesIgdbGateway.prototype as any, 'auth')
       authSpy.mockReturnValue('token')
@@ -57,7 +69,7 @@ describe('GamesIgdbGateway', () => {
       const data = `query games/count "count" {w ${where}}; query games "games" {f alternative_names.name, checksum, platforms.name, name, version_parent, slug; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
-        url: 'https://api.igdb.com/v4/multiquery',
+        url: `${igdbUrl}/v4/multiquery`,
         headers: {
           'Client-ID': clientId,
           Authorization: 'Bearer token',
