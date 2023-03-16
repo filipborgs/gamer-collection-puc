@@ -72,7 +72,7 @@ describe('GamesIgdbGateway', () => {
     it('Should make load request with correct query', async () => {
       const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
       const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null;`
-      const data = `query games/count "count" {w ${where}}; query games "games" {f alternative_names.name, checksum, platforms.name, name, version_parent, slug; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+      const data = `query games/count "count" {w ${where}}; query games "games" {f name,platforms.id,platforms.name,cover.image_id; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
         url: `${igdbUrl}/v4/multiquery`,
@@ -93,7 +93,7 @@ describe('GamesIgdbGateway', () => {
       const [count, result] = mockLoadGamesIgdbResponse()
       expect(loadResult).toEqual({
         count: count.count,
-        items: result.result,
+        items: result.result.map(({ cover, ...gameData }) => ({ ...gameData, cover: cover ? { code: cover.image_id } : undefined })),
         limit,
         offset
       })
@@ -128,7 +128,7 @@ describe('GamesIgdbGateway', () => {
     })
 
     it('Should make load game by id request with correct query', async () => {
-      const data = `fields name,platforms,cover.*; where id = ${id};`
+      const data = `fields name,platforms.id,platforms.name,cover.image_id,first_release_date; where id = ${id};`
 
       const config = {
         url: `${igdbUrl}/v4/games`,
@@ -147,7 +147,28 @@ describe('GamesIgdbGateway', () => {
     it('Should return correct game if succeeds', async () => {
       const game = await sut.loadById(id)
       const [gameResponse] = mockLoadGameByIdIgdbResponse()
-      expect(game).toEqual(gameResponse)
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { cover, first_release_date, ...gameData } = gameResponse
+      expect(game).toEqual({
+        ...gameData,
+        cover: {
+          code: cover.image_id
+        },
+        releaseDate: new Date(first_release_date * 1000)
+      })
+    })
+
+    it('Should return correct game if succeeds without cover', async () => {
+      const [{ cover: _cover, ...gameResponse }] = mockLoadGameByIdIgdbResponse()
+      httpClientMock.post.mockResolvedValue([gameResponse])
+
+      const game = await sut.loadById(id)
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { first_release_date, ...gameData } = gameResponse
+      expect(game).toEqual({
+        ...gameData,
+        releaseDate: new Date(first_release_date * 1000)
+      })
     })
 
     it('Should return null if the request return the wrong game', async () => {
