@@ -9,7 +9,7 @@ export class LoadGameByIdController implements Controller {
   async handle ({ params }: HttpRequest): Promise<HttpResponse> {
     try {
       const { gameId } = params
-      const game = await this.loadGame.loadById(gameId)
+      const game = await this.loadGame.loadById(Number(gameId))
       if (!game) return notFound(new NotFound('Game'))
       return ok(game)
     } catch (error) {

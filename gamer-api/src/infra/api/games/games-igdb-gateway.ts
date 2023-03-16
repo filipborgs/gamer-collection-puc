@@ -55,6 +55,7 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
       },
       data
     }
+
     const [game] = await this.httpClient.post(config)
     if (game.id !== id) return null
     return game
