@@ -1,9 +1,8 @@
 import express from 'express'
+import setupRoutes from '@/main/config/routes'
 
 const app = express()
 
-app.get('/teste', (req, res) => {
-  return res.send('ok')
-})
+setupRoutes(app)
 
 export default app
