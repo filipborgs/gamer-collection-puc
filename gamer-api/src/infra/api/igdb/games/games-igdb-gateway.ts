@@ -1,17 +1,9 @@
 import { type LoadGamesGateway } from '@/data/protocols/api/games'
 import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
 import { type Game, type GamePreview, type LoadResult } from '@/domain/entities'
-import { type HttpClient } from '@/infra/gateway'
+import { IgdbHelper } from '../igdb-helper'
 
-export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
-  constructor (
-    private readonly httpClient: HttpClient,
-    private readonly clientId: string,
-    private readonly secret: string,
-    private readonly twitchAuthUrl: string,
-    private readonly igdbUrl: string
-  ) {}
-
+export class GamesIgdbGateway extends IgdbHelper implements LoadGamesGateway, LoadGameByIdGateway {
   public async load (search: string, offset: number): Promise<LoadResult<GamePreview>> {
     const token = this.auth()
 
@@ -71,13 +63,5 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
       cover: cover ? { code: cover.image_id } : undefined,
       releaseDate: new Date(first_release_date * 1000)
     }
-  }
-
-  private async auth (): Promise<string> {
-    const config = {
-      url: `${this.twitchAuthUrl}?client_id=${this.clientId}&client_secret=${this.secret}&grant_type=client_credentials`
-    }
-    const result = await this.httpClient.post(config)
-    return result.access_token
   }
 }
