@@ -1,6 +1,6 @@
-import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
+import { type LoadGameByIdGateway } from '@/data/protocols/api/games'
 import { ApiLoadGameById } from '@/data/usecases/games'
-import { type Game } from '@/domain/entities'
+import { mockLoadGameById } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('ApiLoadGameById', () => {
@@ -16,16 +16,6 @@ describe('ApiLoadGameById', () => {
     params = 2
 
     sut = new ApiLoadGameById(gatewayLoadGame)
-  })
-
-  const mockLoadGameById = (): Game => ({
-    id: 1,
-    name: 'any_name',
-    releaseDate: new Date(),
-    platforms: [{
-      id: 1,
-      name: 'any_platform'
-    }]
   })
 
   it('Should call LoadGameByIdGateway with id', async () => {

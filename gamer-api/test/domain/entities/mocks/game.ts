@@ -4,6 +4,9 @@ export const mockGame = (): Game => ({
   id: 1,
   name: 'any_name',
   releaseDate: new Date(),
+  cover: {
+    code: 'any_code'
+  },
   platforms: [{
     id: 1,
     name: 'any_platform'
@@ -13,8 +16,7 @@ export const mockGame = (): Game => ({
 export const mockGamePreview = (): GamePreview => ({
   id: 1,
   name: 'any_name',
-  platforms: [{
-    id: 1,
-    name: 'any_platform'
-  }]
+  cover: {
+    code: 'any_code'
+  }
 })
