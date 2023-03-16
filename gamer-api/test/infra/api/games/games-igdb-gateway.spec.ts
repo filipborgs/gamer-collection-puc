@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/dot-notation */
 import { type HttpClient } from '@/infra/gateway'
 import { GamesIgdbGateway } from '@/infra/api/games/games-igdb-gateway'
 import { mock, type MockProxy } from 'jest-mock-extended'
@@ -8,14 +9,47 @@ describe('GamesIgdbGateway', () => {
   const clientId = 'any_id'
   const secret = 'any_secret'
 
+  describe('auth', () => {
+    beforeEach(() => {
+      httpClientMock = mock()
+      httpClientMock.post.mockResolvedValue({
+        access_token: 'token',
+        expires_in: 5297317,
+        token_type: 'bearer'
+      })
+
+      sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
+    })
+
+    it('Should make auth request with correct values', async () => {
+      await sut['auth']()
+      const config = {
+        url: `https://id.twitch.tv/oauth2/token?client_id=${clientId}&client_secret=${secret}&grant_type=client_credentials`
+      }
+      expect(httpClientMock.post).toBeCalledWith(config)
+    })
+
+    it('Should return a token string on succeds', async () => {
+      const token = await sut['auth']()
+      expect(token).toEqual('token')
+    })
+  })
+
   describe('LoadGamesGateway', () => {
     let search: string
     let offset: number
     const limit: number = 10
+    let authSpy
+
     beforeEach(() => {
       httpClientMock = mock()
       httpClientMock.post.mockResolvedValue([{ count: 1 }, { result: [] }])
+
       sut = new GamesIgdbGateway(httpClientMock, clientId, secret)
+
+      authSpy = jest.spyOn(GamesIgdbGateway.prototype as any, 'auth')
+      authSpy.mockReturnValue('token')
+
       search = 'any_search'
       offset = 0
     })
@@ -29,7 +63,7 @@ describe('GamesIgdbGateway', () => {
         url: 'https://api.igdb.com/v4/multiquery',
         headers: {
           'Client-ID': clientId,
-          Authorization: 'Bearer 15edshp49fk42q4vb5whzqol9w98rf',
+          Authorization: 'Bearer token',
           Accept: 'application/json',
           'Content-Type': 'text/plain'
         },

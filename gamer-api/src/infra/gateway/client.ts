@@ -5,5 +5,5 @@ export interface HttpClient {
 export interface HttpClientParams {
   url: string
   data?: any
-  headers: object
+  headers?: object
 }
