@@ -6,20 +6,24 @@ export class GamesIgdbGateway implements LoadGamesGateway {
   constructor (
     private readonly httpClient: HttpClient,
     private readonly clientId: string,
-    private readonly secret: string
+    private readonly secret: string,
+    private readonly twitchAuthUrl: string,
+    private readonly igdbUrl: string
   ) {}
 
   public async load (search: string, offset: number): Promise<LoadResult<GamePreview>> {
+    const token = this.auth()
+
     const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
     const limit = 10
     const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null;`
     const data = `query games/count "count" {w ${where}}; query games "games" {f alternative_names.name, checksum, platforms.name, name, version_parent, slug; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
-    const token = await this.auth()
+
     const config = {
-      url: 'https://api.igdb.com/v4/multiquery',
+      url: `${this.igdbUrl}/multiquery`,
       headers: {
         'Client-ID': this.clientId,
-        Authorization: `Bearer ${token}`,
+        Authorization: `Bearer ${await token}`,
         Accept: 'application/json',
         'Content-Type': 'text/plain'
       },
@@ -39,7 +43,7 @@ export class GamesIgdbGateway implements LoadGamesGateway {
 
   private async auth (): Promise<string> {
     const config = {
-      url: `https://id.twitch.tv/oauth2/token?client_id=${this.clientId}&client_secret=${this.secret}&grant_type=client_credentials`
+      url: `${this.twitchAuthUrl}?client_id=${this.clientId}&client_secret=${this.secret}&grant_type=client_credentials`
     }
     const result = await this.httpClient.post(config)
     return result.access_token
