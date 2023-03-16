@@ -18,7 +18,7 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
     const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
     const limit = 10
     const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null;`
-    const data = `query games/count "count" {w ${where}}; query games "games" {f alternative_names.name, checksum, platforms.name, name, version_parent, slug; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+    const data = `query games/count "count" {w ${where}}; query games "games" {f name,platforms.id,platforms.name,cover.image_id; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
     const config = {
       url: `${this.igdbUrl}/v4/multiquery`,
@@ -31,8 +31,14 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
       data
     }
     const result = await this.httpClient.post(config)
+    console.log(result[1].result)
     const count = result[0].count
-    const items = result[1].result
+    const items = result[1].result.map(({ cover, ...gameData }) => {
+      return {
+        ...gameData,
+        cover: cover ? { code: cover.image_id } : undefined
+      }
+    })
 
     return {
       count,
@@ -44,7 +50,7 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
 
   public async loadById (id: number): Promise<Game> {
     const token = this.auth()
-    const data = `fields name,platforms,cover.*; where id = ${id};`
+    const data = `fields name,platforms.id,platforms.name,cover.image_id,first_release_date; where id = ${id};`
     const config = {
       url: `${this.igdbUrl}/v4/games`,
       headers: {
@@ -58,7 +64,13 @@ export class GamesIgdbGateway implements LoadGamesGateway, LoadGameByIdGateway {
 
     const [game] = await this.httpClient.post(config)
     if (game.id !== id) return null
-    return game
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { cover, first_release_date, ...gameData } = game
+    return {
+      ...gameData,
+      cover: cover ? { code: cover.image_id } : undefined,
+      releaseDate: new Date(first_release_date * 1000)
+    }
   }
 
   private async auth (): Promise<string> {
