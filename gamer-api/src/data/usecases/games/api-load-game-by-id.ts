@@ -1,4 +1,4 @@
-import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
+import { type LoadGameByIdGateway } from '@/data/protocols/api/games'
 import { type Game } from '@/domain/entities'
 import { type LoadGameById } from '@/domain/usecases/games'
 
