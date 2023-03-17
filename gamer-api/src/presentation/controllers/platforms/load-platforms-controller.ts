@@ -8,7 +8,7 @@ export class LoadPlatformsController implements Controller {
   async handle ({ query }: HttpRequest): Promise<HttpResponse> {
     try {
       const { search, offset } = query
-      const platforms = await this.loadPlatforms.load({ offset, search })
+      const platforms = await this.loadPlatforms.load({ offset: Number(offset), search })
       return ok(platforms)
     } catch (error) {
       return serverError(error)

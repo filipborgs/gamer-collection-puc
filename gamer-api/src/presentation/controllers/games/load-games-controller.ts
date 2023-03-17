@@ -8,7 +8,7 @@ export class LoadGamesController implements Controller {
   async handle ({ query }: HttpRequest): Promise<HttpResponse> {
     try {
       const { search, offset } = query
-      const gamesResult = await this.loadGames.load({ offset, search })
+      const gamesResult = await this.loadGames.load({ offset: Number(offset), search })
       return ok(gamesResult)
     } catch (error) {
       return serverError(error)
