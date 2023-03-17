@@ -10,7 +10,10 @@
         "build": "rm -Rf ./dist && tsc -p tsconfig-build.json",
         "dev": "nodemon --inspect src/main/server.ts",
         "prepare": "cd .. && husky install",
-        "pre-commit": "lint-staged"
+        "pre-commit": "lint-staged",
+        "typeorm": "typeorm-ts-node-esm -d ormconfig.ts",
+        "migration:run": "npm run typeorm -- migration:run",
+        "migration:revert": "npm run typeorm -- migration:revert"
     },
     "keywords": [],
     "author": "",
@@ -39,7 +42,10 @@
         "axios": "^1.3.4",
         "dotenv": "^16.0.3",
         "express": "^4.18.2",
-        "module-alias": "^2.2.2"
+        "module-alias": "^2.2.2",
+        "pg": "^8.10.0",
+        "reflect-metadata": "^0.1.13",
+        "typeorm": "^0.3.12"
     },
     "_moduleAliases": {
         "@": "dist"

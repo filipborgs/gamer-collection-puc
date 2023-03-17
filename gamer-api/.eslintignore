@@ -3,3 +3,4 @@ dist
 ./data
 coverage
 .husky
+ormconfig.ts
