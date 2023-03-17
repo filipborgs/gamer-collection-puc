@@ -12,7 +12,7 @@ import { type HttpResponse } from '@/presentation/protocols'
 // })
 
 export const notFound = (error: Error): HttpResponse => ({
-  statusCode: 400,
+  statusCode: 404,
   body: error
 })
 
