@@ -2,7 +2,7 @@
 import { PlatformCategory } from '@/domain/entities'
 import { PlatformsIgdbGateway } from '@/infra/api/igdb/platforms/platforms-igdb-gateway'
 import { type HttpClient } from '@/infra/gateway'
-import { mockLoadPlatformsIgdbResponse } from '@/test/infra/api/igdb/mocks'
+import { mockLoadPlatformByIdIgdbResponse, mockLoadPlatformsIgdbResponse } from '@/test/infra/api/igdb/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('PlatformsIgdbGateway', () => {
@@ -12,12 +12,12 @@ describe('PlatformsIgdbGateway', () => {
   const secret = 'any_secret'
   const twitchAuthUrl = 'any_auth_url'
   const igdbUrl = 'any_igdb_url'
+  let authSpy
 
   describe('LoadPlatformsGateway', () => {
     let search: string
     let offset: number
     const limit: number = 10
-    let authSpy
 
     beforeEach(() => {
       jest.resetAllMocks()
@@ -72,6 +72,68 @@ describe('PlatformsIgdbGateway', () => {
         limit,
         offset
       })
+    })
+  })
+
+  describe('LoadPlatformById', () => {
+    let id: number
+
+    beforeEach(() => {
+      jest.resetAllMocks()
+      httpClientMock = mock()
+      httpClientMock.post.mockResolvedValue(mockLoadPlatformByIdIgdbResponse())
+
+      sut = new PlatformsIgdbGateway(
+        httpClientMock,
+        clientId,
+        secret,
+        twitchAuthUrl,
+        igdbUrl)
+
+      authSpy = jest.spyOn(PlatformsIgdbGateway.prototype as any, 'auth')
+      authSpy.mockReturnValue('token')
+
+      id = 48
+    })
+
+    it('Should call auth request', async () => {
+      await sut.loadById(id)
+      expect(authSpy).toHaveBeenCalledTimes(1)
+    })
+
+    it('Should make load platform by id request with correct query', async () => {
+      const data = `fields name,abbreviation,category,generation,alternative_name; where id = ${id};`
+
+      const config = {
+        url: `${igdbUrl}/v4/platforms`,
+        headers: {
+          'Client-ID': clientId,
+          Authorization: 'Bearer token',
+          Accept: 'application/json',
+          'Content-Type': 'text/plain'
+        },
+        data
+      }
+      await sut.loadById(id)
+      expect(httpClientMock.post).toBeCalledWith(config)
+    })
+
+    it('Should return correct platform if succeeds', async () => {
+      const platform = await sut.loadById(id)
+      const [platformResponse] = mockLoadPlatformByIdIgdbResponse()
+      // eslint-disable-next-line @typescript-eslint/naming-convention
+      const { category, alternative_name, ...platformData } = platformResponse
+
+      expect(platform).toEqual({
+        ...platformData,
+        alternativeName: alternative_name,
+        category: PlatformsIgdbGateway.parseCategory(category)
+      })
+    })
+
+    it('Should return null if the request return the wrong platform', async () => {
+      const game = await sut.loadById(2)
+      expect(game).toBeNull()
     })
   })
 

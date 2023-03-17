@@ -62,3 +62,14 @@ export const mockLoadPlatformsIgdbResponse = () => ([
     ]
   }
 ])
+
+export const mockLoadPlatformByIdIgdbResponse = () => ([
+  {
+    id: 48,
+    abbreviation: 'PS4',
+    alternative_name: 'PS4',
+    category: 1,
+    generation: 8,
+    name: 'PlayStation 4'
+  }
+])
