@@ -55,7 +55,7 @@ export class GamesIgdbGateway extends IgdbHelper implements LoadGamesGateway, Lo
     }
 
     const [game] = await this.httpClient.post(config)
-    if (game.id !== id) return null
+    if (game?.id !== id) return null
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { cover, first_release_date, ...gameData } = game
     return {

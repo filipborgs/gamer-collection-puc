@@ -49,7 +49,7 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
     }
 
     const [platform] = await this.httpClient.post(config)
-    if (platform.id !== id) return null
+    if (platform?.id !== id) return null
     // eslint-disable-next-line @typescript-eslint/naming-convention
     const { category, alternative_name, ...platformData } = platform
     return {
