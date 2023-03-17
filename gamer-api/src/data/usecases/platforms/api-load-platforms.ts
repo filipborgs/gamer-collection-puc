@@ -1,4 +1,4 @@
-import { type LoadPlatformsGateway } from '@/data/protocols/api/platforms'
+import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { type LoadResult, type PlatformPreview } from '@/domain/entities'
 import { type LoadPlatformsParams, type LoadPlatforms } from '@/domain/usecases/platforms'
 

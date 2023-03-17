@@ -1,5 +1,5 @@
-import { type LoadGamesGateway } from '@/data/protocols/api/games'
-import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
+import { type LoadGamesGateway } from '@/data/protocols/repo/games'
+import { type LoadGameByIdGateway } from '@/data/protocols/repo/games/load-game-by-id-gateway'
 import { type Game, type GamePreview, type LoadResult } from '@/domain/entities'
 import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
 

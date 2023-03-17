@@ -1,4 +1,4 @@
-import { type LoadGamesGateway } from '@/data/protocols/api/games'
+import { type LoadGamesGateway } from '@/data/protocols/repo/games'
 import { type GamePreview, type LoadResult } from '@/domain/entities'
 import { type LoadGames, type LoadGamesParams } from '@/domain/usecases/games'
 

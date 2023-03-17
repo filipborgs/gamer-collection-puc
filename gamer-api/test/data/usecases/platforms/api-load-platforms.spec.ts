@@ -1,4 +1,4 @@
-import { type LoadPlatformsGateway } from '@/data/protocols/api/platforms'
+import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { ApiLoadPlatforms } from '@/data/usecases/platforms'
 import { type LoadGamesParams } from '@/domain/usecases/games'
 import { mockLoadGamesParams, mockLoadPlatforms } from '@/test/domain/usecases/mocks'

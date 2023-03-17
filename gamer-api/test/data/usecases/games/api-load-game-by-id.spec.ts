@@ -1,4 +1,4 @@
-import { type LoadGameByIdGateway } from '@/data/protocols/api/games'
+import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
 import { ApiLoadGameById } from '@/data/usecases/games'
 import { mockLoadGameById } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'

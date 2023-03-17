@@ -1,4 +1,4 @@
-import { type LoadPlatformsGateway } from '@/data/protocols/api/platforms'
+import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { PlatformCategory, type LoadResult, type PlatformPreview, type Platform } from '@/domain/entities'
 import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
 import { type LoadPlatformById } from '@/domain/usecases/platforms'
