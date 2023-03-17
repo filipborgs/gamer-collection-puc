@@ -1,15 +1,15 @@
 import { type LoadPlatformsGateway } from '@/data/protocols/api/platforms'
-import { PlatformCategory, type GamePreview, type LoadResult } from '@/domain/entities'
+import { PlatformCategory, type LoadResult, type PlatformPreview } from '@/domain/entities'
 import { IgdbHelper } from '../igdb-helper'
 
 export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGateway {
-  public async load (search: string, offset: number): Promise<LoadResult<GamePreview>> {
+  public async load (search: string, offset: number): Promise<LoadResult<PlatformPreview>> {
     const token = this.auth()
 
     const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
     const limit = 10
     const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
-    const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name,abbreviation,category,generation,alternative_name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+    const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
     const config = {
       url: `${this.igdbUrl}/v4/multiquery`,
       headers: {
@@ -23,14 +23,7 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
     const result = await this.httpClient.post(config)
     console.log(result[1].result)
     const count = result[0].count
-    // eslint-disable-next-line @typescript-eslint/naming-convention
-    const items = result[1].result.map(({ alternative_name, category, ...platformData }) => {
-      return {
-        ...platformData,
-        alternativeName: alternative_name,
-        category: PlatformsIgdbGateway.parseCategory(category)
-      }
-    })
+    const items = result[1].result
 
     return {
       count,

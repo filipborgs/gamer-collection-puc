@@ -47,7 +47,7 @@ describe('PlatformsIgdbGateway', () => {
     it('Should make load platforms request with correct query', async () => {
       const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
       const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
-      const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name,abbreviation,category,generation,alternative_name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+      const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
         url: `${igdbUrl}/v4/multiquery`,
@@ -68,14 +68,7 @@ describe('PlatformsIgdbGateway', () => {
       const [count, result] = mockLoadPlatformsIgdbResponse()
       expect(loadResult).toEqual({
         count: count.count,
-        // eslint-disable-next-line @typescript-eslint/naming-convention
-        items: result.result.map(({ alternative_name, category, ...platformData }) => {
-          return {
-            ...platformData,
-            alternativeName: alternative_name,
-            category: PlatformsIgdbGateway.parseCategory(category)
-          }
-        }),
+        items: result.result,
         limit,
         offset
       })

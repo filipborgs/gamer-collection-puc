@@ -5,7 +5,6 @@ export interface Platform {
   name: string
   alternativeName: string
   abreviation: string
-  releaseDate: Date
   category: PlatformCategory
   generation: number
 }
