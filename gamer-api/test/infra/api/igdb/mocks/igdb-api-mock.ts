@@ -7,9 +7,11 @@ export const mockAuthIgdbResponse = () => ({
 
 export const mockLoadGamesIgdbResponse = () => ([
   {
+    name: 'count',
     count: 10
   },
   {
+    name: 'games',
     result: [{
       id: 1,
       name: 'any_name',
@@ -38,5 +40,33 @@ export const mockLoadGameByIdIgdbResponse = () => ([
       id: 3,
       name: 'any_platform_2'
     }]
+  }
+])
+
+export const mockLoadPlatformsIgdbResponse = () => ([
+  {
+    name: 'count',
+    count: 10
+  },
+  {
+    name: 'games',
+    result: [
+      {
+        id: 48,
+        abbreviation: 'PS4',
+        alternative_name: 'PS4',
+        category: 1,
+        generation: 8,
+        name: 'PlayStation 4'
+      },
+      {
+        id: 2,
+        name: 'any_name_2',
+        abbreviation: 'any_name_3',
+        alternative_name: 'any_name_',
+        category: 4,
+        generation: 2
+      }
+    ]
   }
 ])
