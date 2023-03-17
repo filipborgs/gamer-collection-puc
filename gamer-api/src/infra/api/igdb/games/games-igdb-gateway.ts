@@ -1,7 +1,7 @@
 import { type LoadGamesGateway } from '@/data/protocols/api/games'
 import { type LoadGameByIdGateway } from '@/data/protocols/api/games/load-game-by-id-gateway'
 import { type Game, type GamePreview, type LoadResult } from '@/domain/entities'
-import { IgdbHelper } from '../igdb-helper'
+import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
 
 export class GamesIgdbGateway extends IgdbHelper implements LoadGamesGateway, LoadGameByIdGateway {
   public async load (search: string, offset: number): Promise<LoadResult<GamePreview>> {

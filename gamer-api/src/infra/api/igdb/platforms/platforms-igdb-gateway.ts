@@ -1,8 +1,9 @@
 import { type LoadPlatformsGateway } from '@/data/protocols/api/platforms'
-import { PlatformCategory, type LoadResult, type PlatformPreview } from '@/domain/entities'
-import { IgdbHelper } from '../igdb-helper'
+import { PlatformCategory, type LoadResult, type PlatformPreview, type Platform } from '@/domain/entities'
+import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
+import { type LoadPlatformById } from '@/domain/usecases/platforms'
 
-export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGateway {
+export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGateway, LoadPlatformById {
   public async load (search: string, offset: number): Promise<LoadResult<PlatformPreview>> {
     const token = this.auth()
 
@@ -30,6 +31,31 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
       limit,
       items,
       offset
+    }
+  }
+
+  public async loadById (id: number): Promise<Platform> {
+    const token = this.auth()
+    const data = `fields name,abbreviation,category,generation,alternative_name; where id = ${id};`
+    const config = {
+      url: `${this.igdbUrl}/v4/platforms`,
+      headers: {
+        'Client-ID': this.clientId,
+        Authorization: `Bearer ${await token}`,
+        Accept: 'application/json',
+        'Content-Type': 'text/plain'
+      },
+      data
+    }
+
+    const [platform] = await this.httpClient.post(config)
+    if (platform.id !== id) return null
+    // eslint-disable-next-line @typescript-eslint/naming-convention
+    const { category, alternative_name, ...platformData } = platform
+    return {
+      ...platformData,
+      alternativeName: alternative_name,
+      category: PlatformsIgdbGateway.parseCategory(category)
     }
   }
 
