@@ -1,2 +1,5 @@
 export * from './server-error'
 export * from './not-found'
+export * from './already-in-use-error'
+export * from './missing-param-error'
+export * from './unauthorized-error'
