@@ -8,5 +8,6 @@ export default {
   dbPort: Number(process.env.DB_PORT) ?? 5432,
   dbUserName: process.env.DB_USERNAME ?? 'postgres',
   dbPassword: process.env.DB_PASSWORD ?? 'postgres',
-  dbDatabase: process.env.DB_DATABASE ?? 'gamer-api'
+  dbDatabase: process.env.DB_DATABASE ?? 'gamer-api',
+  tsNode: process.env.TS_NODE_DEV
 }

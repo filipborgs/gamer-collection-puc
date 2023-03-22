@@ -5,13 +5,16 @@ dotenv.config()
 
 void (async function () {
   const env = (await import('./config/env')).default
+
   PostgresHelper.getInstance(
-    env.dbHost,
-    env.dbPort,
-    env.dbUserName,
-    env.dbPassword,
-    env.dbDatabase,
-    'dev'
+    {
+      database: env.dbDatabase,
+      host: env.dbHost,
+      password: env.dbPassword,
+      port: env.dbPort,
+      username: env.dbUserName,
+      environment: env.tsNode
+    }
   ).connect().then(async () => {
     const app = (await import('./config/app')).default
     app.listen(env.port, () => { console.log(`Server is running ${env.port}`) })
