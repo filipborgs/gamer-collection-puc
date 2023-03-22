@@ -1,12 +1,15 @@
 import { type Hasher } from '@/data/protocols/criptography'
+import { type Uuid } from '@/data/protocols/datatype'
 import { type AddUserRepository, type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
 import { DbAddUser } from '@/data/usecases/users'
 import { type AddUserParams } from '@/domain/usecases/users'
+import { mockAddUserParams } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('DbAddUser', () => {
   let sut: DbAddUser
   let hasher: MockProxy<Hasher>
+  let uuid: MockProxy<Uuid>
   let userRepository: MockProxy<AddUserRepository & LoadUserByEmailRepository>
   let params: AddUserParams
 
@@ -14,18 +17,15 @@ describe('DbAddUser', () => {
     hasher = mock()
     hasher.hash.mockResolvedValue('any_hash')
 
+    uuid = mock()
+    uuid.generate.mockReturnValueOnce('any_uuid')
+
     userRepository = mock()
     userRepository.loadByEmail.mockResolvedValue(null)
     userRepository.add.mockResolvedValue({ id: 'any_id' } as any)
 
-    sut = new DbAddUser(hasher, userRepository)
+    sut = new DbAddUser(hasher, userRepository, uuid)
     params = mockAddUserParams()
-  })
-
-  const mockAddUserParams = (): AddUserParams => ({
-    name: 'any_name',
-    email: 'any_email',
-    password: 'any_password'
   })
 
   test('Should call LoadUserByEmailRepository with correct email', async () => {
@@ -48,15 +48,27 @@ describe('DbAddUser', () => {
     await expect(promise).rejects.toThrow(error)
   })
 
-  it('Should call hash with correct values', async () => {
+  it('Should call Hasher with correct values', async () => {
     await sut.add(params)
-
     expect(hasher.hash).toBeCalledWith(params.password)
   })
 
   it('Should throw if Hasher throws', async () => {
     const error = new Error('an error')
     hasher.hash.mockRejectedValueOnce(error)
+    const promise = sut.add(params)
+    await expect(promise).rejects.toThrow(error)
+  })
+
+  it('Should call Uuid with correct values', async () => {
+    await sut.add(params)
+    expect(uuid.generate).toBeCalledWith()
+  })
+
+  it('Should throw if Uuid throws', async () => {
+    const error = new Error('an error')
+    uuid.generate.mockReset()
+    uuid.generate.mockImplementationOnce(() => { throw error })
     const promise = sut.add(params)
     await expect(promise).rejects.toThrow(error)
   })
@@ -72,12 +84,13 @@ describe('DbAddUser', () => {
     await sut.add(params)
     expect(userRepository.add).toBeCalledWith({
       ...params,
+      id: 'any_uuid',
       password: 'any_hash'
     })
   })
 
   it('Should return user id on success', async () => {
     const id = await sut.add(params)
-    expect(id).toEqual('any_id')
+    expect(id).toEqual('any_uuid')
   })
 })
