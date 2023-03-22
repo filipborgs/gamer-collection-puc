@@ -9,5 +9,6 @@ export default {
   dbUserName: process.env.DB_USERNAME ?? 'postgres',
   dbPassword: process.env.DB_PASSWORD ?? 'postgres',
   dbDatabase: process.env.DB_DATABASE ?? 'gamer-api',
-  tsNode: process.env.TS_NODE_DEV
+  tsNode: process.env.TS_NODE_DEV,
+  salt: Number(process.env.SALT_BCRYPT) || 12
 }
