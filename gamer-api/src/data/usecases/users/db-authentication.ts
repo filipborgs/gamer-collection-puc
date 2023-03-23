@@ -16,7 +16,7 @@ export class DbAuthentication implements Authentication {
     const isEqual = await this.hashCompare.compare(authentication.password, account.password)
     if (!isEqual) return null
 
-    const token = await this.encripter.generate(account.id)
+    const token = await this.encripter.generate({ id: account.id })
     return token
   }
 }

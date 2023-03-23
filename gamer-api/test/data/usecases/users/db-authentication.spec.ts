@@ -65,8 +65,8 @@ describe('DbAuthentication', () => {
 
   test('should call TokenGenerator with correct id', async () => {
     await sut.login(params)
-    const user = mockUser()
-    expect(jwtGenerator.generate).toBeCalledWith(user.id)
+    const { id } = mockUser()
+    expect(jwtGenerator.generate).toBeCalledWith({ id })
   })
 
   test('should throw if TokenGenerator throws', async () => {
