@@ -10,5 +10,7 @@ export default {
   dbPassword: process.env.DB_PASSWORD ?? 'postgres',
   dbDatabase: process.env.DB_DATABASE ?? 'gamer-api',
   tsNode: process.env.TS_NODE_DEV,
-  salt: Number(process.env.SALT_BCRYPT) || 12
+  salt: Number(process.env.SALT_BCRYPT) || 12,
+  jwtPrivateKey: process.env.PRIVATE_JWT_KEY || 'any_key',
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h'
 }

@@ -1,3 +1,3 @@
 export interface JwtGenerator {
-  generate: (id: string) => Promise<string>
+  generate: (data: any) => Promise<string>
 }
