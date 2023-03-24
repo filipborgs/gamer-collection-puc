@@ -9,6 +9,13 @@ jest.mock('jsonwebtoken', () => ({
     callback: any
   ): void {
     callback(null, 'valid_jwt')
+  },
+  verify (
+    payload: string,
+    secretOrPrivateKey: any,
+    callback: any
+  ): void {
+    callback(null, 'valid_body')
   }
 }))
 
@@ -40,8 +47,31 @@ describe('JsonWebTokenAdapter', () => {
 
     it('shoud throw if jwt throws', async () => {
       const error = new Error('any_error')
-      jest.spyOn(jwt, 'sign').mockImplementation(() => { throw error })
+      jest.spyOn(jwt, 'sign').mockImplementationOnce(() => { throw error })
       const promise = sut.generate('any_value')
+      await expect(promise).rejects.toThrow(error)
+    })
+  })
+
+  describe('decode()', () => {
+    it('should call hash with correct values', async () => {
+      const jwtSpy = jest.spyOn(jwt, 'verify')
+      await sut.decode(param)
+      expect(jwtSpy).toHaveBeenCalledWith(
+        param,
+        privateKey,
+        expect.any(Function))
+    })
+
+    it('should return a decoded jwt on sucess', async () => {
+      const decoded = await sut.decode('any_string')
+      expect(decoded).toBe('valid_body')
+    })
+
+    it('shoud throw if verify throws', async () => {
+      const error = new Error('any_error')
+      jest.spyOn(jwt, 'verify').mockImplementation(() => { throw error })
+      const promise = sut.decode('any_value')
       await expect(promise).rejects.toThrow(error)
     })
   })
