@@ -1,3 +1,3 @@
 export interface JwtDecoder {
-  decode: (token: string) => Promise<object>
+  decode: (token: string) => Promise<any>
 }

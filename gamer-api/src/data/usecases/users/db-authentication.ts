@@ -1,6 +1,6 @@
-import { type JwtGenerator, type HashCompare } from '@/data/protocols/criptography'
+import { type HashCompare, type JwtGenerator } from '@/data/protocols/criptography'
 import { type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
-import { type AuthenticationParams, type Authentication } from '@/domain/usecases/users'
+import { type Authentication, type AuthenticationParams } from '@/domain/usecases/users'
 
 export class DbAuthentication implements Authentication {
   constructor (

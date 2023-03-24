@@ -1,4 +1,6 @@
 import { type JwtDecoder, type JwtGenerator } from '@/data/protocols/criptography'
+import { TokenExpiredError } from '@/domain/entities'
+import { UnauthorizedError } from '@/presentation/errors'
 import jwt from 'jsonwebtoken'
 
 export class JsonWebTokenAdapter implements JwtGenerator, JwtDecoder {
@@ -16,10 +18,22 @@ export class JsonWebTokenAdapter implements JwtGenerator, JwtDecoder {
     })
   }
 
-  async decode (token: string): Promise<object> {
+  async decode (token: string): Promise<any> {
     return await new Promise((resolve, reject) => {
       jwt.verify(token, this.privateKey, function (err, decoded) {
-        if (err) reject(err)
+        if (err) {
+          switch (err.name) {
+            case 'TokenExpiredError':
+              // eslint-disable-next-line no-case-declarations
+              const error: any = err
+              throw new TokenExpiredError(error.expiredAt)
+            case 'JsonWebTokenError':
+            case 'NotBeforeError':
+              throw new UnauthorizedError()
+            default:
+              throw err
+          }
+        }
         resolve(decoded as any)
       })
     })
