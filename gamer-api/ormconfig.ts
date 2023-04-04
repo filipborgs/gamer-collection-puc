@@ -1,3 +1,4 @@
+import 'module-alias/register'
 import * as dotenv from 'dotenv'
 import { DataSource } from 'typeorm'
 dotenv.config()
@@ -12,6 +13,6 @@ export const AppDataSource = new DataSource({
   synchronize: true,
   logging: true,
   entities: [`${process.env.TS_NODE_DEV === undefined ? 'dist' : 'src'}/infra/repos/postgres/entities/index.{js,ts}`],
-  migrations: [`${process.env.TS_NODE_DEV === undefined ? 'dist' : 'src'}/infra/repos/postgres/migrations/*.{js,ts}`],
+  migrations: ['src/infra/repos/postgres/migrations/*.{js,ts}'],
   subscribers: []
 })
