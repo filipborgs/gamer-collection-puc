@@ -10,12 +10,11 @@ export class GameCollectionPostgresRepository extends PgRepository implements Ad
     this.repo = this.getRepository(CollectionGameItemTypeOrm)
   }
 
-  async addGameItem (data: AddGameItemParamsRepo): Promise<string> {
-    const { id } = await this.repo.save({
+  async addGameItem (data: AddGameItemParamsRepo): Promise<void> {
+    await this.repo.save({
       ...data,
       createdAt: new Date(),
       updatedAt: new Date()
     })
-    return id
   }
 }

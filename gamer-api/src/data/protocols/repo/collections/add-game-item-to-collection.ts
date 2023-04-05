@@ -15,5 +15,5 @@ export interface AddGameItemParamsRepo {
 }
 
 export interface AddGameItemToCollectionRepository {
-  addGameItem: (data: AddGameItemParamsRepo) => Promise<string>
+  addGameItem: (data: AddGameItemParamsRepo) => Promise<void>
 }
