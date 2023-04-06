@@ -4,13 +4,13 @@ import { created, notFound, serverError } from '@/presentation/helpers/http'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 
 export class AddGameToCollectionController implements Controller {
-  constructor (private readonly loadGame: AddItemToCollection) {}
+  constructor (private readonly addCollection: AddItemToCollection) {}
 
   async handle ({ body }: HttpRequest): Promise<HttpResponse> {
     try {
-      const id = await this.loadGame.add(body)
+      const id = await this.addCollection.add(body)
       if (!id) return notFound(new NotFound('Game'))
-      return created(id)
+      return created({ id })
     } catch (error) {
       return serverError(error)
     }
