@@ -12,7 +12,7 @@ export class DbAddItemToCollection implements AddItemToCollection {
   ) {}
 
   async add (params: AddItemParams): Promise<string> {
-    const { itemId, purchaseDate, purchasePrice } = params
+    const { itemId, purchaseDate, purchasePrice, userId } = params
     const game = await this.gameRepo.loadById(itemId)
     if (!game) return null
 
@@ -24,6 +24,7 @@ export class DbAddItemToCollection implements AddItemToCollection {
       {
         id,
         itemId,
+        userId,
         name,
         type: ItemType.GAME,
         purchaseDate,

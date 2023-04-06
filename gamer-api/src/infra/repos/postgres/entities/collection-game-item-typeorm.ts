@@ -9,6 +9,9 @@ export class CollectionGameItemTypeOrm {
   @Column({ name: 'item_id' })
     itemId: number
 
+  @Column({ name: 'user_id' })
+    userId: string
+
   @Column()
     type: ItemType
 

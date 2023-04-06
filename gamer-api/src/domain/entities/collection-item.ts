@@ -1,6 +1,7 @@
 export interface CollectionItem {
   id: string
   itemId: number
+  userId: string
   type: ItemType
   name: string
   purchasePrice?: number

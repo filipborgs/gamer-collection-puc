@@ -19,6 +19,10 @@ export class gameCollectionItem1680136390932 implements MigrationInterface {
           type: 'varchar'
         },
         {
+          name: 'user_id',
+          type: 'varchar'
+        },
+        {
           name: 'purchase_price',
           type: 'numeric',
           isNullable: true

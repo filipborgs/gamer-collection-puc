@@ -3,6 +3,7 @@ import { type ItemType, type PurchaseStatus } from '@/domain/entities'
 export interface AddGameItemParamsRepo {
   id: string
   itemId: number
+  userId: string
   type: ItemType
   name: string
   purchasePrice?: number

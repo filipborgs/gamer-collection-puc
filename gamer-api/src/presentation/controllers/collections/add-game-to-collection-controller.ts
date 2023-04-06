@@ -6,9 +6,10 @@ import { type Controller, type HttpRequest, type HttpResponse } from '@/presenta
 export class AddGameToCollectionController implements Controller {
   constructor (private readonly addCollection: AddItemToCollection) {}
 
-  async handle ({ body }: HttpRequest): Promise<HttpResponse> {
+  async handle ({ body, headers }: HttpRequest): Promise<HttpResponse> {
+    const { user } = headers
     try {
-      const id = await this.addCollection.add(body)
+      const id = await this.addCollection.add({ ...body, userId: user.id })
       if (!id) return notFound(new NotFound('Game'))
       return created({ id })
     } catch (error) {
