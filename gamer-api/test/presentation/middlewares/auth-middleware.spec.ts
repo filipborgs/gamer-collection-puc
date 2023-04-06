@@ -56,6 +56,6 @@ describe('Auth Middleware', () => {
 
   test('Should returns 200 succeeds', async () => {
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok(mockUser()))
+    expect(response).toEqual(ok({ user: mockUser() }))
   })
 })
