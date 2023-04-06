@@ -4,7 +4,7 @@ export interface HttpResponse {
 }
 
 export interface HttpRequest {
-  headers?: object
+  headers?: any
   params?: any
   query?: any
   body?: any

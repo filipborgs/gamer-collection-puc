@@ -14,7 +14,7 @@ export class AuthMiddleware implements Middleware {
       if (token) {
         const user = await this.jwtDecoder.validate(token)
         if (user) {
-          return ok(user)
+          return ok({ user })
         }
       }
       return forbidden(new AccessDeniedError())

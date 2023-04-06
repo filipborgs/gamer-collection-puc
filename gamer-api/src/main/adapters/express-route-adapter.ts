@@ -7,7 +7,8 @@ export const adaptRoute = (controller: Controller) => {
     const request = {
       body: (req.body || {}),
       params: (req.params || {}),
-      query: (req.query || {})
+      query: (req.query || {}),
+      headers: (req.headers || {})
     }
     console.log(request)
     const httpResponse = await controller.handle(request)
