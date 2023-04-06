@@ -18,6 +18,11 @@ describe('AddGameToCollectionController', () => {
   })
 
   const makeHttpRequest = (): HttpRequest => ({
+    headers: {
+      user: {
+        id: '80727abe-7d17-4706-8a90-69817cb90e93'
+      }
+    },
     body: {
       itemId: 2,
       purchasePrice: 200,
@@ -26,10 +31,10 @@ describe('AddGameToCollectionController', () => {
     }
   })
 
-  it('Should call AddItemToCollection with user data', async () => {
+  it('Should call AddItemToCollection with collection data', async () => {
     await sut.handle(httpRequest)
-    const { body } = httpRequest
-    expect(addCollection.add).toHaveBeenCalledWith(body)
+    const { body, headers: { user: { id } } } = httpRequest
+    expect(addCollection.add).toHaveBeenCalledWith({ ...body, userId: id })
   })
 
   it('Should return ServerError if AddItemToCollection Throws', async () => {
