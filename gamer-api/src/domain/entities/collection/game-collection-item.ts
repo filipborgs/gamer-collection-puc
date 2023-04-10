@@ -1,6 +1,6 @@
 import { type CollectionItem } from './collection-item'
 
-export interface CollectionGameItem extends CollectionItem {
+export interface GameCollectionItem extends CollectionItem {
   manual?: boolean
   disk?: boolean
   cover?: boolean

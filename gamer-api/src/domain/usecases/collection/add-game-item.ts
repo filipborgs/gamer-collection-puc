@@ -1,6 +1,6 @@
 import { type PurchaseStatus } from '@/domain/entities'
 
-export interface AddItemParams {
+export interface AddGameItemParams {
   itemId: number
   userId: string
   purchasePrice: number
@@ -8,6 +8,6 @@ export interface AddItemParams {
   purchaseDate: Date
 }
 
-export interface AddItemToCollection {
-  add: (params: AddItemParams) => Promise<string>
+export interface AddGameCollectionItem {
+  add: (params: AddGameItemParams) => Promise<string>
 }

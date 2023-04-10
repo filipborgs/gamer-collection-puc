@@ -1,18 +1,18 @@
 import { type Uuid } from '@/data/protocols/datatype'
 import { type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
 import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
-import { DbAddItemToCollection } from '@/data/usecases/collections'
+import { DbAddGameItem } from '@/data/usecases/collections'
 import { ItemType } from '@/domain/entities'
-import { type AddItemParams } from '@/domain/usecases/collection'
+import { type AddGameItemParams } from '@/domain/usecases/collection'
 import { mockAddGameItemParams, mockLoadGameById } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
-describe('DbAddItemToCollection', () => {
-  let sut: DbAddItemToCollection
+describe('DbAddGameItem', () => {
+  let sut: DbAddGameItem
   let uuid: MockProxy<Uuid>
   let collectionRepo: MockProxy<AddGameItemToCollectionRepository>
   let gatewayLoadGame: MockProxy<LoadGameByIdGateway>
-  let params: AddItemParams
+  let params: AddGameItemParams
 
   beforeEach(() => {
     uuid = mock()
@@ -24,7 +24,7 @@ describe('DbAddItemToCollection', () => {
     gatewayLoadGame = mock<LoadGameByIdGateway>()
     gatewayLoadGame.loadById.mockResolvedValue(mockLoadGameById())
 
-    sut = new DbAddItemToCollection(gatewayLoadGame, collectionRepo, uuid)
+    sut = new DbAddGameItem(gatewayLoadGame, collectionRepo, uuid)
     params = mockAddGameItemParams()
   })
 

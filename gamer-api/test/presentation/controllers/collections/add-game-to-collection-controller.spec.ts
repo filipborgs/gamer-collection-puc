@@ -1,4 +1,4 @@
-import { type AddItemToCollection } from '@/domain/usecases/collection'
+import { type AddGameCollectionItem } from '@/domain/usecases/collection'
 import { AddGameToCollectionController } from '@/presentation/controllers/collections'
 import { NotFound } from '@/presentation/errors'
 import { created, notFound, serverError } from '@/presentation/helpers/http'
@@ -7,7 +7,7 @@ import { mock, type MockProxy } from 'jest-mock-extended'
 
 describe('AddGameToCollectionController', () => {
   let sut: AddGameToCollectionController
-  let addCollection: MockProxy<AddItemToCollection>
+  let addCollection: MockProxy<AddGameCollectionItem>
   let httpRequest: HttpRequest
 
   beforeEach(() => {

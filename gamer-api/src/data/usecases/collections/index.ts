@@ -1,1 +1,1 @@
-export * from './db-add-item-to-collection'
+export * from './db-add-game-item'

@@ -1,10 +1,10 @@
-import { type AddItemToCollection } from '@/domain/usecases/collection'
+import { type AddGameCollectionItem } from '@/domain/usecases/collection'
 import { NotFound } from '@/presentation/errors'
 import { created, notFound, serverError } from '@/presentation/helpers/http'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 
 export class AddGameToCollectionController implements Controller {
-  constructor (private readonly addCollection: AddItemToCollection) {}
+  constructor (private readonly addCollection: AddGameCollectionItem) {}
 
   async handle ({ body, headers }: HttpRequest): Promise<HttpResponse> {
     const { user } = headers
