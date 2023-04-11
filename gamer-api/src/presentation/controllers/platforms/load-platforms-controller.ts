@@ -1,4 +1,4 @@
-import { type LoadPlatforms } from '@/domain/usecases/platforms'
+import { type LoadPlatforms } from '@/domain/usecases/platform'
 import { ok, serverError } from '@/presentation/helpers/http'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
 

@@ -1,6 +1,6 @@
 import { type GamePreview, type LoadResult } from '@/domain/entities'
 import { mockGamePreview } from '@/test/domain/entities/mocks'
-import { type LoadGamesParams } from '@/domain/usecases/games'
+import { type LoadGamesParams } from '@/domain/usecases/game'
 
 export const mockLoadResultGamePreview = (): LoadResult<GamePreview> => ({
   items: [mockGamePreview()],

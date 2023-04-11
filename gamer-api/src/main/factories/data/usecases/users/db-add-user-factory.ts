@@ -1,5 +1,5 @@
-import { DbAddUser } from '@/data/usecases/users'
-import { type AddUser } from '@/domain/usecases/users'
+import { DbAddUser } from '@/data/usecases/user'
+import { type AddUser } from '@/domain/usecases/user'
 import { makeBcryptAdapter } from '@/main/factories/infra/criptography'
 import { makeUuidAdapter } from '@/main/factories/infra/datatype'
 import { makeUserPostgresFactory } from '@/main/factories/infra/repo/postgres/users'

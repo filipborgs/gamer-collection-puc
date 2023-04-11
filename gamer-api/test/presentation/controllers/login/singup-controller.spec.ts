@@ -1,4 +1,4 @@
-import { type AddUser } from '@/domain/usecases/users'
+import { type AddUser } from '@/domain/usecases/user'
 import { SingUpController } from '@/presentation/controllers/login'
 import { AlreadyInUseError, InvalidParamError } from '@/presentation/errors'
 import { badRequest, created, forbidden, serverError } from '@/presentation/helpers/http'

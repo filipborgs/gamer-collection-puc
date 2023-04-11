@@ -1,5 +1,5 @@
 import { type LoadPlatformByIdGateway } from '@/data/protocols/repo/platforms'
-import { ApiLoadPlatformById } from '@/data/usecases/platforms'
+import { ApiLoadPlatformById } from '@/data/usecases/platform'
 import { mockLoadPlatformById } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 

@@ -1,8 +1,8 @@
 import { type Hasher } from '@/data/protocols/criptography'
 import { type Uuid } from '@/data/protocols/datatype'
 import { type AddUserRepository, type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
-import { DbAddUser } from '@/data/usecases/users'
-import { type AddUserParams } from '@/domain/usecases/users'
+import { DbAddUser } from '@/data/usecases/user'
+import { type AddUserParams } from '@/domain/usecases/user'
 import { mockAddUserParams } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 

@@ -1,4 +1,4 @@
-import { type LoadGames } from '@/domain/usecases/games'
+import { type LoadGames } from '@/domain/usecases/game'
 import { LoadGamesController } from '@/presentation/controllers'
 import { ok, serverError } from '@/presentation/helpers/http'
 import { type HttpRequest } from '@/presentation/protocols'

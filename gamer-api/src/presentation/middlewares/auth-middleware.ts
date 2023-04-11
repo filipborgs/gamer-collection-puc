@@ -1,7 +1,7 @@
 import { forbidden, ok, serverError, unauthorized } from '@/presentation/helpers/http'
 import { type HttpRequest, type HttpResponse, type Middleware } from '@/presentation/protocols'
 import { AccessDeniedError, UnauthorizedError } from '@/presentation/errors'
-import { type TokenValidation } from '@/domain/usecases/users'
+import { type TokenValidation } from '@/domain/usecases/user'
 
 export class AuthMiddleware implements Middleware {
   constructor (

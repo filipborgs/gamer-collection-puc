@@ -1,7 +1,7 @@
 import { type Hasher } from '@/data/protocols/criptography'
 import { type Uuid } from '@/data/protocols/datatype'
 import { type AddUserRepository, type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
-import { type AddUser, type AddUserParams } from '@/domain/usecases/users'
+import { type AddUser, type AddUserParams } from '@/domain/usecases/user'
 
 export class DbAddUser implements AddUser {
   constructor (

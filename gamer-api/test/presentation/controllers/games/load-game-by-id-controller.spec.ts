@@ -1,4 +1,4 @@
-import { type LoadGameById } from '@/domain/usecases/games'
+import { type LoadGameById } from '@/domain/usecases/game'
 import { LoadGameByIdController } from '@/presentation/controllers'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'

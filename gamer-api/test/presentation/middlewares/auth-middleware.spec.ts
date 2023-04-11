@@ -1,4 +1,4 @@
-import { type TokenValidation } from '@/domain/usecases/users'
+import { type TokenValidation } from '@/domain/usecases/user'
 import { forbidden, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper'
 import { mockUser } from '@/test/domain/entities/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'

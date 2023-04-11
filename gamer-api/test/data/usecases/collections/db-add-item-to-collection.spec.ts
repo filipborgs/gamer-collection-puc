@@ -1,7 +1,7 @@
 import { type Uuid } from '@/data/protocols/datatype'
 import { type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
 import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
-import { DbAddGameItem } from '@/data/usecases/collections'
+import { DbAddGameItem } from '@/data/usecases/collection'
 import { ItemType } from '@/domain/entities'
 import { type AddGameItemParams } from '@/domain/usecases/collection'
 import { mockAddGameItemParams, mockLoadGameById } from '@/test/domain/usecases/mocks'

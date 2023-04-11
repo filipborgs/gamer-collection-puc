@@ -1,6 +1,6 @@
 import { type JwtDecoder } from '@/data/protocols/criptography'
 import { type User } from '@/domain/entities'
-import { type TokenValidation } from '@/domain/usecases/users'
+import { type TokenValidation } from '@/domain/usecases/user'
 import { UnauthorizedError } from '@/presentation/errors'
 
 export class JwtTokenValidation implements TokenValidation {

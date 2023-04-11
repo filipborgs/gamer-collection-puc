@@ -1,4 +1,4 @@
-import { type AddUser } from '@/domain/usecases/users'
+import { type AddUser } from '@/domain/usecases/user'
 import { AlreadyInUseError, InvalidParamError } from '@/presentation/errors'
 import { badRequest, created, forbidden, serverError } from '@/presentation/helpers/http'
 import { type HttpRequest, type Controller, type HttpResponse } from '@/presentation/protocols'

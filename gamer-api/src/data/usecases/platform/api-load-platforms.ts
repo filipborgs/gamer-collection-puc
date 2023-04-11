@@ -1,6 +1,6 @@
 import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { type LoadResult, type PlatformPreview } from '@/domain/entities'
-import { type LoadPlatformsParams, type LoadPlatforms } from '@/domain/usecases/platforms'
+import { type LoadPlatformsParams, type LoadPlatforms } from '@/domain/usecases/platform'
 
 export class ApiLoadPlatforms implements LoadPlatforms {
   constructor (

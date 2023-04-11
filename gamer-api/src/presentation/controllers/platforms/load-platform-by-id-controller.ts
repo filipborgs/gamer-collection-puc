@@ -1,4 +1,4 @@
-import { type LoadPlatformById } from '@/domain/usecases/platforms'
+import { type LoadPlatformById } from '@/domain/usecases/platform'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'

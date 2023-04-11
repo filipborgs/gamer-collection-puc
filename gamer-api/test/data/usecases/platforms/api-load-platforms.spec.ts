@@ -1,6 +1,6 @@
 import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
-import { ApiLoadPlatforms } from '@/data/usecases/platforms'
-import { type LoadGamesParams } from '@/domain/usecases/games'
+import { ApiLoadPlatforms } from '@/data/usecases/platform'
+import { type LoadGamesParams } from '@/domain/usecases/game'
 import { mockLoadGamesParams, mockLoadPlatforms } from '@/test/domain/usecases/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 

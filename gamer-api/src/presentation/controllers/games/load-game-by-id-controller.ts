@@ -1,4 +1,4 @@
-import { type LoadGameById } from '@/domain/usecases/games'
+import { type LoadGameById } from '@/domain/usecases/game'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'

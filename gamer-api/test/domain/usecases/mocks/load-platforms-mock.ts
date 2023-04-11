@@ -1,5 +1,5 @@
 import { type LoadResult, type PlatformPreview } from '@/domain/entities'
-import { type LoadGamesParams } from '@/domain/usecases/games'
+import { type LoadGamesParams } from '@/domain/usecases/game'
 import { mockPlatformPreview } from '@/test/domain/entities/mocks'
 
 export const mockLoadPlatforms = (): LoadResult<PlatformPreview> => ({

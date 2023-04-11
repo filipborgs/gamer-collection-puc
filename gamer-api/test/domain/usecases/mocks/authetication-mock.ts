@@ -1,4 +1,4 @@
-import { type AuthenticationParams } from '@/domain/usecases/users'
+import { type AuthenticationParams } from '@/domain/usecases/user'
 
 export const mockAuthenticationParams = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
