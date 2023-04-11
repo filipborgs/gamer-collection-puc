@@ -1,5 +1,5 @@
 import { HashCompare, JwtGenerator } from '@/data/protocols/criptography'
-import { LoadUserByEmailRepository } from '@/data/protocols/repo/users'
+import { LoadUserByEmailRepository } from '@/data/protocols/repo/user'
 import { Authentication, AuthenticationParams } from '@/domain/usecases/user'
 
 export class DbAuthentication implements Authentication {

@@ -1,6 +1,6 @@
 import { Uuid } from '@/data/protocols/datatype'
-import { AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
-import { LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { AddGameItemToCollectionRepository } from '@/data/protocols/repo/collection'
+import { LoadGameByIdGateway } from '@/data/protocols/repo/game'
 import { ItemType, PurchaseState } from '@/domain/entities'
 import { AddGameItemParams, AddGameCollectionItem } from '@/domain/usecases/collection'
 

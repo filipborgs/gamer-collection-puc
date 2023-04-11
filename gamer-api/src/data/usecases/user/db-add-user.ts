@@ -1,6 +1,6 @@
 import { Hasher } from '@/data/protocols/criptography'
 import { Uuid } from '@/data/protocols/datatype'
-import { AddUserRepository, LoadUserByEmailRepository } from '@/data/protocols/repo/users'
+import { AddUserRepository, LoadUserByEmailRepository } from '@/data/protocols/repo/user'
 import { AddUser, AddUserParams } from '@/domain/usecases/user'
 
 export class DbAddUser implements AddUser {

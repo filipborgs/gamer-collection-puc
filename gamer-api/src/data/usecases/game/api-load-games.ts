@@ -1,4 +1,4 @@
-import { LoadGamesGateway } from '@/data/protocols/repo/games'
+import { LoadGamesGateway } from '@/data/protocols/repo/game'
 import { GamePreview, LoadResult } from '@/domain/entities'
 import { LoadGames, LoadGamesParams } from '@/domain/usecases/game'
 

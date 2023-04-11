@@ -1,4 +1,4 @@
-import { makeDbAddUser } from '@/main/factories/data/usecases/users'
+import { makeDbAddUser } from '@/main/factories/data/usecases/user'
 import { SingUpController } from '@/presentation/controllers/login'
 import { Controller } from '@/presentation/protocols'
 

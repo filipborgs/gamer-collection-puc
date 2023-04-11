@@ -1,4 +1,4 @@
-import { LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { LoadGameByIdGateway } from '@/data/protocols/repo/game'
 import { Game } from '@/domain/entities'
 import { LoadGameById } from '@/domain/usecases/game'
 

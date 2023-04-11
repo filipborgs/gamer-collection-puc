@@ -1,4 +1,4 @@
-import { AddUserRepository, LoadUserByEmailRepository } from '@/data/protocols/repo/users'
+import { AddUserRepository, LoadUserByEmailRepository } from '@/data/protocols/repo/user'
 import { User } from '@/domain/entities'
 import { PgRepository } from '../../helpers'
 import { UserTypeorm } from '../../entities'

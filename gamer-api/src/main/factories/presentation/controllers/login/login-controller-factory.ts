@@ -1,4 +1,4 @@
-import { makeDbAuthentication } from '@/main/factories/data/usecases/users'
+import { makeDbAuthentication } from '@/main/factories/data/usecases/user'
 import { LoginController } from '@/presentation/controllers/login'
 import { Controller } from '@/presentation/protocols'
 

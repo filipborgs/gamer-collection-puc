@@ -1,4 +1,4 @@
-import { AddGameItemParamsRepo, AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
+import { AddGameItemParamsRepo, AddGameItemToCollectionRepository } from '@/data/protocols/repo/collection'
 import { Repository } from 'typeorm'
 import { GameCollectionItemTypeOrm } from '../../entities/collection-game-item-typeorm'
 import { PgRepository } from '../../helpers'

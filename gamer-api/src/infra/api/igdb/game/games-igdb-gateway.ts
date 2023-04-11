@@ -1,4 +1,4 @@
-import { LoadGamesGateway, LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { LoadGamesGateway, LoadGameByIdGateway } from '@/data/protocols/repo/game'
 import { Game, GamePreview, LoadResult } from '@/domain/entities'
 import { IgdbHelper } from '@/infra/api/igdb/helper'
 
