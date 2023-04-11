@@ -1,7 +1,7 @@
 import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { PlatformCategory, type LoadResult, type PlatformPreview, type Platform } from '@/domain/entities'
-import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
 import { type LoadPlatformById } from '@/domain/usecases/platform'
+import { IgdbHelper } from '@/infra/api/igdb/helper'
 
 export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGateway, LoadPlatformById {
   public async load (search: string, offset: number): Promise<LoadResult<PlatformPreview>> {

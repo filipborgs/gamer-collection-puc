@@ -1,11 +1,11 @@
 /* eslint-disable @typescript-eslint/dot-notation */
-import { GamesIgdbGateway } from '@/infra/api/igdb/games/games-igdb-gateway'
-import { IgdbHelper } from '@/infra/api/igdb/igdb-helper'
+import { IgdbHelper } from '@/infra/api/igdb/helper'
+
 import { type HttpClient } from '@/infra/gateway'
 import { mockAuthIgdbResponse } from '@/test/infra/api/igdb/mocks'
 import { mock, type MockProxy } from 'jest-mock-extended'
 
-describe('GamesIgdbGateway', () => {
+describe('IgdbHelper', () => {
   class IgdbHelperStub extends IgdbHelper {}
 
   let sut: IgdbHelperStub
@@ -20,7 +20,7 @@ describe('GamesIgdbGateway', () => {
       httpClientMock = mock()
       httpClientMock.post.mockResolvedValue(mockAuthIgdbResponse())
 
-      sut = new GamesIgdbGateway(
+      sut = new IgdbHelperStub(
         httpClientMock,
         clientId,
         secret,
