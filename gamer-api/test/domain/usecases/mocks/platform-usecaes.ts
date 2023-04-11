@@ -1,6 +1,8 @@
-import { LoadResult, PlatformPreview } from '@/domain/entities'
+import { LoadResult, Platform, PlatformPreview } from '@/domain/entities'
 import { LoadGamesParams } from '@/domain/usecases/game'
-import { mockPlatformPreview } from '@/test/domain/entities/mocks'
+import { mockPlatform, mockPlatformPreview } from '@/test/domain/entities/mocks'
+
+export const mockLoadPlatformById = (): Platform => mockPlatform()
 
 export const mockLoadPlatforms = (): LoadResult<PlatformPreview> => ({
   items: [mockPlatformPreview()],
