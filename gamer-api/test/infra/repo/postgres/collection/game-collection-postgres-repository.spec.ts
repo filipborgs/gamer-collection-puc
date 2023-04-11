@@ -1,6 +1,6 @@
-import { CollectionGameItemTypeOrm } from '@/infra/repos/postgres/entities'
+import { GameCollectionItemTypeOrm } from '@/infra/repos/postgres/entities'
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
-import { GameCollectionPostgresRepository } from '@/infra/repos/postgres/repo/colletions'
+import { GameCollectionPostgresRepository } from '@/infra/repos/postgres/repo/collection'
 import { mockGameCollectionItem } from '@/test/domain/entities/mocks'
 import { makeFakeDb } from '@/test/infra/repo/postgres/mocks'
 import { type IBackup } from 'pg-mem'
@@ -9,7 +9,7 @@ import { type Repository } from 'typeorm'
 describe('GameCollectionPostgresRepository', () => {
   let sut: GameCollectionPostgresRepository
   let connection: PostgresHelper
-  let pgCollectionRepo: Repository<CollectionGameItemTypeOrm>
+  let pgCollectionRepo: Repository<GameCollectionItemTypeOrm>
   let backup: IBackup
 
   beforeAll(async () => {
@@ -17,7 +17,7 @@ describe('GameCollectionPostgresRepository', () => {
     connection = fakeDb.connection
     await PostgresHelper.getInstance().connect()
     backup = fakeDb.db.backup()
-    pgCollectionRepo = connection.getRepository(CollectionGameItemTypeOrm)
+    pgCollectionRepo = connection.getRepository(GameCollectionItemTypeOrm)
   })
 
   beforeEach(() => {

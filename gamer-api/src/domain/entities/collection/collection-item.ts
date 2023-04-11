@@ -5,7 +5,7 @@ export interface CollectionItem {
   type: ItemType
   name: string
   purchasePrice?: number
-  purchaseStatus?: PurchaseStatus
+  purchaseState?: PurchaseState
   purchaseDate?: Date
   createdAt: Date
   updatedAt: Date
@@ -16,7 +16,7 @@ export enum ItemType {
   PLATFROM = 'PLATFORM'
 }
 
-export enum PurchaseStatus {
+export enum PurchaseState {
   NEW = 'NEW',
   USED = 'USED'
 }

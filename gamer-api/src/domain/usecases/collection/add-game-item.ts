@@ -1,10 +1,10 @@
-import { type PurchaseStatus } from '@/domain/entities'
+import { type PurchaseState } from '@/domain/entities'
 
 export interface AddGameItemParams {
   itemId: number
   userId: string
   purchasePrice: number
-  purchaseStatus: PurchaseStatus
+  purchaseState: PurchaseState
   purchaseDate: Date
 }
 

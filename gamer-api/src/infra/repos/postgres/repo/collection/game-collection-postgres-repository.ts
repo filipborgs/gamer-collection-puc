@@ -1,13 +1,13 @@
 import { type AddGameItemParamsRepo, type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
 import { type Repository } from 'typeorm'
-import { CollectionGameItemTypeOrm } from '../../entities/collection-game-item-typeorm'
+import { GameCollectionItemTypeOrm } from '../../entities/collection-game-item-typeorm'
 import { PgRepository } from '../../helpers'
 
 export class GameCollectionPostgresRepository extends PgRepository implements AddGameItemToCollectionRepository {
-  private readonly repo: Repository<CollectionGameItemTypeOrm>
+  private readonly repo: Repository<GameCollectionItemTypeOrm>
   constructor () {
     super()
-    this.repo = this.getRepository(CollectionGameItemTypeOrm)
+    this.repo = this.getRepository(GameCollectionItemTypeOrm)
   }
 
   async addGameItem (data: AddGameItemParamsRepo): Promise<void> {

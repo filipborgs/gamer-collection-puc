@@ -26,7 +26,7 @@ describe('AddGameToCollectionController', () => {
     body: {
       itemId: 2,
       purchasePrice: 200,
-      purchaseStatus: 'USED',
+      purchaseState: 'USED',
       purchaseDate: new Date().toISOString()
     }
   })

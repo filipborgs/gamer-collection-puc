@@ -1,6 +1,6 @@
 import { UserTypeorm } from '@/infra/repos/postgres/entities'
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
-import { UserPostgresRepository } from '@/infra/repos/postgres/repo/users'
+import { UserPostgresRepository } from '@/infra/repos/postgres/repo/user'
 import { type IBackup } from 'pg-mem'
 import { type Repository } from 'typeorm'
 import { makeFakeDb } from '@/test/infra/repo/postgres/mocks'

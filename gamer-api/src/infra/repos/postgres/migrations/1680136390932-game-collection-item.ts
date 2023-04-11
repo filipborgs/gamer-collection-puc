@@ -28,7 +28,7 @@ export class gameCollectionItem1680136390932 implements MigrationInterface {
           isNullable: true
         },
         {
-          name: 'purchase_status',
+          name: 'purchase_state',
           type: 'enum',
           isNullable: true,
           enum: [

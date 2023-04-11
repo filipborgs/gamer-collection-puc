@@ -1,8 +1,8 @@
-import { PurchaseStatus, type ItemType } from '../../../../domain/entities'
+import { PurchaseState, type ItemType } from '../../../../domain/entities'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity('game_collection_item')
-export class CollectionGameItemTypeOrm {
+export class GameCollectionItemTypeOrm {
   @PrimaryColumn()
     id: string
 
@@ -21,8 +21,8 @@ export class CollectionGameItemTypeOrm {
   @Column({ name: 'purchase_price', default: null, nullable: true })
     purchasePrice?: number
 
-  @Column({ name: 'purchase_status', default: null, nullable: true })
-    purchaseStatus?: PurchaseStatus
+  @Column({ name: 'purchase_state', default: null, nullable: true })
+    purchaseState?: PurchaseState
 
   @Column({ name: 'purchase_date', default: null, nullable: true })
     purchaseDate?: Date

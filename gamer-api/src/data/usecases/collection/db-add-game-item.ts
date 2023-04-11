@@ -1,7 +1,7 @@
 import { type Uuid } from '@/data/protocols/datatype'
 import { type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
 import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
-import { ItemType, PurchaseStatus } from '@/domain/entities'
+import { ItemType, PurchaseState } from '@/domain/entities'
 import { type AddGameItemParams, type AddGameCollectionItem } from '@/domain/usecases/collection'
 
 export class DbAddGameItem implements AddGameCollectionItem {
@@ -16,7 +16,7 @@ export class DbAddGameItem implements AddGameCollectionItem {
     const game = await this.gameRepo.loadById(itemId)
     if (!game) return null
 
-    const purchaseStatus = PurchaseStatus[params.purchaseStatus]
+    const purchaseState = PurchaseState[params.purchaseState]
     const { name } = game
 
     const id = this.uuid.generate()
@@ -29,7 +29,7 @@ export class DbAddGameItem implements AddGameCollectionItem {
         type: ItemType.GAME,
         purchaseDate,
         purchasePrice,
-        purchaseStatus
+        purchaseState
       }
     )
     return id
