@@ -1,4 +1,4 @@
-import { GamesIgdbGateway } from '@/infra/api/igdb/games/games-igdb-gateway'
+import { GamesIgdbGateway } from '@/infra/api/igdb/game/games-igdb-gateway'
 import env from '@/main/config/env'
 import { makeAxiosClient } from '@/main/factories/infra/gateway'
 

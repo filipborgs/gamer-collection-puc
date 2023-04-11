@@ -1,4 +1,4 @@
-import { PlatformsIgdbGateway } from '@/infra/api/igdb/platforms/platforms-igdb-gateway'
+import { PlatformsIgdbGateway } from '@/infra/api/igdb/platform/platforms-igdb-gateway'
 import env from '@/main/config/env'
 import { makeAxiosClient } from '@/main/factories/infra/gateway'
 

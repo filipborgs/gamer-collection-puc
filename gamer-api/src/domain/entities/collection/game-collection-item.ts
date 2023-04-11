@@ -1,4 +1,4 @@
-import { type CollectionItem } from './collection-item'
+import { CollectionItem } from './collection-item'
 
 export interface GameCollectionItem extends CollectionItem {
   manual?: boolean

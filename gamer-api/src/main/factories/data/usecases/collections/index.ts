@@ -1,1 +1,1 @@
-export * from './db-add-item-to-collection-factory'
+export * from './db-add-game-item'
