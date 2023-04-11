@@ -1,5 +1,5 @@
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
-import { newDb, type IMemoryDb } from 'pg-mem'
+import { newDb, IMemoryDb } from 'pg-mem'
 
 export const makeFakeDb = async (): Promise<{
   db: IMemoryDb

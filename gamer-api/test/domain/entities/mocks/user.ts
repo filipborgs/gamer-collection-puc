@@ -1,4 +1,4 @@
-import { type User } from '@/domain/entities'
+import { User } from '@/domain/entities'
 
 export const mockUser = (): User => ({
   id: '80727abe-7d17-4706-8a90-69817cb90e93',

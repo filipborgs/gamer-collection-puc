@@ -1,8 +1,8 @@
-import { type AddUserRepository, type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
-import { type User } from '@/domain/entities'
+import { AddUserRepository, LoadUserByEmailRepository } from '@/data/protocols/repo/users'
+import { User } from '@/domain/entities'
 import { PgRepository } from '../../helpers'
 import { UserTypeorm } from '../../entities'
-import { type Repository } from 'typeorm'
+import { Repository } from 'typeorm'
 
 export class UserPostgresRepository extends PgRepository implements AddUserRepository, LoadUserByEmailRepository {
   private readonly repo: Repository<UserTypeorm>

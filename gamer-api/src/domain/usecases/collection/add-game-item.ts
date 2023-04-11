@@ -1,4 +1,4 @@
-import { type PurchaseState } from '@/domain/entities'
+import { PurchaseState } from '@/domain/entities'
 
 export interface AddGameItemParams {
   itemId: number

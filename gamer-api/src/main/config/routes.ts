@@ -1,5 +1,5 @@
 
-import { type Express, Router } from 'express'
+import { Express, Router } from 'express'
 import { readdirSync } from 'fs'
 import { join } from 'path'
 

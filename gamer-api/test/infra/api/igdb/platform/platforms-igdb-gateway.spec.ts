@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { PlatformCategory } from '@/domain/entities'
 import { PlatformsIgdbGateway } from '@/infra/api/igdb'
-import { type HttpClient } from '@/infra/gateway'
+import { HttpClient } from '@/infra/gateway'
 import { mockLoadPlatformByIdIgdbResponse, mockLoadPlatformsIgdbResponse } from '@/test/infra/api/igdb/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('PlatformsIgdbGateway', () => {
   let sut: PlatformsIgdbGateway

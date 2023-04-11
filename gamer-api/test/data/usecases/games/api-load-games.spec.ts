@@ -1,8 +1,8 @@
-import { type LoadGamesGateway } from '@/data/protocols/repo/games'
+import { LoadGamesGateway } from '@/data/protocols/repo/games'
 import { ApiLoadGames } from '@/data/usecases/game'
-import { type LoadGamesParams } from '@/domain/usecases/game'
+import { LoadGamesParams } from '@/domain/usecases/game'
 import { mockLoadGamesParams, mockLoadResultGamePreview } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('ApiLoadGames', () => {
   let sut: ApiLoadGames

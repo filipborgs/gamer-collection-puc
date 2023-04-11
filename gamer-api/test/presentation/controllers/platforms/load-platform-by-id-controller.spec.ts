@@ -1,10 +1,10 @@
-import { type LoadPlatformById } from '@/domain/usecases/platform'
+import { LoadPlatformById } from '@/domain/usecases/platform'
 import { LoadPlatformByIdController } from '@/presentation/controllers/platforms'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
+import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadPlatformById } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoadPlatformByIdController', () => {
   let sut: LoadPlatformByIdController

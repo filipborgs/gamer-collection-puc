@@ -1,9 +1,9 @@
-import { type AddUser } from '@/domain/usecases/user'
+import { AddUser } from '@/domain/usecases/user'
 import { SingUpController } from '@/presentation/controllers/login'
 import { AlreadyInUseError, InvalidParamError } from '@/presentation/errors'
 import { badRequest, created, forbidden, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { HttpRequest } from '@/presentation/protocols'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('SingUpController', () => {
   let sut: SingUpController

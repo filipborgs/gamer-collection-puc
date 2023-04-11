@@ -1,8 +1,8 @@
-import { type Uuid } from '@/data/protocols/datatype'
-import { type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
-import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { Uuid } from '@/data/protocols/datatype'
+import { AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
+import { LoadGameByIdGateway } from '@/data/protocols/repo/games'
 import { ItemType, PurchaseState } from '@/domain/entities'
-import { type AddGameItemParams, type AddGameCollectionItem } from '@/domain/usecases/collection'
+import { AddGameItemParams, AddGameCollectionItem } from '@/domain/usecases/collection'
 
 export class DbAddGameItem implements AddGameCollectionItem {
   constructor (

@@ -1,4 +1,4 @@
-import { type PlatformPreview, type Cover } from '@/domain/entities'
+import { PlatformPreview, Cover } from '@/domain/entities'
 
 export interface Game {
   id: number

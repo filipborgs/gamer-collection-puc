@@ -1,4 +1,4 @@
-import { type JwtDecoder, type JwtGenerator } from '@/data/protocols/criptography'
+import { JwtDecoder, JwtGenerator } from '@/data/protocols/criptography'
 import { TokenExpiredError } from '@/domain/entities'
 import { UnauthorizedError } from '@/presentation/errors'
 import jwt from 'jsonwebtoken'

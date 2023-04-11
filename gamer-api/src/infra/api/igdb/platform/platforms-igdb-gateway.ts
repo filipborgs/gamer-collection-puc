@@ -1,6 +1,6 @@
-import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
-import { PlatformCategory, type LoadResult, type PlatformPreview, type Platform } from '@/domain/entities'
-import { type LoadPlatformById } from '@/domain/usecases/platform'
+import { LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
+import { PlatformCategory, LoadResult, PlatformPreview, Platform } from '@/domain/entities'
+import { LoadPlatformById } from '@/domain/usecases/platform'
 import { IgdbHelper } from '@/infra/api/igdb/helper'
 
 export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGateway, LoadPlatformById {

@@ -1,4 +1,4 @@
-import { type GamePreview, type Game } from '@/domain/entities'
+import { GamePreview, Game } from '@/domain/entities'
 
 export const mockGame = (): Game => ({
   id: 1,

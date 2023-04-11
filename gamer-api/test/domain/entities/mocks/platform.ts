@@ -1,4 +1,4 @@
-import { PlatformCategory, type Platform, type PlatformPreview } from '@/domain/entities'
+import { PlatformCategory, Platform, PlatformPreview } from '@/domain/entities'
 
 export const mockPlatform = (): Platform => ({
   id: 48,

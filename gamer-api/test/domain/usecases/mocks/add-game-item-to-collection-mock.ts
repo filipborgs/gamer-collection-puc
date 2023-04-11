@@ -1,5 +1,5 @@
 import { PurchaseState } from '@/domain/entities'
-import { type AddGameItemParams } from '@/domain/usecases/collection'
+import { AddGameItemParams } from '@/domain/usecases/collection'
 
 export const mockAddGameItemParams = (): AddGameItemParams => ({
   itemId: 2,

@@ -1,5 +1,5 @@
 /* eslint-disable @typescript-eslint/no-misused-promises */
-import { type Router } from 'express'
+import { Router } from 'express'
 import { adaptRoute } from '@/main/adapters'
 import { makeLoadGameByIdController, makeLoadGamesController } from '@/main/factories/presentation/controllers/games'
 

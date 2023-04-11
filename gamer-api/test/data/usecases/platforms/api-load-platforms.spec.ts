@@ -1,8 +1,8 @@
-import { type LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
+import { LoadPlatformsGateway } from '@/data/protocols/repo/platforms'
 import { ApiLoadPlatforms } from '@/data/usecases/platform'
-import { type LoadGamesParams } from '@/domain/usecases/game'
+import { LoadGamesParams } from '@/domain/usecases/game'
 import { mockLoadGamesParams, mockLoadPlatforms } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('ApiLoadPlatforms', () => {
   let sut: ApiLoadPlatforms

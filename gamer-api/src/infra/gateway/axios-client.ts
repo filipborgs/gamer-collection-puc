@@ -1,5 +1,5 @@
 
-import { type HttpClientParams, type HttpClient } from '@/infra/gateway'
+import { HttpClientParams, HttpClient } from '@/infra/gateway'
 import axios from 'axios'
 
 export class AxiosHttpClient implements HttpClient {

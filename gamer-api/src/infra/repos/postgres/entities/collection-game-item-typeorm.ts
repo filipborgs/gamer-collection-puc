@@ -1,4 +1,4 @@
-import { PurchaseState, type ItemType } from '../../../../domain/entities'
+import { PurchaseState, ItemType } from '../../../../domain/entities'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
 
 @Entity('game_collection_item')

@@ -1,7 +1,7 @@
-import { type LoadPlatformById } from '@/domain/usecases/platform'
+import { LoadPlatformById } from '@/domain/usecases/platform'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
-import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class LoadPlatformByIdController implements Controller {
   constructor (private readonly loadPlatform: LoadPlatformById) {}

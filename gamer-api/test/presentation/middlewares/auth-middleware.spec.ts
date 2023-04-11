@@ -1,10 +1,10 @@
-import { type TokenValidation } from '@/domain/usecases/user'
+import { TokenValidation } from '@/domain/usecases/user'
 import { forbidden, ok, serverError, unauthorized } from '@/presentation/helpers/http/http-helper'
 import { mockUser } from '@/test/domain/entities/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 import { AuthMiddleware } from '@/presentation/middlewares'
 import { AccessDeniedError, UnauthorizedError } from '@/presentation/errors'
-import { type HttpRequest } from '@/presentation/protocols'
+import { HttpRequest } from '@/presentation/protocols'
 
 describe('Auth Middleware', () => {
   let sut: AuthMiddleware

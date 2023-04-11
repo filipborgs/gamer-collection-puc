@@ -1,4 +1,4 @@
-import { type Platform } from '@/domain/entities'
+import { Platform } from '@/domain/entities'
 
 export interface LoadPlatformByIdGateway {
   loadById: (id: number) => Promise<Platform>

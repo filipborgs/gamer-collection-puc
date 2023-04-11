@@ -1,4 +1,4 @@
-import { type PlatformCategory } from '@/domain/entities'
+import { PlatformCategory } from '@/domain/entities'
 
 export interface Platform {
   id: number

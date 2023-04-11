@@ -1,10 +1,10 @@
-import { type HashCompare, type JwtGenerator } from '@/data/protocols/criptography'
-import { type LoadUserByEmailRepository } from '@/data/protocols/repo/users'
+import { HashCompare, JwtGenerator } from '@/data/protocols/criptography'
+import { LoadUserByEmailRepository } from '@/data/protocols/repo/users'
 import { DbAuthentication } from '@/data/usecases/user'
-import { type AuthenticationParams } from '@/domain/usecases/user'
+import { AuthenticationParams } from '@/domain/usecases/user'
 import { mockUser } from '@/test/domain/entities/mocks'
 import { mockAuthenticationParams } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('DbAuthentication', () => {
   let sut: DbAuthentication

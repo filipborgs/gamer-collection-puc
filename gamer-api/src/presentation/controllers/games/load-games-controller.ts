@@ -1,6 +1,6 @@
-import { type LoadGames } from '@/domain/usecases/game'
+import { LoadGames } from '@/domain/usecases/game'
 import { ok, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest, type HttpResponse, type Controller } from '@/presentation/protocols'
+import { HttpRequest, HttpResponse, Controller } from '@/presentation/protocols'
 
 export class LoadGamesController implements Controller {
   constructor (private readonly loadGames: LoadGames) {}

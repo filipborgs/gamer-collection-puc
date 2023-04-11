@@ -1,4 +1,4 @@
-import { DataSource, type ObjectType, type Repository } from 'typeorm'
+import { DataSource, ObjectType, Repository } from 'typeorm'
 
 interface DbCredentials {
   host: string

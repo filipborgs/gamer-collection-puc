@@ -1,7 +1,7 @@
 
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
 
-import { type ObjectType, type Repository } from 'typeorm'
+import { ObjectType, Repository } from 'typeorm'
 
 export abstract class PgRepository {
   constructor (

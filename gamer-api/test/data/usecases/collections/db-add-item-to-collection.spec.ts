@@ -1,11 +1,11 @@
-import { type Uuid } from '@/data/protocols/datatype'
-import { type AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
-import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { Uuid } from '@/data/protocols/datatype'
+import { AddGameItemToCollectionRepository } from '@/data/protocols/repo/collections'
+import { LoadGameByIdGateway } from '@/data/protocols/repo/games'
 import { DbAddGameItem } from '@/data/usecases/collection'
 import { ItemType } from '@/domain/entities'
-import { type AddGameItemParams } from '@/domain/usecases/collection'
+import { AddGameItemParams } from '@/domain/usecases/collection'
 import { mockAddGameItemParams, mockLoadGameById } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('DbAddGameItem', () => {
   let sut: DbAddGameItem

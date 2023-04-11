@@ -1,10 +1,10 @@
-import { type LoadGameById } from '@/domain/usecases/game'
+import { LoadGameById } from '@/domain/usecases/game'
 import { LoadGameByIdController } from '@/presentation/controllers'
 import { NotFound } from '@/presentation/errors'
 import { notFound, ok, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
+import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadGameById } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoadGameByIdController', () => {
   let sut: LoadGameByIdController

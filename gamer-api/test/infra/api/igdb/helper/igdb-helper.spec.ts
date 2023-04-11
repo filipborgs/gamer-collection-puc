@@ -1,9 +1,9 @@
 /* eslint-disable @typescript-eslint/dot-notation */
 import { IgdbHelper } from '@/infra/api/igdb/helper'
 
-import { type HttpClient } from '@/infra/gateway'
+import { HttpClient } from '@/infra/gateway'
 import { mockAuthIgdbResponse } from '@/test/infra/api/igdb/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('IgdbHelper', () => {
   class IgdbHelperStub extends IgdbHelper {}

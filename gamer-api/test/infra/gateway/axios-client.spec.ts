@@ -1,4 +1,4 @@
-import { AxiosHttpClient, type HttpClientParams } from '@/infra/gateway'
+import { AxiosHttpClient, HttpClientParams } from '@/infra/gateway'
 
 import axios from 'axios'
 

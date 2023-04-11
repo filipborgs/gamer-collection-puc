@@ -3,8 +3,8 @@ import { PostgresHelper } from '@/infra/repos/postgres/helpers'
 import { GameCollectionPostgresRepository } from '@/infra/repos/postgres/repo/collection'
 import { mockGameCollectionItem } from '@/test/domain/entities/mocks'
 import { makeFakeDb } from '@/test/infra/repo/postgres/mocks'
-import { type IBackup } from 'pg-mem'
-import { type Repository } from 'typeorm'
+import { IBackup } from 'pg-mem'
+import { Repository } from 'typeorm'
 
 describe('GameCollectionPostgresRepository', () => {
   let sut: GameCollectionPostgresRepository

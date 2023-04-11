@@ -1,8 +1,8 @@
-import { type Authentication } from '@/domain/usecases/user'
+import { Authentication } from '@/domain/usecases/user'
 import { LoginController } from '@/presentation/controllers/login'
 import { ok, serverError, unauthorized } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { HttpRequest } from '@/presentation/protocols'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoginController', () => {
   let sut: LoginController

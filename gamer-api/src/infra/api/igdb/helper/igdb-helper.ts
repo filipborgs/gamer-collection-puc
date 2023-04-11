@@ -1,4 +1,4 @@
-import { type HttpClient } from '@/infra/gateway'
+import { HttpClient } from '@/infra/gateway'
 
 export abstract class IgdbHelper {
   constructor (

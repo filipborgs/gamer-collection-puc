@@ -1,9 +1,9 @@
-import { type LoadPlatforms } from '@/domain/usecases/platform'
+import { LoadPlatforms } from '@/domain/usecases/platform'
 import { LoadPlatformsController } from '@/presentation/controllers/platforms'
 import { ok, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
+import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadPlatforms } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoadPlatformsController', () => {
   let sut: LoadPlatformsController

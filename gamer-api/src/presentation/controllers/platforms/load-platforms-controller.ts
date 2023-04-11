@@ -1,6 +1,6 @@
-import { type LoadPlatforms } from '@/domain/usecases/platform'
+import { LoadPlatforms } from '@/domain/usecases/platform'
 import { ok, serverError } from '@/presentation/helpers/http'
-import { type Controller, type HttpRequest, type HttpResponse } from '@/presentation/protocols'
+import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class LoadPlatformsController implements Controller {
   constructor (private readonly loadPlatforms: LoadPlatforms) {}

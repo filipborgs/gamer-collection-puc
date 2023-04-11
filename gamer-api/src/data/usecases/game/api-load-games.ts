@@ -1,6 +1,6 @@
-import { type LoadGamesGateway } from '@/data/protocols/repo/games'
-import { type GamePreview, type LoadResult } from '@/domain/entities'
-import { type LoadGames, type LoadGamesParams } from '@/domain/usecases/game'
+import { LoadGamesGateway } from '@/data/protocols/repo/games'
+import { GamePreview, LoadResult } from '@/domain/entities'
+import { LoadGames, LoadGamesParams } from '@/domain/usecases/game'
 
 export class ApiLoadGames implements LoadGames {
   constructor (private readonly apiLoadGames: LoadGamesGateway) {}

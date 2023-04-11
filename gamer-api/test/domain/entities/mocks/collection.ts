@@ -1,4 +1,4 @@
-import { type GameCollectionItem, ItemType, PurchaseState } from '@/domain/entities'
+import { GameCollectionItem, ItemType, PurchaseState } from '@/domain/entities'
 
 export const mockGameCollectionItem = (): GameCollectionItem => ({
   id: 'bf0e13d2-0ace-4b54-93b3-5e6ea0538c43',

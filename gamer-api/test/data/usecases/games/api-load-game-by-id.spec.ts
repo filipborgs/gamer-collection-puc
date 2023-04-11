@@ -1,7 +1,7 @@
-import { type LoadGameByIdGateway } from '@/data/protocols/repo/games'
+import { LoadGameByIdGateway } from '@/data/protocols/repo/games'
 import { ApiLoadGameById } from '@/data/usecases/game'
 import { mockLoadGameById } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('ApiLoadGameById', () => {
   let sut: ApiLoadGameById

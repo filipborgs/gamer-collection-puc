@@ -1,7 +1,7 @@
-import { type AddUser } from '@/domain/usecases/user'
+import { AddUser } from '@/domain/usecases/user'
 import { AlreadyInUseError, InvalidParamError } from '@/presentation/errors'
 import { badRequest, created, forbidden, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest, type Controller, type HttpResponse } from '@/presentation/protocols'
+import { HttpRequest, Controller, HttpResponse } from '@/presentation/protocols'
 
 export class SingUpController implements Controller {
   constructor (

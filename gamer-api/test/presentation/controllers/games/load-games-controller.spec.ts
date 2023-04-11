@@ -1,9 +1,9 @@
-import { type LoadGames } from '@/domain/usecases/game'
+import { LoadGames } from '@/domain/usecases/game'
 import { LoadGamesController } from '@/presentation/controllers'
 import { ok, serverError } from '@/presentation/helpers/http'
-import { type HttpRequest } from '@/presentation/protocols'
+import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadResultGamePreview } from '@/test/domain/usecases/mocks'
-import { mock, type MockProxy } from 'jest-mock-extended'
+import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoadGamesController', () => {
   let sut: LoadGamesController

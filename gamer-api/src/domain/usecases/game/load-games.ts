@@ -1,4 +1,4 @@
-import { type GamePreview, type LoadResult } from '@/domain/entities'
+import { GamePreview, LoadResult } from '@/domain/entities'
 
 export interface LoadGamesParams {
   search: string
