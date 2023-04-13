@@ -183,7 +183,6 @@ export default {
   },
   mounted() {
     this.$vuetify.theme.themes.dark.background = '#292933'
-    console.log(this.$vuetify.theme.themes.dark)
   },
   methods: {
     teste() {
