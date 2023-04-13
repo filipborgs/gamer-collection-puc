@@ -67,7 +67,7 @@ export default {
     },
     links: [
       {
-        link: '/collections',
+        link: '/colecoes',
         name: 'Minhas coleções'
       },
       {

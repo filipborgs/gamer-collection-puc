@@ -80,7 +80,7 @@ export default {
       try {
         await this.authentication.auth(this.login)
         this.$router.push({
-          path: '/inspire'
+          path: '/colecoes'
         })
       } catch (error) {
         alert(error.message)
