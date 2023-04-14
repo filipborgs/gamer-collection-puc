@@ -1,9 +1,9 @@
 <template>
-  <ItemPage :service="gameService" />
+  <ItemPage :service="consoleService" :cover="false" />
 </template>
 
 <script>
-import { makeApiLoadGameById } from '../../app/main/factories/domain/usecases/game'
+import { makeApiLoadConsoleById } from '../../app/main/factories/domain/usecases/console'
 import ItemPage from '../../components/layout/item-page.vue'
 
 export default {
@@ -27,7 +27,7 @@ export default {
         title: 'Devil may cry 3'
       }
     ],
-    gameService: makeApiLoadGameById()
+    consoleService: makeApiLoadConsoleById()
   })
 }
 </script>

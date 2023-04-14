@@ -1,6 +1,6 @@
 import { NotFoundError, UnexpectedError } from "../../models/errors"
 
-export class ApiLoadGameById {
+export class ApiLoadById {
   constructor(url, httpClient) {
     this.url = url
     this.httpClient = httpClient
