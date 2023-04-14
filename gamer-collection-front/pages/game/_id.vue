@@ -110,7 +110,7 @@
 </template>
 
 <script>
-import { makeApiLoadGameById } from '../app/main/factories/domain/usecases/game/api-load-game-by-idfactory'
+import { makeApiLoadGameById } from '../../app/main/factories/domain/usecases/game/api-load-game-by-idfactory'
 
 export default {
   data: () => ({
@@ -149,7 +149,8 @@ export default {
 
   async mounted() {
     this.gameService = makeApiLoadGameById()
-    const game = await this.gameService.loadById(240448)
+    const id = this.$route.params.id
+    const game = await this.gameService.loadById(id)
     this.game = game
   }
 }

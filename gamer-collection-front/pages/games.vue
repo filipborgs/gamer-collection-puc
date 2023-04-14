@@ -48,7 +48,7 @@
           <v-card-text>
             <v-row dense>
               <v-col>
-                <v-list-item to="/game">
+                <v-list-item v-show="item.name" :to="`/game/${item.id}`">
                   <v-list-item-content>
                     <v-list-item-title>{{ item.name }} </v-list-item-title>
                   </v-list-item-content>
