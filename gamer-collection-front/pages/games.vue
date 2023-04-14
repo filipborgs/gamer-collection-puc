@@ -1,5 +1,5 @@
 <template>
-  <SearchPage :service="gameService" />
+  <SearchPage :service="gameService" path="/game"/>
 </template>
 
 <script>

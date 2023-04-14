@@ -49,7 +49,7 @@
           <v-card-text>
             <v-row dense>
               <v-col>
-                <v-list-item v-show="item.name" :to="`/game/${item.id}`">
+                <v-list-item v-show="item.name" :to="`${path}/${item.id}`">
                   <v-list-item-content>
                     <v-list-item-title>{{ item.name }} </v-list-item-title>
                   </v-list-item-content>
@@ -85,6 +85,10 @@ export default {
     service: {
       required: true,
       type: Object
+    },
+    path: {
+      required: true,
+      type: String
     },
     images: {
       required: false,

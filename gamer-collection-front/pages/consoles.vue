@@ -1,5 +1,5 @@
 <template>
-  <SearchPage :service="consoleService" :images="false" :limit="24"/>
+  <SearchPage :service="consoleService" path="/console" :images="false" :limit="24"/>
 </template>
 
 <script>
