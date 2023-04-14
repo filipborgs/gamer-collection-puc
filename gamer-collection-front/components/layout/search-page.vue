@@ -27,6 +27,7 @@
       >
         <v-card class="mx-auto" max-width="600">
           <v-img
+            v-if="images"
             class="white--text align-end"
             :aspect-ratio="16 / 9"
             height="200px"
@@ -84,13 +85,22 @@ export default {
     service: {
       required: true,
       type: Object
+    },
+    images: {
+      required: false,
+      default: true,
+      type: Boolean
+    },
+    limit: {
+      required: false,
+      default: 12,
+      type: Number
     }
   },
 
   data: () => ({
     page: 1,
     total: 1,
-    limit: 12,
     items: [],
     search: null,
     loading: true
@@ -116,7 +126,7 @@ export default {
     setLoading() {
       window.scrollTo(0, 0)
       this.loading = true
-      this.items = Array(this.limit).fill({})
+      this.items = this.images ? Array(this.limit).fill({}) : []
     },
 
     async searchItem() {

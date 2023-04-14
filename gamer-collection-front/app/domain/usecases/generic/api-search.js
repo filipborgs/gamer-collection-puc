@@ -1,13 +1,13 @@
 import { UnexpectedError } from '../../models/errors'
 
-export class ApiSearchGames {
+export class ApiSearch {
   constructor(url, httpClient) {
     this.httpClient = httpClient
     this.url = url
   }
 
   async search({ search, limit, page }) {
-    const offset = (page || 1 - 1) * limit || 12
+    const offset = (page - 1) * limit
     const query = new URLSearchParams({ search: search || '', offset })
     const httpResponse = await this.httpClient.request({
       url: `${this.url}?${query.toString()}`,
