@@ -1,118 +1,15 @@
 <template>
-  <v-container>
-    <v-row>
-      <v-col cols="12" sm="3">
-        <v-sheet color="grey darken-4" rounded="lg" min-height="268">
-          <v-card class="mx-auto" max-width="400">
-            <v-img
-              class="rounded-lg"
-              :src="image"
-              height="400px"
-              dark
-            >
-              <template #placeholder>
-                <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                  ></v-progress-circular>
-                </v-row>
-              </template>
-            </v-img>
-
-            <v-card-title> {{ game.name }} </v-card-title>
-            <v-card-subtitle> {{ releaseDate }} </v-card-subtitle>
-          </v-card>
-        </v-sheet>
-      </v-col>
-
-      <v-col cols="12" sm="6">
-        <v-sheet color="grey darken-4" min-height="70vh" rounded="lg">
-          <v-card class="mx-auto">
-            <v-card dark flat>
-              <v-card-title class="pa-2 purple lighten-3">
-                <h3 class="text-h6 font-weight-light text-center grow">
-                  Minhas coleções
-                </h3>
-              </v-card-title>
-            </v-card>
-            <v-card-text class="py-0">
-              <v-timeline align-top dense>
-                <v-timeline-item color="pink" small>
-                  <v-row class="pt-1">
-                    <v-col cols="3">
-                      <strong>PS2</strong>
-                    </v-col>
-                    <v-col>
-                      <strong>Valor: R$: 22,30</strong>
-                      <div class="text-caption">Comprado em: 11/11/2003</div>
-                    </v-col>
-                  </v-row>
-                </v-timeline-item>
-
-                <v-timeline-item color="pink" small>
-                  <v-row class="pt-1">
-                    <v-col cols="3">
-                      <strong>GC</strong>
-                    </v-col>
-                    <v-col>
-                      <strong>Valor: R$: 50,30</strong>
-                      <div class="text-caption">Comprado em: 11/11/2003</div>
-                    </v-col>
-                  </v-row>
-                </v-timeline-item>
-              </v-timeline>
-            </v-card-text>
-          </v-card>
-        </v-sheet>
-      </v-col>
-
-      <v-col cols="12" sm="3">
-        <v-sheet color="grey darken-4" rounded="lg" min-height="268">
-          <v-card-title>
-            <p>Outras versões</p>
-          </v-card-title>
-
-          <v-card-text>
-            <v-list two-line>
-              <v-list-item-group
-                v-model="selected"
-                active-class="pink--text"
-                multiple
-              >
-                <template v-for="(item, index) in items">
-                  <v-list-item :key="item.title">
-                    <v-list-item-content>
-                      <v-list-item-title>{{ item.title }}</v-list-item-title>
-
-                      <v-list-item-subtitle class="text--primary">{{
-                        item.headline
-                      }}</v-list-item-subtitle>
-
-                      <v-list-item-subtitle>{{
-                        item.subtitle
-                      }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider
-                    v-if="index < items.length - 1"
-                    :key="index"
-                  ></v-divider>
-                </template>
-              </v-list-item-group>
-            </v-list>
-          </v-card-text>
-        </v-sheet>
-      </v-col>
-    </v-row>
-  </v-container>
+  <ItemPage :service="gameService" />
 </template>
 
 <script>
 import { makeApiLoadGameById } from '../../app/main/factories/domain/usecases/game/api-load-game-by-idfactory'
+import ItemPage from '../../components/layout/item-page.vue'
 
 export default {
+  components: {
+    ItemPage
+  },
   data: () => ({
     game: {
       id: null,
@@ -127,32 +24,11 @@ export default {
         action: '12 hr',
         headline: '2002',
         subtitle: 'PS2',
-        title: 'Devil may cry 3',
-        gameService: null
+        title: 'Devil may cry 3'
       }
-    ]
-  }),
-
-  computed: {
-    releaseDate() {
-      const releaseDate = this.game.releaseDate
-      return releaseDate ? new Date(releaseDate).getFullYear() : ''
-    },
-
-    image() {
-      const code = this.game.cover.code
-      return code
-        ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${code}.jpg`
-        : ''
-    }
-  },
-
-  async mounted() {
-    this.gameService = makeApiLoadGameById()
-    const id = this.$route.params.id
-    const game = await this.gameService.loadById(id)
-    this.game = game
-  }
+    ],
+    gameService: makeApiLoadGameById()
+  })
 }
 </script>
 
