@@ -36,6 +36,14 @@
                 : ''
             "
           >
+            <template #placeholder>
+              <v-row class="fill-height ma-0" align="center" justify="center">
+                <v-progress-circular
+                  indeterminate
+                  color="grey lighten-5"
+                ></v-progress-circular>
+              </v-row>
+            </template>
           </v-img>
           <v-card-text>
             <v-row dense>
@@ -77,7 +85,7 @@ export default {
     total: 1,
     limit: 12,
     items: [],
-    searchGames: null,
+    loadGamess: null,
     search: null,
     loading: true
   }),
@@ -90,20 +98,31 @@ export default {
 
   watch: {
     page() {
-      this.searchGame()
+      this.loadGames()
     }
   },
 
   async mounted() {
-    this.searchGames = makeApiSearchGames()
-    await this.searchGame()
+    this.loadGamess = makeApiSearchGames()
+    await this.loadGames()
   },
 
   methods: {
-    async searchGame() {
+    setLading() {
+      window.scrollTo(0, 0)
       this.loading = true
+      this.items = Array(this.limit).fill({})
+    },
+
+    async searchGame() {
+      this.page = 1
+      await this.loadGames()
+    },
+
+    async loadGames() {
+      this.setLading()
       try {
-        const { items, count } = await this.searchGames.search({
+        const { items, count } = await this.loadGamess.search({
           search: this.search,
           limit: this.limit,
           page: this.page
