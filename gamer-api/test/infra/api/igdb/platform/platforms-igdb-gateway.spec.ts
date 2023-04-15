@@ -17,7 +17,7 @@ describe('PlatformsIgdbGateway', () => {
   describe('LoadPlatformsGateway', () => {
     let search: string
     let offset: number
-    const limit: number = 10
+    const limit: number = 20
 
     beforeEach(() => {
       jest.resetAllMocks()
