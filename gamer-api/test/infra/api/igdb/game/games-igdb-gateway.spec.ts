@@ -15,7 +15,7 @@ describe('GamesIgdbGateway', () => {
   describe('LoadGamesGateway', () => {
     let search: string
     let offset: number
-    const limit: number = 10
+    const limit: number = 12
     let authSpy
 
     beforeEach(() => {
@@ -44,7 +44,7 @@ describe('GamesIgdbGateway', () => {
 
     it('Should make load request with correct query', async () => {
       const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
-      const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null;`
+      const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null & cover.image_id != null;`
       const data = `query games/count "count" {w ${where}}; query games "games" {f name,platforms.id,platforms.name,cover.image_id; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
