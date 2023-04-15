@@ -1,12 +1,12 @@
 import { Uuid } from '@/data/protocols/datatype'
 import { AddPlatformItemToCollectionRepository } from '@/data/protocols/repo/collection'
+import { LoadPlatformByIdGateway } from '@/data/protocols/repo/platform'
 import { ItemType, PurchaseState } from '@/domain/entities'
 import { AddPlatformItem, AddPlatformItemParams } from '@/domain/usecases/collection'
-import { LoadPlatformById } from '@/domain/usecases/platform'
 
 export class DbAddPlatformItem implements AddPlatformItem {
   constructor (
-    private readonly platformRepository: LoadPlatformById,
+    private readonly platformRepository: LoadPlatformByIdGateway,
     private readonly collectionRepo: AddPlatformItemToCollectionRepository,
     private readonly uuid: Uuid
   ) {}
