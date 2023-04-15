@@ -6,6 +6,10 @@ export interface AddGameItemParams {
   purchasePrice: number
   purchaseState: PurchaseState
   purchaseDate: Date
+  manual?: boolean
+  disk?: boolean
+  cover?: boolean
+  sealed?: boolean
 }
 
 export interface AddGameCollectionItem {
