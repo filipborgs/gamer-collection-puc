@@ -8,7 +8,7 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
     const token = this.auth()
 
     const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
-    const limit = 10
+    const limit = 20
     const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
     const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
     const config = {
