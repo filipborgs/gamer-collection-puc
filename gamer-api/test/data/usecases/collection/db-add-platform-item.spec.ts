@@ -71,7 +71,7 @@ describe('DbAddPlatformItem', () => {
     expect(collectionRepo.addPlatform).toBeCalledWith({
       ...params,
       name,
-      type: ItemType.GAME,
+      type: ItemType.PLATFROM,
       id: 'any_uuid'
     })
   })

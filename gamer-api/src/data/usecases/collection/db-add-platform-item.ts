@@ -26,7 +26,7 @@ export class DbAddPlatformItem implements AddPlatformItem {
         itemId,
         userId,
         name,
-        type: ItemType.GAME,
+        type: ItemType.PLATFROM,
         purchaseDate,
         purchasePrice,
         purchaseState,
