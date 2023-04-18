@@ -6,7 +6,7 @@ export class AuthorizeHttpClientDecorator {
   }
 
   async request(data) {
-    const user = this.getStorage.get('user')
+    const user = this.storage.get('user')
     if (user?.token) {
       Object.assign(data, {
         headers: Object.assign(data.headers || {}, {
