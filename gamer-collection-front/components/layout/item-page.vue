@@ -112,7 +112,7 @@
 </template>
 
 <script>
-import AddCollectionItem from '../collection/add-collection-item.vue'
+import AddCollectionItem from '../collection/add-game-collection-item.vue'
 
 export default {
   name: 'ItemPage',

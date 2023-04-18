@@ -13,13 +13,20 @@
         <v-container>
           <v-row>
             <v-col cols="12" sm="6" md="6">
-              <v-text-field label="Data da compra" type="date"></v-text-field>
+              <v-text-field
+                v-model="item.purchaseDate"
+                label="Data da compra"
+                type="date"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="6">
-              <v-text-field label="Valor pago"></v-text-field>
+              <v-text-field
+                v-model="item.purchasePrice"
+                label="Valor pago"
+              ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-radio-group v-model="radios">
+              <v-radio-group v-model="item.purchaseStatus">
                 <template #label>
                   <div>Estado do item</div>
                 </template>
@@ -52,12 +59,7 @@
                     ></v-checkbox>
                   </v-col>
                   <v-col cols="12">
-                    <v-textarea
-                      counter
-                      label="Observações"
-                      :rules="rules"
-                      :value="value"
-                    ></v-textarea>
+                    <v-textarea counter label="Observações"></v-textarea>
                   </v-col>
                 </v-expansion-panel-content>
               </v-expansion-panel>
@@ -70,20 +72,35 @@
         <v-btn color="blue darken-1" text @click="dialog = false">
           Cancelar
         </v-btn>
-        <v-btn color="blue darken-1" text @click="dialog = false">
-          Adicionar
-        </v-btn>
+        <v-btn color="blue darken-1" text @click="add"> Adicionar </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
 
 <script>
+import { makeAddGameCollectionItem } from '../../app/main/factories/domain/usecases/collection'
+
 export default {
-  name: 'AddCollectionItem',
+  name: 'AddGameCollectionItem',
   data: () => ({
     dialog: false,
     checkbox: false,
-  })
+    item: {
+      purchasePrice: null,
+      purchaseStatus: null,
+      purchaseDate: null
+    },
+    collectionService: makeAddGameCollectionItem()
+  }),
+  methods: {
+    async add() {
+      try {
+        await this.collectionService.addItem({ ...this.item, itemId: Number(this.$route.params.id) })
+      } catch (e) {
+        alert(e.message)
+      }
+    }
+  }
 }
 </script>
