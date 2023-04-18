@@ -10,10 +10,10 @@ export class ApiAddCollectionItem {
     const httpResponse = await this.httpClient.request({
       url: `${this.url}`,
       method: 'post',
-      data: item
+      body: item
     })
     switch (httpResponse.statusCode) {
-      case 200:
+      case 201:
         return httpResponse.body
       case 404:
         return new NotFoundError()
