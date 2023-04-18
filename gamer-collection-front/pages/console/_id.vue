@@ -6,6 +6,7 @@
           <v-card class="mx-auto" max-width="400">
             <v-card-title> {{ item.name }} </v-card-title>
             <v-card-subtitle> {{ releaseDate }} </v-card-subtitle>
+            <AddCollectionItem/>
           </v-card>
         </v-sheet>
       </v-col>
@@ -95,9 +96,13 @@
 
 <script>
 import { makeApiLoadConsoleById } from '../../app/main/factories/domain/usecases/console'
+import AddCollectionItem from '../../components/collection/add-console-collection-item.vue'
 
 export default {
   name: 'ConsolePage',
+  components: {
+    AddCollectionItem
+  },
   data: () => ({
     item: {
       id: null,
