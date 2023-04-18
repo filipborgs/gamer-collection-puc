@@ -4,6 +4,7 @@
       <v-col cols="12" sm="3">
         <v-sheet color="grey darken-4" rounded="lg" min-height="268">
           <v-card class="mx-auto" max-width="400">
+            <AddCollectionItem/>
             <v-img
               v-if="cover"
               class="rounded-lg"
@@ -111,8 +112,11 @@
 </template>
 
 <script>
+import AddCollectionItem from '../collection/add-collection-item.vue'
+
 export default {
   name: 'ItemPage',
+  components: { AddCollectionItem },
   props: {
     service: {
       required: true,

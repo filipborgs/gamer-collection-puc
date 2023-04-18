@@ -1,0 +1,89 @@
+<template>
+  <v-dialog v-model="dialog" persistent max-width="600px">
+    <template #activator="{ on, attrs }">
+      <v-btn absolute bottom color="pink" right fab v-bind="attrs" v-on="on">
+        <v-icon>mdi-plus</v-icon>
+      </v-btn>
+    </template>
+    <v-card>
+      <v-card-title>
+        <span class="text-h5">Adicionar a coleção</span>
+      </v-card-title>
+      <v-card-text>
+        <v-container>
+          <v-row>
+            <v-col cols="12" sm="6" md="6">
+              <v-text-field label="Data da compra" type="date"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="6">
+              <v-text-field label="Valor pago"></v-text-field>
+            </v-col>
+            <v-col cols="12" sm="6" md="4">
+              <v-radio-group v-model="radios">
+                <template #label>
+                  <div>Estado do item</div>
+                </template>
+                <v-radio value="NEW">
+                  <template #label>
+                    <div>
+                      <strong class="success--text">Novo</strong>
+                    </div>
+                  </template>
+                </v-radio>
+                <v-radio value="USED">
+                  <template #label>
+                    <div>
+                      <strong class="primary--text">Usado</strong>
+                    </div>
+                  </template>
+                </v-radio>
+              </v-radio-group>
+            </v-col>
+            <v-expansion-panels disabled>
+              <v-expansion-panel>
+                <v-expansion-panel-header>
+                  Mais opções
+                </v-expansion-panel-header>
+                <v-expansion-panel-content>
+                  <v-col cols="12" sm="6" md="6">
+                    <v-checkbox
+                      v-model="checkbox"
+                      :label="`Digital? ${checkbox ? 'Sim' : 'Não'}`"
+                    ></v-checkbox>
+                  </v-col>
+                  <v-col cols="12">
+                    <v-textarea
+                      counter
+                      label="Observações"
+                      :rules="rules"
+                      :value="value"
+                    ></v-textarea>
+                  </v-col>
+                </v-expansion-panel-content>
+              </v-expansion-panel>
+            </v-expansion-panels>
+          </v-row>
+        </v-container>
+      </v-card-text>
+      <v-card-actions>
+        <v-spacer></v-spacer>
+        <v-btn color="blue darken-1" text @click="dialog = false">
+          Cancelar
+        </v-btn>
+        <v-btn color="blue darken-1" text @click="dialog = false">
+          Adicionar
+        </v-btn>
+      </v-card-actions>
+    </v-card>
+  </v-dialog>
+</template>
+
+<script>
+export default {
+  name: 'AddCollectionItem',
+  data: () => ({
+    dialog: false,
+    checkbox: false,
+  })
+}
+</script>
