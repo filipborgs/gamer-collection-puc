@@ -69,10 +69,17 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="blue darken-1" text @click="dialog = false">
+        <v-btn
+          color="blue darken-1"
+          text
+          :disabled="loading"
+          @click="resetState"
+        >
           Cancelar
         </v-btn>
-        <v-btn color="blue darken-1" text @click="add"> Adicionar </v-btn>
+        <v-btn color="blue darken-1" text :loading="loading" @click="add">
+          Adicionar
+        </v-btn>
       </v-card-actions>
     </v-card>
   </v-dialog>
@@ -86,6 +93,7 @@ export default {
   data: () => ({
     dialog: false,
     checkbox: false,
+    loading: false,
     item: {
       purchasePrice: null,
       purchaseStatus: null,
@@ -95,11 +103,23 @@ export default {
   }),
   methods: {
     async add() {
+      this.loading = true
       try {
-        await this.collectionService.addItem({ ...this.item, itemId: Number(this.$route.params.id) })
+        await this.collectionService.addItem({
+          ...this.item,
+          itemId: Number(this.$route.params.id)
+        })
+        alert('Item adicionado com sucesso')
       } catch (e) {
         alert(e.message)
       }
+      this.resetState()
+    },
+
+    resetState() {
+      Object.assign(this.item, this.$options.data().item)
+      this.dialog = false
+      this.loading = false
     }
   }
 }
