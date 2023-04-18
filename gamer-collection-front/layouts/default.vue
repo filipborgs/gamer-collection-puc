@@ -34,7 +34,7 @@
                 Editar conta
               </v-btn>
               <v-divider class="my-3"></v-divider>
-              <v-btn depressed rounded text to="/"> Sair </v-btn>
+              <v-btn depressed rounded text @click="singout"> Sair </v-btn>
             </div>
           </v-list-item-content>
         </v-card>
@@ -58,6 +58,8 @@
 </template>
 
 <script>
+import { setCurrentUserAdapter } from '../app/main/adapters'
+
 export default {
   data: () => ({
     user: {
@@ -83,6 +85,12 @@ export default {
   methods: {
     dark() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
+    },
+    singout() {
+      setCurrentUserAdapter()
+      this.$router.push({
+          path: '/'
+        })
     }
   }
 }

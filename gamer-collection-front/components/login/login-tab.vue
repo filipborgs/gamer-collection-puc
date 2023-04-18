@@ -51,6 +51,7 @@ import {
   emailValidate,
   minValidate
 } from '../../app/infra/validation'
+import { setCurrentUserAdapter } from '../../app/main/adapters'
 
 export default {
   name: 'LoginTab',
@@ -78,10 +79,11 @@ export default {
       if (!this.$refs.form.validate()) return
       this.loading = true
       try {
-        await this.authentication.auth(this.login)
+        const user = await this.authentication.auth(this.login)
         this.$router.push({
           path: '/colecoes'
         })
+        setCurrentUserAdapter(user)
       } catch (error) {
         alert(error.message)
       } finally {

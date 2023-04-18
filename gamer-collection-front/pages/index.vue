@@ -69,7 +69,6 @@
                     <v-text-field
                       v-model="password"
                       :append-icon="show1 ? 'mdi-eye' : 'mdi-eye-off'"
-                      :rules="[rules.passwordRequired, rules.min]"
                       :type="show1 ? 'text' : 'password'"
                       counter
                       prepend-icon="mdi-lock"
@@ -132,6 +131,7 @@
 
 <script>
 import LoginTab from '../components/login/login-tab.vue'
+import { getCurrentUserAdapter } from '../app/main/adapters'
 
 export default {
   components: { LoginTab },
@@ -139,30 +139,11 @@ export default {
   data: () => ({
     tab: null,
     email: null,
-    firstName: null,
     nome: '',
-    lastName: null,
     password: null,
     snackbar: false,
-    newPassword: null,
     show1: false,
-    valid: false,
-    rules: {
-      email: (value) => {
-        const pattern =
-          /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/
-        return (
-          pattern.test(value) || 'Your Email should look like user@email.com'
-        )
-      },
-      emailRequired: (value) => !!value || 'You must enter your Email',
-      passwordRequired: (value) => !!value || 'Your password is required',
-      passwordMatch: (value) =>
-        value === this.password || "Your passwords don't match",
-      min: (v) =>
-        v?.length >= 14 || 'Your password must be at least 14 characters',
-      emailMatch: () => "The email and password you entered don't match"
-    }
+    valid: false
   }),
   computed: {
     height() {
@@ -181,8 +162,14 @@ export default {
       return 500
     }
   },
-  mounted() {
+  beforeCreate() {
     this.$vuetify.theme.themes.dark.background = '#292933'
+    const user = getCurrentUserAdapter()
+    if (user) {
+      this.$router.replace({
+        path: '/colecoes'
+      })
+    }
   },
   methods: {
     teste() {
