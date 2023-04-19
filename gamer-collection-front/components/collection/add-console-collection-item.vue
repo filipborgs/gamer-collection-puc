@@ -1,7 +1,16 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template #activator="{ on, attrs }">
-      <v-btn absolute bottom color="pink" right fab v-bind="attrs" v-on="on">
+      <v-btn
+        absolute
+        bottom
+        color="pink"
+        :x-small="xSmall"
+        right
+        fab
+        v-bind="attrs"
+        v-on="on"
+      >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </template>
@@ -90,6 +99,17 @@ import { makeAddConsoleCollectionItem } from '../../app/main/factories/domain/us
 
 export default {
   name: 'AddConsoleCollectionItem',
+  props: {
+    itemId: {
+      type: Number,
+      required: false,
+      default: null
+    },
+    xSmall: {
+      type: Boolean,
+      default: false
+    }
+  },
   data: () => ({
     dialog: false,
     checkbox: false,
@@ -107,7 +127,7 @@ export default {
       try {
         await this.collectionService.addItem({
           ...this.item,
-          itemId: Number(this.$route.params.id)
+          itemId: Number(this.$route.params.id || this.itemId)
         })
         alert('Item adicionado com sucesso')
       } catch (e) {
