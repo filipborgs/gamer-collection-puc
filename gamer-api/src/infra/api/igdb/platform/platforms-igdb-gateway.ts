@@ -10,7 +10,7 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
     const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
     const limit = 20
     const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
-    const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+    const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name, abbreviation; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
     const config = {
       url: `${this.igdbUrl}/v4/multiquery`,
       headers: {

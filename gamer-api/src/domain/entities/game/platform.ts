@@ -4,7 +4,7 @@ export interface Platform {
   id: number
   name: string
   alternativeName: string
-  abreviation: string
+  abbreviation?: string
   category: PlatformCategory
   generation: number
 }
@@ -12,4 +12,5 @@ export interface Platform {
 export interface PlatformPreview {
   id: number
   name: string
+  abbreviation?: string
 }
