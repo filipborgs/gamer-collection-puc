@@ -41,7 +41,7 @@ export class GamesIgdbGateway extends IgdbHelper implements LoadGamesGateway, Lo
 
   public async loadById (id: number): Promise<Game> {
     const token = this.auth()
-    const data = `fields name,platforms.id,platforms.name,cover.image_id,first_release_date; where id = ${id};`
+    const data = `fields name,platforms.id,platforms.name,platforms.abbreviation,cover.image_id,first_release_date; where id = ${id};`
     const config = {
       url: `${this.igdbUrl}/v4/games`,
       headers: {

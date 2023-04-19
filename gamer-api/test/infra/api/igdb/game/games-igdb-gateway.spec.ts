@@ -101,7 +101,7 @@ describe('GamesIgdbGateway', () => {
     })
 
     it('Should make load game by id request with correct query', async () => {
-      const data = `fields name,platforms.id,platforms.name,cover.image_id,first_release_date; where id = ${id};`
+      const data = `fields name,platforms.id,platforms.name,platforms.abbreviation,cover.image_id,first_release_date; where id = ${id};`
 
       const config = {
         url: `${igdbUrl}/v4/games`,
