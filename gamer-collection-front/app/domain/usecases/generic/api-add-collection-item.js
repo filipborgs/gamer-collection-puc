@@ -16,7 +16,7 @@ export class ApiAddCollectionItem {
       case 201:
         return httpResponse.body
       case 404:
-        return new NotFoundError()
+        throw new NotFoundError()
       default:
         throw new UnexpectedError()
     }

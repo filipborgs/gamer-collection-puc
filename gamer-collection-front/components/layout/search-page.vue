@@ -30,12 +30,14 @@
             v-if="images"
             class="white--text align-end"
             :aspect-ratio="16 / 9"
-            height="200px"
+            height="300px"
+            style="cursor: pointer"
             :src="
               item.cover
                 ? `https://images.igdb.com/igdb/image/upload/t_cover_big/${item.cover.code}.jpg`
                 : ''
             "
+            @click="redirectImg(item.id)"
           >
             <template #placeholder>
               <v-row class="fill-height ma-0" align="center" justify="center">
@@ -45,20 +47,19 @@
                 ></v-progress-circular>
               </v-row>
             </template>
+            <v-card-title style="cursor: auto" name="name-label" @click.stop=""
+              >{{ item.name }}
+            </v-card-title>
           </v-img>
-          <v-card-text>
+          <slot name="add-button" v-bind="item" />
+
+          <v-card-text v-if="!images">
             <v-row dense>
               <v-col>
                 <v-list-item v-show="item.name" :to="`${path}/${item.id}`">
                   <v-list-item-content>
                     <v-list-item-title>{{ item.name }} </v-list-item-title>
                   </v-list-item-content>
-
-                  <v-list-item-action>
-                    <v-btn small icon>
-                      <v-icon color="grey lighten-1">mdi-plus</v-icon>
-                    </v-btn>
-                  </v-list-item-action>
                 </v-list-item>
               </v-col>
             </v-row>
@@ -78,9 +79,9 @@
 </template>
 
 <script>
+
 export default {
   name: 'SearchPage',
-
   props: {
     service: {
       required: true,
@@ -153,7 +154,19 @@ export default {
       } finally {
         this.loading = false
       }
+    },
+
+    redirectImg(id) {
+      if (this.loading) return
+      this.$router.push({
+        path: `${this.path}/${id}`
+      })
     }
   }
 }
 </script>
+<style>
+div[name='name-label'] {
+  background-color: rgba(38, 50, 56, 0.6);
+}
+</style>

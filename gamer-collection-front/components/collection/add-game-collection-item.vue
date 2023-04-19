@@ -1,7 +1,16 @@
 <template>
   <v-dialog v-model="dialog" persistent max-width="600px">
     <template #activator="{ on, attrs }">
-      <v-btn absolute bottom color="pink" right fab v-bind="attrs" v-on="on">
+      <v-btn
+        absolute
+        x-small
+        bottom
+        color="pink"
+        right
+        fab
+        v-bind="attrs"
+        v-on="on"
+      >
         <v-icon>mdi-plus</v-icon>
       </v-btn>
     </template>
@@ -90,6 +99,13 @@ import { makeAddGameCollectionItem } from '../../app/main/factories/domain/useca
 
 export default {
   name: 'AddGameCollectionItem',
+  props: {
+    itemId: {
+      type: Number,
+      required: false,
+      default: null
+    }
+  },
   data: () => ({
     dialog: false,
     checkbox: false,
@@ -107,7 +123,7 @@ export default {
       try {
         await this.collectionService.addItem({
           ...this.item,
-          itemId: Number(this.$route.params.id)
+          itemId: Number(this.$route.params.id || this.itemId)
         })
         alert('Item adicionado com sucesso')
       } catch (e) {
