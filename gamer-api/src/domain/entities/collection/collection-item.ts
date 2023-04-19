@@ -6,6 +6,7 @@ export interface CollectionItem {
   name: string
   purchasePrice?: number
   purchaseState?: PurchaseState
+  manual?: boolean
   purchaseDate?: Date
   createdAt: Date
   updatedAt: Date
