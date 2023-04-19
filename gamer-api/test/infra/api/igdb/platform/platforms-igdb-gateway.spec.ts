@@ -47,7 +47,7 @@ describe('PlatformsIgdbGateway', () => {
     it('Should make load platforms request with correct query', async () => {
       const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
       const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
-      const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
+      const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name, abbreviation; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
         url: `${igdbUrl}/v4/multiquery`,

@@ -53,7 +53,8 @@ export const mockLoadPlatformsIgdbResponse = () => ([
     result: [
       {
         id: 48,
-        name: 'PlayStation 4'
+        name: 'PlayStation 4',
+        abbreviation: 'PS4'
       },
       {
         id: 2,

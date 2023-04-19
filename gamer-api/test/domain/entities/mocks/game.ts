@@ -9,7 +9,8 @@ export const mockGame = (): Game => ({
   },
   platforms: [{
     id: 1,
-    name: 'any_platform'
+    name: 'any_platform',
+    abbreviation: 'ap'
   }]
 })
 
