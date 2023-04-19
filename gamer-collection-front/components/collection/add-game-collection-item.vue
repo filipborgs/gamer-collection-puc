@@ -3,9 +3,9 @@
     <template #activator="{ on, attrs }">
       <v-btn
         absolute
-        x-small
         bottom
         color="pink"
+        :x-small="xSmall"
         right
         fab
         v-bind="attrs"
@@ -104,6 +104,10 @@ export default {
       type: Number,
       required: false,
       default: null
+    },
+    xSmall: {
+      type: Boolean,
+      default: false
     }
   },
   data: () => ({
