@@ -1,7 +1,7 @@
 <template>
   <SearchPage :service="gameService" path="/game">
-    <template #add-button="{ id }">
-      <AddGameCollectionItem x-small :item-id="id" />
+    <template #add-button="{ id, platforms }">
+      <AddGameCollectionItem x-small :item-id="id" :platforms="platforms" />
     </template>
   </SearchPage>
 </template>

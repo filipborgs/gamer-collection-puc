@@ -21,6 +21,15 @@
       <v-card-text>
         <v-container>
           <v-row>
+            <v-col cols="12">
+              <v-select
+                v-model="item.platformId"
+                label="Plataforma"
+                :items="platforms"
+                item-text="name"
+                item-value="id"
+              ></v-select>
+            </v-col>
             <v-col cols="12" sm="6" md="6">
               <v-text-field
                 v-model="item.purchaseDate"
@@ -105,6 +114,11 @@ export default {
       required: false,
       default: null
     },
+    platforms: {
+      type: Array,
+      required: true,
+      default: () => []
+    },
     xSmall: {
       type: Boolean,
       default: false
@@ -117,7 +131,8 @@ export default {
     item: {
       purchasePrice: null,
       purchaseStatus: null,
-      purchaseDate: null
+      purchaseDate: null,
+      platformId: null
     },
     collectionService: makeAddGameCollectionItem()
   }),
