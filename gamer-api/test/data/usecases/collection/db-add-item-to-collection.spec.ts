@@ -65,14 +65,27 @@ describe('DbAddGameItem', () => {
     await expect(promise).rejects.toThrow(error)
   })
 
-  it('Should call call AddGameItemToCollectionRepository with correct data', async () => {
+  it('Should call AddGameItemToCollectionRepository with correct data', async () => {
     const { name } = mockLoadGameById()
     await sut.add(params)
+    const { purchaseDate, purchasePrice, purchaseState, userId, manual, disk, cover, sealed, itemId } = params
     expect(collectionRepo.addGameItem).toBeCalledWith({
-      ...params,
+      purchaseDate,
+      itemId,
+      purchasePrice,
+      userId,
+      manual,
+      disk,
+      cover,
+      sealed,
       name,
+      purchaseState,
       type: ItemType.GAME,
-      id: 'any_uuid'
+      id: 'any_uuid',
+      platform: {
+        id: 1,
+        name: 'ap'
+      }
     })
   })
 

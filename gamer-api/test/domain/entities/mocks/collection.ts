@@ -11,6 +11,10 @@ export const mockGameCollectionItem = (): GameCollectionItem => ({
   purchaseDate: new Date(),
   createdAt: new Date(),
   updatedAt: new Date(),
+  platform: {
+    id: 1,
+    name: 'teste'
+  },
   manual: true,
   disk: false,
   cover: false,
