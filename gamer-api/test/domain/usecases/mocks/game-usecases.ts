@@ -20,7 +20,8 @@ export const mockAddGameItemParams = (): AddGameItemParams => ({
   purchasePrice: 200,
   userId: '80727abe-7d17-4706-8a90-69817cb90e93',
   purchaseState: PurchaseState.USED,
-  purchaseDate: new Date()
+  purchaseDate: new Date(),
+  platformId: 1
 })
 
 export const mockAddPlatformItemParams = (): AddPlatformItemParams => ({

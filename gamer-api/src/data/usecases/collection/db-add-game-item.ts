@@ -12,12 +12,14 @@ export class DbAddGameItem implements AddGameCollectionItem {
   ) {}
 
   async add (params: AddGameItemParams): Promise<string> {
-    const { itemId, purchaseDate, purchasePrice, userId, manual, disk, cover, sealed } = params
+    const { itemId, purchaseDate, purchasePrice, userId, manual, disk, cover, sealed, platformId } = params
     const game = await this.gameRepo.loadById(itemId)
     if (!game) return null
 
     const purchaseState = PurchaseState[params.purchaseState]
-    const { name } = game
+    const { name, platforms } = game
+    const platform = platforms.find(p => p.id === platformId)
+    if (!platform) return null
 
     const id = this.uuid.generate()
     await this.collectionRepo.addGameItem(
@@ -33,7 +35,11 @@ export class DbAddGameItem implements AddGameCollectionItem {
         manual,
         disk,
         cover,
-        sealed
+        sealed,
+        platform: {
+          id: platform.id,
+          name: platform.abbreviation || platform.name
+        }
       }
     )
     return id

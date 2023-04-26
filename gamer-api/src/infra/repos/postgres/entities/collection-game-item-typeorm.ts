@@ -1,5 +1,6 @@
 import { PurchaseState, ItemType } from '../../../../domain/entities'
 import { Column, Entity, PrimaryColumn } from 'typeorm'
+import { PlatformGameCollectionItem } from './platform-game-collection-item-typeorm'
 
 @Entity('game_collection_item')
 export class GameCollectionItemTypeOrm {
@@ -44,4 +45,7 @@ export class GameCollectionItemTypeOrm {
 
   @Column({ default: null, nullable: true })
     sealed?: boolean
+
+  @Column(() => PlatformGameCollectionItem)
+    platform: PlatformGameCollectionItem
 }

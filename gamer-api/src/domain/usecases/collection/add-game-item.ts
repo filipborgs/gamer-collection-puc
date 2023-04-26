@@ -10,6 +10,7 @@ export interface AddGameItemParams {
   disk?: boolean
   cover?: boolean
   sealed?: boolean
+  platformId: number
 }
 
 export interface AddGameCollectionItem {

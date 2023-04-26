@@ -19,6 +19,14 @@ export class gameCollectionItem1680136390932 implements MigrationInterface {
           type: 'varchar'
         },
         {
+          name: 'platform_id',
+          type: 'numeric'
+        },
+        {
+          name: 'platform_name',
+          type: 'varchar'
+        },
+        {
           name: 'user_id',
           type: 'varchar'
         },

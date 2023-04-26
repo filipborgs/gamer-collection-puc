@@ -13,6 +13,10 @@ export interface AddGameItemParamsRepo {
   disk?: boolean
   cover?: boolean
   sealed?: boolean
+  platform: {
+    id: number
+    name: string
+  }
 }
 
 export interface AddGameItemToCollectionRepository {
