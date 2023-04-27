@@ -1,4 +1,4 @@
-import { GameCollectionItem, ItemType, PlatfromCollectionItem, PurchaseState } from '@/domain/entities'
+import { Collection, GameCollectionItem, ItemType, PlatfromCollectionItem, PurchaseState } from '@/domain/entities'
 
 export const mockGameCollectionItem = (): GameCollectionItem => ({
   id: 'bf0e13d2-0ace-4b54-93b3-5e6ea0538c43',
@@ -37,4 +37,11 @@ export const mockPlatformCollectionItem = (): PlatfromCollectionItem => ({
   box: false,
   sealed: false,
   joysticks: 4
+})
+
+export const mockCollection = (): Collection => ({
+  count: 4,
+  id: 1,
+  name: 'PS3',
+  type: ItemType.GAME
 })
