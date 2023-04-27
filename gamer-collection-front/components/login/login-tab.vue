@@ -61,7 +61,6 @@ export default {
       email: 'filipborgs48@gmail.com',
       password: 'password'
     },
-    tab: null,
     loading: false,
     showPassword: false,
     rules: {
@@ -71,7 +70,6 @@ export default {
     }
   }),
   mounted() {
-    this.$vuetify.theme.themes.dark.background = '#292933'
     this.authentication = makeApiAuthentication()
   },
   methods: {
