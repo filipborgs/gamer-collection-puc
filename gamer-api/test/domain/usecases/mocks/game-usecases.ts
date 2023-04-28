@@ -1,7 +1,7 @@
-import { Game, GamePreview, LoadResult, PurchaseState } from '@/domain/entities'
+import { Collection, Game, GamePreview, LoadResult, PurchaseState } from '@/domain/entities'
 import { AddGameItemParams, AddPlatformItemParams } from '@/domain/usecases/collection'
 import { LoadGamesParams } from '@/domain/usecases/game'
-import { mockGame, mockGamePreview } from '@/test/domain/entities/mocks'
+import { mockCollection, mockGame, mockGamePreview } from '@/test/domain/entities/mocks'
 
 export const mockLoadResultGamePreview = (): LoadResult<GamePreview> => ({
   items: [mockGamePreview()],
@@ -14,6 +14,8 @@ export const mockLoadGamesParams = (): LoadGamesParams => ({
   search: 'any_query',
   offset: 0
 })
+
+export const mockLoadCollections = (): Collection[] => ([mockCollection()])
 
 export const mockAddGameItemParams = (): AddGameItemParams => ({
   itemId: 2,
