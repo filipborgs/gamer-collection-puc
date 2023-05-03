@@ -1,4 +1,4 @@
-import { GameCollectionItemTypeOrm, PlatformCollectionItemTypeOrm } from '@/infra/repos/postgres/entities'
+import { PlatformCollectionItemTypeOrm } from '@/infra/repos/postgres/entities'
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
 import { PlatformCollectionPostgresRepository } from '@/infra/repos/postgres/repo/collection'
 import { mockPlatformCollectionItem } from '@/test/domain/entities/mocks'
