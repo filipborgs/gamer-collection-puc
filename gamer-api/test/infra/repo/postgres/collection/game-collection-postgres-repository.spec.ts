@@ -34,4 +34,16 @@ describe('GameCollectionPostgresRepository', () => {
       expect(collection[0].id).toBe(colMock.id)
     })
   })
+
+  describe('LoadGameCollectionItemsRepository', () => {
+    it('Should return the correct game items list on success', async () => {
+      const colMock = mockGameCollectionItem()
+      await pgCollectionRepo.save(colMock)
+      const result = await sut.loadByUser({
+        userId: colMock.userId,
+        platformId: colMock.platform.id
+      })
+      expect(result).toEqual([colMock])
+    })
+  })
 })
