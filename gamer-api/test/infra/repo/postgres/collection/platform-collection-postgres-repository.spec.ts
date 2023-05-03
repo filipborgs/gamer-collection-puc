@@ -39,4 +39,15 @@ describe('PlatformCollectionPostgresRepository', () => {
       expect(collection[0].id).toBe(colMock.id)
     })
   })
+
+  describe('LoadPlatformCollectionItemsRepository', () => {
+    it('Should return the correct platform items list on success', async () => {
+      const colMock = mockPlatformCollectionItem()
+      await pgCollectionRepo.save(colMock)
+      const result = await sut.loadByUser({
+        userId: colMock.userId
+      })
+      expect(result).toEqual([colMock])
+    })
+  })
 })
