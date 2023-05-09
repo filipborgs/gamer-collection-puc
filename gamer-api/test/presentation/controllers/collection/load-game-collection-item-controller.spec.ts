@@ -11,6 +11,7 @@ describe('LoadGameCollectionItemController', () => {
   let httpRequest: HttpRequest
 
   beforeEach(() => {
+    jest.useFakeTimers()
     loadItemsUsecase = mock()
     loadItemsUsecase.loadByUser.mockResolvedValue(mockLoadGameCollectionItems())
     sut = new LoadGameCollectionItemController(loadItemsUsecase)
