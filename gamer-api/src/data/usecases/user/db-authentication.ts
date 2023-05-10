@@ -1,5 +1,6 @@
 import { HashCompare, JwtGenerator } from '@/data/protocols/criptography'
 import { LoadUserByEmailRepository } from '@/data/protocols/repo/user'
+import { LoggedUser } from '@/domain/entities'
 import { Authentication, AuthenticationParams } from '@/domain/usecases/user'
 
 export class DbAuthentication implements Authentication {
@@ -9,7 +10,7 @@ export class DbAuthentication implements Authentication {
     private readonly encripter: JwtGenerator
   ) {}
 
-  async login (authentication: AuthenticationParams): Promise<string | null> {
+  async login (authentication: AuthenticationParams): Promise<LoggedUser> {
     const account = await this.loadAccountByEmail.loadByEmail(authentication.email)
     if (!account) return null
 
@@ -17,6 +18,11 @@ export class DbAuthentication implements Authentication {
     if (!isEqual) return null
 
     const token = await this.encripter.generate({ user: { id: account.id } })
-    return token
+    const { id, name } = account
+    return {
+      token,
+      id,
+      name
+    }
   }
 }
