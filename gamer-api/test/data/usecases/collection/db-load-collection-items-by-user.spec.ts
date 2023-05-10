@@ -10,6 +10,7 @@ describe('DbLoadGameCollectionItems', () => {
   let params: LoadGameCollectionItemsParams
 
   beforeEach(() => {
+    jest.useFakeTimers()
     collectionsRepo = mock<LoadGameCollectionItemsRepository>()
     collectionsRepo.loadByUser.mockResolvedValue([mockGameCollectionItem()])
 

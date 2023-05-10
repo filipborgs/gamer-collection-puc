@@ -2,6 +2,7 @@ import { Authentication } from '@/domain/usecases/user'
 import { LoginController } from '@/presentation/controllers/login'
 import { ok, serverError, unauthorized } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
+import { mockAuthentication } from '@/test/domain/usecases/mocks'
 import { mock, MockProxy } from 'jest-mock-extended'
 
 describe('LoginController', () => {
@@ -11,7 +12,7 @@ describe('LoginController', () => {
 
   beforeEach(() => {
     userUsecase = mock()
-    userUsecase.login.mockResolvedValue('any_jwt')
+    userUsecase.login.mockResolvedValue(mockAuthentication())
     sut = new LoginController(userUsecase)
     httpRequest = makeHttpRequest()
   })
@@ -44,6 +45,6 @@ describe('LoginController', () => {
 
   test('Should return 200 if valid credentials are provided', async () => {
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(ok({ token: 'any_jwt' }))
+    expect(response).toEqual(ok(mockAuthentication()))
   })
 })

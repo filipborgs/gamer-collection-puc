@@ -76,8 +76,13 @@ describe('DbAuthentication', () => {
     await expect(result).rejects.toThrow(error)
   })
 
-  test('should return a token if HashComparer retuns a token', async () => {
+  test('should return an LoggedUser if succeds', async () => {
     const token = await sut.login(params)
-    expect(token).toEqual('any_jwt')
+    const { name, id } = mockUser()
+    expect(token).toEqual({
+      token: 'any_jwt',
+      name,
+      id
+    })
   })
 })

@@ -11,6 +11,7 @@ describe('LoadPlatformCollectionItemController', () => {
   let httpRequest: HttpRequest
 
   beforeEach(() => {
+    jest.useFakeTimers()
     loadItemsUsecase = mock()
     loadItemsUsecase.loadByUser.mockResolvedValue(mockLoadPlatformCollectionItems())
     sut = new LoadPlatformCollectionItemController(loadItemsUsecase)

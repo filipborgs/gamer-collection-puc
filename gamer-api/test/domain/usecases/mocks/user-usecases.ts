@@ -1,4 +1,6 @@
+import { LoggedUser } from '@/domain/entities'
 import { AddUserParams, AuthenticationParams } from '@/domain/usecases/user'
+import { mockLoggedUser } from '@/test/domain/entities/mocks'
 
 export const mockAuthenticationParams = (): AuthenticationParams => ({
   email: 'any_email@mail.com',
@@ -10,3 +12,5 @@ export const mockAddUserParams = (): AddUserParams => ({
   email: 'any_email',
   password: 'any_password'
 })
+
+export const mockAuthentication = (): LoggedUser => mockLoggedUser()
