@@ -24,12 +24,12 @@
             </template>
 
             <v-list-item
-              v-for="([title], i) in gamesCollections"
+              v-for="(col, i) in collections"
               :key="i"
               to="/game-collection"
               link
             >
-              <v-list-item-title>{{ title }}</v-list-item-title>
+              <v-list-item-title>{{ col.name }}</v-list-item-title>
 
               <v-list-item-icon>
                 <v-icon>mdi-gamepad-circle-outline</v-icon>
@@ -43,12 +43,21 @@
 </template>
 
 <script>
+import { makeApiLoadCollectionByUserId } from '../app/main/factories/domain/usecases/collection'
+import { getCurrentUserAdapter } from '../app/main/adapters'
+
 export default {
   data: () => ({
-    gamesCollections: [
-      ['Super Nintendo', 'mdi-account-multiple-outline'],
-      ['Playstation 3', 'mdi-cog-outline']
-    ]
-  })
+    collections: [],
+    collectionService: makeApiLoadCollectionByUserId()
+  }),
+  async mounted() {
+    const user = getCurrentUserAdapter()
+    try {
+      this.collections = await this.collectionService.loadById(user.id)
+    } catch (e) {
+      alert(e.message)
+    }
+  }
 }
 </script>
