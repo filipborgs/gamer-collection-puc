@@ -26,7 +26,7 @@
             <v-list-item
               v-for="(col, i) in collections"
               :key="i"
-              to="/game-collection"
+              :to="`/colecoes/${$route.params.userId}/game/${col.id}`"
               link
             >
               <v-list-item-title>{{ col.name }}</v-list-item-title>
