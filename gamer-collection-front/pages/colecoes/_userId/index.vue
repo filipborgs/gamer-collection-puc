@@ -10,7 +10,7 @@
       </v-card-title>
       <v-card-text>
         <v-list>
-          <v-list-item to="/console-collection">
+          <v-list-item :to="`/colecoes/${$route.params.userId}/consoles`">
             <v-list-item-icon>
               <v-icon>mdi-nintendo-game-boy</v-icon>
             </v-list-item-icon>
@@ -43,8 +43,8 @@
 </template>
 
 <script>
-import { makeApiLoadCollectionByUserId } from '../app/main/factories/domain/usecases/collection'
-import { getCurrentUserAdapter } from '../app/main/adapters'
+import { makeApiLoadCollectionByUserId } from '../../../app/main/factories/domain/usecases/collection'
+import { getCurrentUserAdapter } from '../../../app/main/adapters'
 
 export default {
   data: () => ({

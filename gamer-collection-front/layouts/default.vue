@@ -58,7 +58,10 @@
 </template>
 
 <script>
-import { setCurrentUserAdapter } from '../app/main/adapters'
+import {
+  getCurrentUserAdapter,
+  setCurrentUserAdapter
+} from '../app/main/adapters'
 
 export default {
   data: () => ({
@@ -67,9 +70,13 @@ export default {
       fullName: 'Filipe Borges',
       email: 'filipborgs48@gmail.com'
     },
-    links: [
+    links: []
+  }),
+  mounted() {
+    const user = getCurrentUserAdapter()
+    this.links = [
       {
-        link: '/colecoes',
+        link: `/colecoes/${user.id}`,
         name: 'Minhas coleções'
       },
       {
@@ -81,7 +88,7 @@ export default {
         name: 'Consoles'
       }
     ]
-  }),
+  },
   methods: {
     dark() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
@@ -89,8 +96,8 @@ export default {
     singout() {
       setCurrentUserAdapter()
       this.$router.push({
-          path: '/'
-        })
+        path: '/'
+      })
     }
   }
 }
