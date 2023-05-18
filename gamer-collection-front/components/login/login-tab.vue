@@ -35,7 +35,7 @@
             :loading="loading"
             @click="auth"
           >
-            Log in
+            Entrar
           </v-btn>
           <!-- <a class="subtitle-2" @click="tab = 2">Esqueci minha senha</a> -->
         </v-row>
@@ -79,7 +79,7 @@ export default {
       try {
         const user = await this.authentication.auth(this.login)
         this.$router.push({
-          path: '/colecoes'
+          path: `/colecoes/${user.id}`
         })
         setCurrentUserAdapter(user)
       } catch (error) {
