@@ -6,10 +6,12 @@
         <v-sheet color="grey darken-4" rounded="lg">
           <v-card class="mx-auto" max-width="400">
             <v-card-title> Consoles </v-card-title>
-            <v-card-subtitle> Total de consoles: 34 </v-card-subtitle>
-            <v-card-subtitle> Total gasto: R$ 22859.90 </v-card-subtitle>
-            <v-card-subtitle> Total de consoles vendidos: 6 </v-card-subtitle>
-            <v-card-subtitle> Total vendido: R$ 8000 </v-card-subtitle>
+            <v-card-subtitle>
+              Total de consoles: {{ items.length }}
+            </v-card-subtitle>
+            <v-card-subtitle>
+              Total gasto: R$ {{ totalSpend }}
+            </v-card-subtitle>
           </v-card>
         </v-sheet>
       </v-col>
@@ -24,10 +26,13 @@
                 item-key="name"
                 show-expand
                 class="elevation-1"
+                :search="search"
+                :custom-filter="filter"
               >
                 <template #top>
                   <v-toolbar flat>
                     <VTextField
+                      v-model="search"
                       autofocus
                       prepend-inner-icon="mdi-magnify"
                       label="Pesquisar"
@@ -85,6 +90,11 @@
                     </v-dialog>
                   </v-toolbar>
                 </template>
+
+                <template #item.purchaseDate="{ item }">
+                  {{ formatDate(item.purchaseDate) }}
+                </template>
+
                 <template #expanded-item="{ headers, item }">
                   <td :colspan="headers.length">
                     More info about {{ item.name }}
@@ -143,8 +153,18 @@ export default {
       vendido: 0,
       protein: 0
     },
-    collectionService: makeApiLoadConsoleCollectionItems()
+    collectionService: makeApiLoadConsoleCollectionItems(),
+    search: null
   }),
+
+  computed: {
+    totalSpend() {
+      const cb = (acc, item) => {
+        return acc + item.purchasePrice
+      }
+      return this.items.reduce(cb, 0)
+    }
+  },
 
   watch: {
     dialog(val) {
@@ -156,7 +176,9 @@ export default {
   },
 
   async created() {
-    this.items = await this.collectionService.loadById(this.$route.params.userId)
+    this.items = await this.collectionService.loadById(
+      this.$route.params.userId
+    )
   },
 
   methods: {
@@ -164,6 +186,16 @@ export default {
       this.editedIndex = this.items.indexOf(item)
       this.editedItem = Object.assign({}, item)
       this.dialog = true
+    },
+
+    formatDate(stringDate) {
+      if (!stringDate) return ''
+      const date = new Date(stringDate)
+      return `${date.getDate().toString().padStart(2, '0')}/${(date.getMonth() + 1).toString().padStart(2, '0')}/${date.getFullYear()}`
+    },
+
+    filter(_, search, item) {
+      return new RegExp(search, 'gi').test(item.name)
     },
 
     deleteItem(item) {
