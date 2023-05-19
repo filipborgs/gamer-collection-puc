@@ -2,7 +2,7 @@ import { RemoveCollectionItemByIdRepository } from '@/data/protocols/repo/collec
 import { DeleteError } from '@/domain/entities'
 import { RemoveCollectionItem } from '@/domain/usecases/collection'
 
-export class DbRemoveGameCollectionItem implements RemoveCollectionItem {
+export class DbRemoveCollectionItem implements RemoveCollectionItem {
   constructor (private readonly collectionRepo: RemoveCollectionItemByIdRepository) {}
 
   async remove (id: string): Promise<void> {

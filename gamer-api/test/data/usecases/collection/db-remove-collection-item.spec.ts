@@ -1,10 +1,10 @@
 import { RemoveCollectionItemByIdRepository } from '@/data/protocols/repo/collection'
-import { DbRemoveGameCollectionItem } from '@/data/usecases/collection'
+import { DbRemoveCollectionItem } from '@/data/usecases/collection'
 import { DeleteError } from '@/domain/entities'
 import { MockProxy, mock } from 'jest-mock-extended'
 
-describe('DbRemoveGameCollectionItem', () => {
-  let sut: DbRemoveGameCollectionItem
+describe('DbRemoveCollectionItem', () => {
+  let sut: DbRemoveCollectionItem
   let collectionsRepo: MockProxy<RemoveCollectionItemByIdRepository>
   let params: string
 
@@ -15,7 +15,7 @@ describe('DbRemoveGameCollectionItem', () => {
 
     params = 'any_id'
 
-    sut = new DbRemoveGameCollectionItem(collectionsRepo)
+    sut = new DbRemoveCollectionItem(collectionsRepo)
   })
 
   it('Should call RemoveCollectionItemByIdRepository with id', async () => {
