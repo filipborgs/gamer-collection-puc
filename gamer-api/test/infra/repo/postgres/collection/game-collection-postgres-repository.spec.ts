@@ -46,4 +46,23 @@ describe('GameCollectionPostgresRepository', () => {
       expect(result).toEqual([colMock])
     })
   })
+
+  describe('RemoveCollectionItemByIdRepository', () => {
+    it('Should return true on success', async () => {
+      const colMock = mockGameCollectionItem()
+      await pgCollectionRepo.save(colMock)
+      const id = colMock.id
+      const result = await sut.removeById(id)
+      console.log(id)
+      const itemRemoved = await pgCollectionRepo.findOne({ where: { id } })
+      expect(result).toBeTruthy()
+      expect(itemRemoved).toBeFalsy()
+    })
+
+    it('Should return false if failed', async () => {
+      const colMock = mockGameCollectionItem()
+      const result = await sut.removeById(colMock.id)
+      expect(result).toBeFalsy()
+    })
+  })
 })
