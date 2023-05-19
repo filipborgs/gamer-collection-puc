@@ -1,10 +1,10 @@
-import { AddPlatformItemToCollectionRepository, AddPlatfromItemParamsRepo, LoadPlatformCollectionItemsRepository, LoadPlatformCollectionItemsRepositoryParams } from '@/data/protocols/repo/collection'
+import { AddPlatformItemToCollectionRepository, AddPlatfromItemParamsRepo, LoadPlatformCollectionItemsRepository, LoadPlatformCollectionItemsRepositoryParams, RemoveCollectionItemByIdRepository } from '@/data/protocols/repo/collection'
 import { PlatfromCollectionItem } from '@/domain/entities'
 import { PlatformCollectionItemTypeOrm } from '@/infra/repos/postgres/entities'
 import { PgRepository } from '@/infra/repos/postgres/helpers'
 import { Repository } from 'typeorm'
 
-export class PlatformCollectionPostgresRepository extends PgRepository implements AddPlatformItemToCollectionRepository, LoadPlatformCollectionItemsRepository {
+export class PlatformCollectionPostgresRepository extends PgRepository implements AddPlatformItemToCollectionRepository, LoadPlatformCollectionItemsRepository, RemoveCollectionItemByIdRepository {
   private readonly repo: Repository<PlatformCollectionItemTypeOrm>
   constructor () {
     super()
@@ -25,5 +25,10 @@ export class PlatformCollectionPostgresRepository extends PgRepository implement
         userId
       }
     })
+  }
+
+  async removeById (id: string): Promise<boolean> {
+    const result = await this.repo.delete(id)
+    return !!result.affected
   }
 }
