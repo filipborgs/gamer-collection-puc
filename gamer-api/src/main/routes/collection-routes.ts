@@ -2,7 +2,7 @@
 import { adaptRoute } from '@/main/adapters'
 import {
   makeAddGameToCollectionController, makeAddPlatformToCollectionController, makeLoadCollectionsController,
-  makeLoadGameCollectionItemsController, makeLoadPlatformCollectionItemsController, makeRemoveGameCollectionItemController, makeRemovePlatformCollectionItemController
+  makeLoadGameCollectionItemsController, makeLoadPlatformCollectionItemsController, makeRemoveGameCollectionItemController, makeRemovePlatformCollectionItemController, makeUpdateGameCollectionItemController
 } from '@/main/factories/presentation/controllers/collection'
 import { Router } from 'express'
 
@@ -15,5 +15,6 @@ export default (router: Router): void => {
   router.post('/collections/games', auth, adaptRoute(makeAddGameToCollectionController()))
   router.post('/collections/platforms', auth, adaptRoute(makeAddPlatformToCollectionController()))
   router.delete('/collections/games/items/:itemId', auth, adaptRoute(makeRemoveGameCollectionItemController()))
+  router.put('/collections/games/items/:itemId', auth, adaptRoute(makeUpdateGameCollectionItemController()))
   router.delete('/collections/platforms/items/:itemId', auth, adaptRoute(makeRemovePlatformCollectionItemController()))
 }
