@@ -2,7 +2,6 @@ import { PurchaseState } from '@/domain/entities'
 
 export interface UpdateGameItemByIdParams {
   id: string
-  userId: string
   purchasePrice: number
   purchaseState: PurchaseState
   purchaseDate: Date

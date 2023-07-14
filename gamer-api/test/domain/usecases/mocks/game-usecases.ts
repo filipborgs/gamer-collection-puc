@@ -33,7 +33,7 @@ export const mockAddGameItemParams = (): AddGameItemParams => ({
 export const mockUpdateGameItemParams = (): UpdateGameItemParams => ({
   id: 'bf0e13d2-0ace-4b54-93b3-5e6ea0538c43',
   purchasePrice: 200,
-  userId: '80727abe-7d17-4706-8a90-69817cb90e93',
+  // userId: '80727abe-7d17-4706-8a90-69817cb90e93',
   purchaseState: PurchaseState.USED,
   purchaseDate: new Date()
 })

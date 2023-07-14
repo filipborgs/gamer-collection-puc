@@ -1,10 +1,13 @@
-import { AddGameItemParamsRepo, AddGameItemToCollectionRepository, LoadGameCollectionItemsRepository, LoadGameCollectionItemsRepositoryParams, RemoveCollectionItemByIdRepository } from '@/data/protocols/repo/collection'
+import { AddGameItemParamsRepo, AddGameItemToCollectionRepository, LoadGameCollectionItemsRepository, LoadGameCollectionItemsRepositoryParams, RemoveCollectionItemByIdRepository, UpdateGameItemByIdParams, UpdateGameItemByIdRepository } from '@/data/protocols/repo/collection'
 import { Repository } from 'typeorm'
 import { GameCollectionItemTypeOrm } from '../../entities/collection-game-item-typeorm'
 import { PgRepository } from '../../helpers'
 import { GameCollectionItem } from '@/domain/entities'
 
-export class GameCollectionPostgresRepository extends PgRepository implements AddGameItemToCollectionRepository, LoadGameCollectionItemsRepository, RemoveCollectionItemByIdRepository {
+export class GameCollectionPostgresRepository extends PgRepository implements AddGameItemToCollectionRepository,
+  LoadGameCollectionItemsRepository,
+  RemoveCollectionItemByIdRepository,
+  UpdateGameItemByIdRepository {
   private readonly repo: Repository<GameCollectionItemTypeOrm>
   constructor () {
     super()
@@ -17,6 +20,12 @@ export class GameCollectionPostgresRepository extends PgRepository implements Ad
       createdAt: new Date(),
       updatedAt: new Date()
     })
+  }
+
+  async updateById (params: UpdateGameItemByIdParams): Promise<boolean> {
+    const { id, ...data } = params
+    const { affected } = await this.repo.update(id, data)
+    return !!affected
   }
 
   async loadByUser ({ userId, platformId }: LoadGameCollectionItemsRepositoryParams): Promise<GameCollectionItem[]> {

@@ -7,11 +7,10 @@ export class DbUpdateGameCollectionItem implements UpdateGameCollectionItem {
 
   async update (params: UpdateGameItemParams): Promise<boolean | null> {
     const purchaseState = PurchaseState[params.purchaseState]
-    const { id, userId, purchaseDate, purchasePrice, manual, disk, cover, sealed } = params
+    const { id, purchaseDate, purchasePrice, manual, disk, cover, sealed } = params
 
     return await this.collectionRepo.updateById({
       id,
-      userId,
       purchaseState,
       purchaseDate,
       purchasePrice,
