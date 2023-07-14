@@ -26,12 +26,11 @@ describe('DbUpdateGameCollectionItem', () => {
 
   it('Should call UpdateGameItemByIdRepository with correct data', async () => {
     await sut.update(params)
-    const { id, userId, purchaseDate, purchaseState, purchasePrice, manual, disk, cover, sealed } = params
+    const { id, purchaseDate, purchaseState, purchasePrice, manual, disk, cover, sealed } = params
     expect(collectionRepo.updateById).toBeCalledWith({
       id,
       purchaseDate,
       purchasePrice,
-      userId,
       manual,
       disk,
       cover,
