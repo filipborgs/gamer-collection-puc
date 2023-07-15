@@ -86,5 +86,24 @@ describe('GameCollectionPostgresRepository', () => {
       expect(item.purchasePrice).toEqual(updateData.purchasePrice)
       expect(item.purchaseState).toEqual(updateData.purchaseState)
     })
+
+    it('Should return false if update failed', async () => {
+      const colMock = mockGameCollectionItem()
+      await pgCollectionRepo.save(colMock)
+
+      const id = colMock.id
+      const updateData = {
+        id: 'any_id',
+        purchaseDate: new Date(),
+        purchasePrice: 444,
+        purchaseState: PurchaseState.USED
+      }
+      const result = await sut.updateById(updateData)
+      const item = await pgCollectionRepo.findOne({ where: { id } })
+      expect(result).toBeFalsy()
+      expect(item.purchaseDate).toEqual(item.purchaseDate)
+      expect(item.purchasePrice).toEqual(item.purchasePrice)
+      expect(item.purchaseState).toEqual(item.purchaseState)
+    })
   })
 })
