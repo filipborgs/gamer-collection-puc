@@ -1,3 +1,4 @@
+import { PurchaseState } from '@/domain/entities'
 import { PlatformCollectionItemTypeOrm } from '@/infra/repos/postgres/entities'
 import { PostgresHelper } from '@/infra/repos/postgres/helpers'
 import { PlatformCollectionPostgresRepository } from '@/infra/repos/postgres/repo/collection'
@@ -67,5 +68,45 @@ describe('PlatformCollectionPostgresRepository', () => {
       const result = await sut.removeById(colMock.id)
       expect(result).toBeFalsy()
     })
+  })
+
+  describe('UpdatePlatformItemByIdRepository', () => {
+    it('Should return true on success and update correct data', async () => {
+      const colMock = mockPlatformCollectionItem()
+      await pgCollectionRepo.save(colMock)
+
+      const id = colMock.id
+      const updateData = {
+        id,
+        purchaseDate: new Date(),
+        purchasePrice: 444,
+        purchaseState: PurchaseState.USED
+      }
+      const result = await sut.updateById(updateData)
+      const item = await pgCollectionRepo.findOne({ where: { id } })
+      expect(result).toBeTruthy()
+      expect(item.purchaseDate).toEqual(updateData.purchaseDate)
+      expect(item.purchasePrice).toEqual(updateData.purchasePrice)
+      expect(item.purchaseState).toEqual(updateData.purchaseState)
+    })
+  })
+
+  it('Should return false if update failed', async () => {
+    const colMock = mockPlatformCollectionItem()
+    await pgCollectionRepo.save(colMock)
+
+    const id = colMock.id
+    const updateData = {
+      id: 'any_id',
+      purchaseDate: new Date(),
+      purchasePrice: 444,
+      purchaseState: PurchaseState.USED
+    }
+    const result = await sut.updateById(updateData)
+    const item = await pgCollectionRepo.findOne({ where: { id } })
+    expect(result).toBeFalsy()
+    expect(item.purchaseDate).toEqual(item.purchaseDate)
+    expect(item.purchasePrice).toEqual(item.purchasePrice)
+    expect(item.purchaseState).toEqual(item.purchaseState)
   })
 })
