@@ -1,18 +1,18 @@
-import { UpdateGameCollectionItem } from '@/domain/usecases/collection'
-import { UpdateGameCollectionItemController } from '@/presentation/controllers/collection'
+import { UpdatePlatformCollectionItem } from '@/domain/usecases/collection'
+import { UpdatePlatformCollectionItemController } from '@/presentation/controllers/collection'
 import { conflict, noContent, serverError } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { MockProxy, mock } from 'jest-mock-extended'
 
-describe('UpdateGameCollectionItemController', () => {
-  let sut: UpdateGameCollectionItemController
-  let updateCollection: MockProxy<UpdateGameCollectionItem>
+describe('UpdatePlatformCollectionItemController', () => {
+  let sut: UpdatePlatformCollectionItemController
+  let updateCollection: MockProxy<UpdatePlatformCollectionItem>
   let httpRequest: HttpRequest
 
   beforeEach(() => {
     updateCollection = mock()
     updateCollection.update.mockResolvedValue(true)
-    sut = new UpdateGameCollectionItemController(updateCollection)
+    sut = new UpdatePlatformCollectionItemController(updateCollection)
     httpRequest = makeHttpRequest()
   })
 
@@ -23,11 +23,10 @@ describe('UpdateGameCollectionItemController', () => {
       }
     },
     params: {
-      itemId: 'ea2a407a-5e12-47c9-a6d9-df2b13b57bd1'
+      id: 'ea2a407a-5e12-47c9-a6d9-df2b13b57bd1'
     },
     body: {
       manual: true,
-      disk: false,
       cover: true,
       sealed: true,
       purchasePrice: 200,
@@ -36,7 +35,7 @@ describe('UpdateGameCollectionItemController', () => {
     }
   })
 
-  it('Should call UpdateGameCollectionItem with collection data', async () => {
+  it('Should call UpdatePlatformCollectionItem with collection data', async () => {
     await sut.handle(httpRequest)
     const {
       body,
@@ -46,14 +45,14 @@ describe('UpdateGameCollectionItemController', () => {
     expect(updateCollection.update).toHaveBeenCalledWith({ ...body, userId, id })
   })
 
-  it('Should return ServerError if UpdateGameCollectionItem Throws', async () => {
+  it('Should return ServerError if UpdatePlatformCollectionItem Throws', async () => {
     const error = new Error('any')
     updateCollection.update.mockRejectedValueOnce(error)
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(serverError(error))
   })
 
-  it('Should return 409 if UpdateGameCollectionItem returns null', async () => {
+  it('Should return 409 if UpdatePlatformCollectionItem returns null', async () => {
     updateCollection.update.mockResolvedValueOnce(null)
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(conflict())
