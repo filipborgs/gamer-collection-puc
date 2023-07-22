@@ -19,7 +19,9 @@ export class PostgresHelper {
       this.connection = db.adapters.createTypeormDataSource({
         type: 'postgres',
         logging: true,
-        entities: ['src/infra/repos/postgres/entities/index.ts']
+        db: 'test',
+        entities: ['src/infra/repos/postgres/entities/index.ts'],
+        migrations: ['src/infra/repos/postgres/migrations/*.ts']
       })
     } else {
       this.connection = new DataSource({
