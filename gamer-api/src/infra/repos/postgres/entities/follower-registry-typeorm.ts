@@ -1,4 +1,4 @@
-import { Column, Entity, JoinColumn, OneToOne, PrimaryGeneratedColumn, Relation } from 'typeorm'
+import { Column, Entity, JoinColumn, ManyToOne, PrimaryGeneratedColumn, Relation } from 'typeorm'
 import { UserTypeorm } from './user-typeorm'
 
 @Entity('follower_registry')
@@ -6,11 +6,11 @@ export class FollowerRegistryTypeorm {
   @PrimaryGeneratedColumn()
     id: string
 
-  @OneToOne(() => UserTypeorm)
+  @ManyToOne(() => UserTypeorm, (user) => user.id)
   @JoinColumn({ name: 'follower_id' })
     follower: Relation<UserTypeorm>
 
-  @OneToOne(() => UserTypeorm)
+  @ManyToOne(() => UserTypeorm, (user) => user.id)
   @JoinColumn({ name: 'followed_id' })
     followed: Relation<UserTypeorm>
 
