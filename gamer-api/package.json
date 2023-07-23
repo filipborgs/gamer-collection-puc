@@ -4,10 +4,10 @@
     "description": "",
     "main": "index.js",
     "scripts": {
-        "start": "npm run build && node dist/main/server.js",
+        "start": "node ./dist/main/server.js",
         "test": "jest --passWithNoTests --silent --noStackTrace --runInBand --no-cache",
         "test:watch": "npm test -- --watch --coverage",
-        "build": "rm -Rf ./dist && tsc -p tsconfig-build.json",
+        "build": "rm -rf ./dist && tsc -p tsconfig-build.json",
         "dev": "nodemon --inspect src/main/server.ts",
         "prepare": "cd .. && husky install",
         "pre-commit": "lint-staged",
