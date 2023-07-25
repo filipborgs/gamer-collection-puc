@@ -67,13 +67,6 @@
                         </v-card-actions>
                       </v-card>
                     </v-dialog>
-                    <confirm-modal
-                      v-model="dialogDelete"
-                      title="Tem certeza que deseja deletar o item?"
-                      modal-size="500"
-                      @confirm="deleteItemConfirm"
-                    >
-                    </confirm-modal>
                   </v-toolbar>
                 </template>
 
@@ -86,15 +79,18 @@
                     More info about {{ item.name }}
                   </td>
                 </template>
-                <template #item.actions="{ item }">
-                  <v-icon small class="mr-2" @click="editItem(item)">
-                    mdi-pencil
-                  </v-icon>
-                  <v-icon small @click="deleteItem(item)"> mdi-delete </v-icon>
+
+                <template #item.actions="{ item, index }">
+                  <table-actions
+                    :item="item"
+                    :index="index"
+                    @delete="deleteItemConfirm"
+                    @edit="editItem"
+                  >
+                  </table-actions>
                 </template>
-                <template #no-data>
-                  <v-btn color="primary"> Reset </v-btn>
-                </template>
+
+                <template #no-data> Não há consoles na sua coleção </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -106,15 +102,14 @@
 
 <script>
 import { makeApiLoadConsoleCollectionItems } from '../../../app/main/factories/domain/usecases/collection'
-import ConfirmModal from '../../../components/layout/confirm-modal.vue'
+import TableActions from '../../../components/layout/table-actions.vue'
 
 export default {
   components: {
-    ConfirmModal
+    TableActions
   },
   data: () => ({
     dialog: false,
-    dialogDelete: false,
     headers: [
       {
         text: 'Nome',
@@ -128,21 +123,6 @@ export default {
       { text: '', value: 'data-table-expand' }
     ],
     items: [],
-    editedIndex: -1,
-    editedItem: {
-      name: '',
-      data: 0,
-      valor: 0,
-      vendido: 0,
-      protein: 0
-    },
-    defaultItem: {
-      name: '',
-      data: 0,
-      valor: 0,
-      vendido: 0,
-      protein: 0
-    },
     collectionService: makeApiLoadConsoleCollectionItems(),
     search: null
   }),
@@ -153,15 +133,6 @@ export default {
         return acc + item.purchasePrice
       }
       return this.items.reduce(cb, 0)
-    }
-  },
-
-  watch: {
-    dialog(val) {
-      val || this.close()
-    },
-    dialogDelete(val) {
-      val || this.closeDelete()
     }
   },
 
@@ -192,40 +163,8 @@ export default {
       return new RegExp(search, 'gi').test(item.name)
     },
 
-    deleteItem(item) {
-      this.editedIndex = this.items.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialogDelete = true
-    },
-
-    deleteItemConfirm() {
-      this.items.splice(this.editedIndex, 1)
-      this.closeDelete()
-    },
-
-    close() {
-      this.dialog = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    closeDelete() {
-      this.dialogDelete = false
-      this.$nextTick(() => {
-        this.editedItem = Object.assign({}, this.defaultItem)
-        this.editedIndex = -1
-      })
-    },
-
-    save() {
-      if (this.editedIndex > -1) {
-        Object.assign(this.items[this.editedIndex], this.editedItem)
-      } else {
-        this.items.push(this.editedItem)
-      }
-      this.close()
+    deleteItemConfirm({ index }) {
+      this.items.splice(index, 1)
     }
   }
 }

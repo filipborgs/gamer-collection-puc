@@ -15,11 +15,7 @@
           Cancelar
         </v-btn>
         <v-spacer></v-spacer>
-        <v-btn
-          dark
-          small
-          @click="confirm"
-        >
+        <v-btn dark small @click="confirm">
           <v-icon class="pr-1">mdi-{{ btnIcon }}</v-icon>
           {{ btnText }}
         </v-btn>
@@ -34,6 +30,11 @@ export default {
     value: {
       required: true,
       type: Boolean
+    },
+    item: undefined,
+    index: {
+      type: Number,
+      required: true
     },
     btnIcon: {
       type: String,
