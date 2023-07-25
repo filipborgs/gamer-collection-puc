@@ -101,7 +101,10 @@
 </template>
 
 <script>
-import { makeApiLoadConsoleCollectionItems } from '../../../app/main/factories/domain/usecases/collection'
+import {
+  makeApiLoadConsoleCollectionItems,
+  makeApiRemoveConsoleCollectionItemById
+} from '../../../app/main/factories/domain/usecases/collection'
 import TableActions from '../../../components/layout/table-actions.vue'
 
 export default {
@@ -123,7 +126,8 @@ export default {
       { text: '', value: 'data-table-expand' }
     ],
     items: [],
-    collectionService: makeApiLoadConsoleCollectionItems(),
+    loadService: makeApiLoadConsoleCollectionItems(),
+    removeService: makeApiRemoveConsoleCollectionItemById(),
     search: null
   }),
 
@@ -137,7 +141,7 @@ export default {
   },
 
   async created() {
-    this.items = await this.collectionService.loadById(
+    this.items = await this.loadService.loadById(
       this.$route.params.userId
     )
   },
@@ -163,8 +167,14 @@ export default {
       return new RegExp(search, 'gi').test(item.name)
     },
 
-    deleteItemConfirm({ index }) {
-      this.items.splice(index, 1)
+    async deleteItemConfirm({ index, item }) {
+      try {
+        const message = await this.removeService.removeById(item.id)
+        this.items.splice(index, 1)
+        alert(message)
+      } catch (e) {
+        alert(e.message)
+      }
     }
   }
 }
