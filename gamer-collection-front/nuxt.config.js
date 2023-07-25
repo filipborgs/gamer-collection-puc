@@ -1,4 +1,5 @@
 import colors from 'vuetify/es5/util/colors'
+import ptbr from "./app/infra/helpers/vuetify/pt-br";
 
 export default {
   // Disable server-side rendering: https://go.nuxtjs.dev/ssr-mode
@@ -66,6 +67,10 @@ export default {
         },
       },
     },
+    lang: {
+      locales: { ptbr },
+      current: "ptbr"
+    }
   },
 
   // Build Configuration: https://go.nuxtjs.dev/config-build
