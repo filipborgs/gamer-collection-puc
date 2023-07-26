@@ -10,7 +10,7 @@
               Total de consoles: {{ items.length }}
             </v-card-subtitle>
             <v-card-subtitle>
-              Total gasto: R$ {{ totalSpend }}
+              Total gasto: {{ totalSpend | currency }}
             </v-card-subtitle>
           </v-card>
         </v-sheet>
@@ -23,6 +23,7 @@
               <v-data-table
                 :headers="headers"
                 :items="items"
+                :loading="isLoading"
                 item-key="name"
                 show-expand
                 class="elevation-1"
@@ -42,52 +43,33 @@
                       clearable
                       dense
                     ></VTextField>
-                    <v-dialog max-width="500px">
-                      <v-card>
-                        <v-card-title>
-                          <span class="text-h5">Editar item</span>
-                        </v-card-title>
-                        <v-card-text> </v-card-text>
-                        <v-card-actions>
-                          <v-spacer></v-spacer>
-                          <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="dialog = false"
-                          >
-                            Cancelar
-                          </v-btn>
-                          <v-btn
-                            color="blue darken-1"
-                            text
-                            @click="dialog = false"
-                          >
-                            Adicionar
-                          </v-btn>
-                        </v-card-actions>
-                      </v-card>
-                    </v-dialog>
                   </v-toolbar>
                 </template>
 
                 <template #item.purchaseDate="{ item }">
-                  {{ formatDate(item.purchaseDate) }}
+                  {{ item.purchaseDate | formatDate }}
                 </template>
 
-                <template #expanded-item="{ headers, item }">
-                  <td :colspan="headers.length">
-                    More info about {{ item.name }}
-                  </td>
+                <template #item.purchasePrice="{ item }">
+                  {{ item.purchasePrice | currency }}
+                </template>
+
+                <template #expanded-item="{ item }">
+                  <td :colspan="headers.length">Mais sobre {{ item.name }}</td>
                 </template>
 
                 <template #item.actions="{ item, index }">
-                  <table-actions
+                  <layout-table-actions
                     :item="item"
                     :index="index"
                     @delete="deleteItemConfirm"
-                    @edit="editItem"
                   >
-                  </table-actions>
+                    <collection-edit-console-collection-item
+                      :default-item="item"
+                      :index="index"
+                      @updated="editItem"
+                    ></collection-edit-console-collection-item>
+                  </layout-table-actions>
                 </template>
 
                 <template #no-data> Não há consoles na sua coleção </template>
@@ -101,18 +83,14 @@
 </template>
 
 <script>
+import { mapMutations, mapGetters } from 'vuex'
 import {
   makeApiLoadConsoleCollectionItems,
   makeApiRemoveConsoleCollectionItemById
-} from '../../../app/main/factories/domain/usecases/collection'
-import TableActions from '../../../components/layout/table-actions.vue'
+} from '~/app/main/factories/domain/usecases/collection'
 
 export default {
-  components: {
-    TableActions
-  },
   data: () => ({
-    dialog: false,
     headers: [
       {
         text: 'Nome',
@@ -122,7 +100,7 @@ export default {
       },
       { text: 'Data', value: 'purchaseDate' },
       { text: 'Valor', value: 'purchasePrice' },
-      { text: 'Actions', value: 'actions', sortable: false },
+      { text: 'Ações', value: 'actions', sortable: false },
       { text: '', value: 'data-table-expand' }
     ],
     items: [],
@@ -132,48 +110,49 @@ export default {
   }),
 
   computed: {
+    ...mapGetters({
+      isLoading: 'global/isLoading'
+    }),
+
     totalSpend() {
-      const cb = (acc, item) => {
-        return acc + item.purchasePrice
+      const callback = (acc, { purchasePrice }) => {
+        return purchasePrice ? Number(acc) + Number(purchasePrice) : acc
       }
-      return this.items.reduce(cb, 0)
+      return this.items.reduce(callback, 0)
     }
   },
 
   async created() {
-    this.items = await this.loadService.loadById(
-      this.$route.params.userId
-    )
+    const { userId } = this.$route.params
+    this.items = await this.loadService.loadById(userId)
+    this.loading = false
   },
 
   methods: {
-    editItem(item) {
-      this.editedIndex = this.items.indexOf(item)
-      this.editedItem = Object.assign({}, item)
-      this.dialog = true
-    },
+    ...mapMutations({
+      removeLoadingState: 'global/removeLoadingState'
+    }),
 
-    formatDate(stringDate) {
-      if (!stringDate) return ''
-      const date = new Date(stringDate)
-      return `${date.getDate().toString().padStart(2, '0')}/${(
-        date.getMonth() + 1
-      )
-        .toString()
-        .padStart(2, '0')}/${date.getFullYear()}`
+    editItem({ index, updated }) {
+      const consoleItem = this.items[index]
+      consoleItem.purchasePrice = updated.purchasePrice
+      consoleItem.purchaseState = updated.purchaseState
+      consoleItem.purchaseDate = updated.purchaseDate
     },
 
     filter(_, search, item) {
       return new RegExp(search, 'gi').test(item.name)
     },
 
-    async deleteItemConfirm({ index, item }) {
+    async deleteItemConfirm({ index, item: { id } }) {
       try {
-        const message = await this.removeService.removeById(item.id)
+        const message = await this.removeService.removeById(id)
         this.items.splice(index, 1)
         alert(message)
       } catch (e) {
         alert(e.message)
+      } finally {
+        this.removeLoadingState()
       }
     }
   }

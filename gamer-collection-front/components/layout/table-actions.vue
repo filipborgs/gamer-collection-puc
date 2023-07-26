@@ -1,6 +1,6 @@
 <template>
   <div>
-    <confirm-modal
+    <layout-confirm-modal
       v-if="actions.includes('remove')"
       v-model="dialogDelete"
       :item="item"
@@ -9,7 +9,9 @@
       modal-size="500"
       @confirm="deleteItemConfirm"
     >
-    </confirm-modal>
+    </layout-confirm-modal>
+
+    <slot> </slot>
 
     <v-tooltip v-if="actions.includes('edit')" bottom>
       <template #activator="{ on, attrs }">
@@ -46,13 +48,9 @@
 </template>
 
 <script>
-import ConfirmModal from './confirm-modal.vue'
 
 export default {
-  components: {
-    ConfirmModal
-  },
-
+  name: 'TableActions',
   props: {
     item: undefined,
     index: {
@@ -61,7 +59,7 @@ export default {
     },
     actions: {
       type: Array,
-      default: () => ['remove', 'edit']
+      default: () => ['remove']
     }
   },
 
