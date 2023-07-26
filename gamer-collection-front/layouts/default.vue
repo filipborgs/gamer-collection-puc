@@ -8,7 +8,7 @@
       </v-tabs>
       <v-menu bottom min-width="200px" rounded offset-y>
         <template #activator="{ on }">
-          <v-btn icon x-large v-on="on">
+          <v-btn :loading="isLoading" icon x-large v-on="on">
             <v-avatar>
               <v-icon>mdi-account</v-icon>
             </v-avatar>
@@ -58,10 +58,11 @@
 </template>
 
 <script>
+import { mapGetters } from 'vuex'
 import {
   getCurrentUserAdapter,
   setCurrentUserAdapter
-} from '../app/main/adapters'
+} from '~/app/main/adapters'
 
 export default {
   data: () => ({
@@ -72,6 +73,11 @@ export default {
     },
     links: []
   }),
+  computed: {
+    ...mapGetters({
+      isLoading: 'global/isLoading'
+    })
+  },
   mounted() {
     const user = getCurrentUserAdapter()
     this.links = [

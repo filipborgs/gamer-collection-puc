@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-if="getModal" v-model="getModal" :max-width="modalSize">
+  <v-dialog v-model="getModal" :max-width="modalSize">
     <v-card>
       <v-card-title class="text-h5">
         {{ title }}
@@ -25,7 +25,10 @@
 </template>
 
 <script>
+import { mapMutations } from 'vuex'
+
 export default {
+  name: 'ConfirmModal',
   props: {
     value: {
       required: true,
@@ -66,11 +69,17 @@ export default {
   },
 
   methods: {
+    ...mapMutations({
+      setLoadingState: 'global/setLoadingState'
+    }),
+
     confirm() {
+      this.setLoadingState()
       this.$emit('confirm', {
         item: this.item,
         index: this.index
       })
+      this.getModal = false
     },
 
     close() {
