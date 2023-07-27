@@ -44,7 +44,7 @@
               ></v-text-field>
             </v-col>
             <v-col cols="12" sm="6" md="4">
-              <v-radio-group v-model="item.purchaseStatus">
+              <v-radio-group v-model="item.purchaseState">
                 <template #label>
                   <div>Estado do item</div>
                 </template>
@@ -130,7 +130,7 @@ export default {
     loading: false,
     item: {
       purchasePrice: null,
-      purchaseStatus: null,
+      purchaseState: null,
       purchaseDate: null,
       platformId: null
     },
