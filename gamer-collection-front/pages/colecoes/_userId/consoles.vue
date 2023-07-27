@@ -20,29 +20,12 @@
         <v-sheet color="grey darken-4" min-height="70vh" rounded="lg">
           <v-card class="mx-auto">
             <v-card-text class="py-0">
-              <v-data-table
-                :headers="headers"
-                :items="items"
-                :loading="isLoading"
-                item-key="name"
-                show-expand
-                class="elevation-1"
-                :search="search"
-                :custom-filter="filter"
-              >
+              <v-data-table :headers="headers" :items="items" :loading="isLoading" item-key="id" show-expand
+                class="elevation-1" :search="search" :custom-filter="filter">
                 <template #top>
                   <v-toolbar flat>
-                    <VTextField
-                      v-model="search"
-                      autofocus
-                      prepend-inner-icon="mdi-magnify"
-                      label="Pesquisar"
-                      autocomplete="off"
-                      hide-details
-                      outlined
-                      clearable
-                      dense
-                    ></VTextField>
+                    <VTextField v-model="search" autofocus prepend-inner-icon="mdi-magnify" label="Pesquisar"
+                      autocomplete="off" hide-details outlined clearable dense></VTextField>
                   </v-toolbar>
                 </template>
 
@@ -59,16 +42,9 @@
                 </template>
 
                 <template #item.actions="{ item, index }">
-                  <layout-table-actions
-                    :item="item"
-                    :index="index"
-                    @delete="deleteItemConfirm"
-                  >
-                    <collection-edit-console-collection-item
-                      :default-item="item"
-                      :index="index"
-                      @updated="editItem"
-                    ></collection-edit-console-collection-item>
+                  <layout-table-actions :item="item" :index="index" @delete="deleteItemConfirm">
+                    <collection-edit-console-collection-item :default-item="item" :index="index"
+                      @updated="editItem"></collection-edit-console-collection-item>
                   </layout-table-actions>
                 </template>
 
@@ -83,7 +59,6 @@
 </template>
 
 <script>
-import { mapMutations, mapGetters } from 'vuex'
 import {
   makeApiLoadConsoleCollectionItems,
   makeApiRemoveConsoleCollectionItemById
@@ -110,10 +85,6 @@ export default {
   }),
 
   computed: {
-    ...mapGetters({
-      isLoading: 'global/isLoading'
-    }),
-
     totalSpend() {
       const callback = (acc, { purchasePrice }) => {
         return purchasePrice ? Number(acc) + Number(purchasePrice) : acc
@@ -123,16 +94,19 @@ export default {
   },
 
   async created() {
-    const { userId } = this.$route.params
-    this.items = await this.loadService.loadById(userId)
-    this.loading = false
+    try {
+      this.setLoadingState()
+      const { userId } = this.$route.params
+      this.items = await this.loadService.loadById(userId)
+    } catch (e) {
+      this.queueMessage(e.message)
+    } finally {
+      this.removeLoadingState()
+    }
+
   },
 
   methods: {
-    ...mapMutations({
-      removeLoadingState: 'global/removeLoadingState'
-    }),
-
     editItem({ index, updated }) {
       const consoleItem = this.items[index]
       consoleItem.purchasePrice = updated.purchasePrice
@@ -148,9 +122,9 @@ export default {
       try {
         const message = await this.removeService.removeById(id)
         this.items.splice(index, 1)
-        alert(message)
+        this.queueMessage(message)
       } catch (e) {
-        alert(e.message)
+        this.queueMessage(e.message)
       } finally {
         this.removeLoadingState()
       }

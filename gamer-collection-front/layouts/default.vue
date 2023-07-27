@@ -43,6 +43,7 @@
 
     <v-main>
       <v-container>
+        <layout-alert-message />
         <v-row>
           <v-col cols="12">
             <v-sheet min-height="70vh" rounded="lg">
@@ -58,11 +59,14 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import Vue from 'vue'
+import global from '~/mixins/global-mixin.js'
 import {
   getCurrentUserAdapter,
   setCurrentUserAdapter
 } from '~/app/main/adapters'
+
+Vue.mixin(global)
 
 export default {
   data: () => ({
@@ -73,11 +77,7 @@ export default {
     },
     links: []
   }),
-  computed: {
-    ...mapGetters({
-      isLoading: 'global/isLoading'
-    })
-  },
+
   mounted() {
     const user = getCurrentUserAdapter()
     this.links = [
@@ -95,6 +95,7 @@ export default {
       }
     ]
   },
+
   methods: {
     dark() {
       this.$vuetify.theme.dark = !this.$vuetify.theme.dark
