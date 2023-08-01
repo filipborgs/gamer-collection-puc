@@ -38,13 +38,32 @@
                 </template>
 
                 <template #expanded-item="{ item }">
-                  <td :colspan="headers.length">Mais sobre {{ item.name }}</td>
+                  <td :colspan="headers.length">
+                    <v-card-text>
+                      <div class="font-weight-bold ml-8 mb-2">
+                        {{ item.name }}
+                      </div>
+
+                      <v-timeline align-top dense>
+                        <v-timeline-item small>
+                          <div>
+                            <div class="font-weight-normal">
+                              <strong>Estado da compra</strong>
+                            </div>
+                            <div>{{ parseState(item.purchaseState) }}</div>
+                          </div>
+                        </v-timeline-item>
+                      </v-timeline>
+                    </v-card-text>
+
+                  </td>
                 </template>
 
                 <template #item.actions="{ item, index }">
-                  <layout-table-actions :item="item" :index="index" @delete="deleteItemConfirm">
-                    <collection-edit-console-collection-item :default-item="item" :index="index"
-                      @updated="editItem"></collection-edit-console-collection-item>
+                  <layout-table-actions :item="item" :index="index" @delete="deleteItemConfirm"
+                    @open="openConsole">
+                    <collection-edit-console-collection-item :default-item="item" :index="index" @updated="editItem">
+                    </collection-edit-console-collection-item>
                   </layout-table-actions>
                 </template>
 
@@ -103,7 +122,6 @@ export default {
     } finally {
       this.removeLoadingState()
     }
-
   },
 
   methods: {
@@ -114,8 +132,23 @@ export default {
       consoleItem.purchaseDate = updated.purchaseDate
     },
 
+    openConsole({ item }) {
+      this.$router.push({
+        path: `/console/${item.itemId}`
+      })
+    },
+
     filter(_, search, item) {
       return new RegExp(search, 'gi').test(item.name)
+    },
+
+    parseState(state) {
+      if (state === 'USED')
+        return 'Usado'
+      else if (state === 'NEW')
+        return 'Novo'
+      else
+        return '-'
     },
 
     async deleteItemConfirm({ index, item: { id } }) {

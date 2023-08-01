@@ -1,44 +1,23 @@
 <template>
   <div>
-    <layout-confirm-modal
-      v-if="actions.includes('remove')"
-      v-model="dialogDelete"
-      :item="item"
-      :index="index"
-      title="Tem certeza que deseja deletar o item?"
-      modal-size="500"
-      @confirm="deleteItemConfirm"
-    >
+    <layout-confirm-modal v-if="actions.includes('remove')" v-model="dialogDelete" :item="item" :index="index"
+      title="Tem certeza que deseja deletar o item?" modal-size="500" @confirm="deleteItemConfirm">
     </layout-confirm-modal>
 
     <slot> </slot>
 
-    <v-tooltip v-if="actions.includes('edit')" bottom>
+    <v-tooltip bottom>
       <template #activator="{ on, attrs }">
-        <v-btn
-          color="edit"
-          icon
-          v-bind="attrs"
-          small
-          v-on="on"
-          @click="editItem()"
-        >
-          <v-icon>mdi-pencil</v-icon>
+        <v-btn icon v-bind="attrs" small v-on="on" @click="openItem()">
+          <v-icon>mdi-open-in-app</v-icon>
         </v-btn>
       </template>
-      <span>Editar</span>
+      <span>Abrir</span>
     </v-tooltip>
 
     <v-tooltip v-if="actions.includes('remove')" bottom>
       <template #activator="{ on, attrs }">
-        <v-btn
-          icon
-          v-bind="attrs"
-          color="remove"
-          small
-          v-on="on"
-          @click="dialogDelete = true"
-        >
+        <v-btn icon v-bind="attrs" color="error" small v-on="on" @click="dialogDelete = true">
           <v-icon>mdi-delete</v-icon>
         </v-btn>
       </template>
@@ -68,12 +47,12 @@ export default {
   }),
 
   methods: {
-    editItem() {
+    openItem() {
       const data = {
         item: this.item,
         index: this.index
       }
-      this.$emit('edit', data)
+      this.$emit('open', data)
     },
 
     deleteItemConfirm(event) {
