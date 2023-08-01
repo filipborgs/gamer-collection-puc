@@ -10,12 +10,12 @@
       </v-card-text>
 
       <v-card-actions>
-        <v-btn small @click="close">
+        <v-spacer></v-spacer>
+        <v-btn color="error" plain @click="close">
           <v-icon class="pr-1">mdi-close</v-icon>
           Cancelar
         </v-btn>
-        <v-spacer></v-spacer>
-        <v-btn dark small @click="confirm">
+        <v-btn color="info" plain @click="confirm">
           <v-icon class="pr-1">mdi-{{ btnIcon }}</v-icon>
           {{ btnText }}
         </v-btn>
