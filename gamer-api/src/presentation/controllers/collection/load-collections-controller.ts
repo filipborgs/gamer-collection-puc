@@ -1,5 +1,6 @@
 import { LoadCollections } from '@/domain/usecases/collection'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class LoadCollectionsController implements Controller {
@@ -9,7 +10,7 @@ export class LoadCollectionsController implements Controller {
     try {
       const { userId } = params
       const collections = await this.loadCollections.load(userId)
-      if (!collections) return noContent()
+      if (!collections) return notFound(new NotFound('Collections'))
       return ok(collections)
     } catch (error) {
       return serverError(error)

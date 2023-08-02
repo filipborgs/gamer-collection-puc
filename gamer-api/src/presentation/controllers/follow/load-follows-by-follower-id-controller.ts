@@ -1,5 +1,6 @@
 import { LoadFollowsByFollowerId } from '@/domain/usecases/user'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { Controller, HttpRequest, HttpResponse } from '@/presentation/protocols'
 
 export class LoadFollowsByFollowerIdController implements Controller {
@@ -11,7 +12,7 @@ export class LoadFollowsByFollowerIdController implements Controller {
       const follows = await this.loadFollows.loadFollows({
         followerId
       })
-      if (!follows) return noContent()
+      if (!follows) return notFound(new NotFound('Follows'))
       return ok(follows)
     } catch (error) {
       return serverError(error)
