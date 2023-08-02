@@ -1,6 +1,7 @@
 import { LoadPlatformCollectionItems } from '@/domain/usecases/collection'
 import { LoadPlatformCollectionItemController } from '@/presentation/controllers/collection'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadPlatformCollectionItems } from '@/test/domain/usecases/mocks'
 import { MockProxy, mock } from 'jest-mock-extended'
@@ -37,10 +38,10 @@ describe('LoadPlatformCollectionItemController', () => {
     expect(response).toEqual(serverError(error))
   })
 
-  it('Should return 204 if LoadPlatformCollectionItems returns an empty array', async () => {
+  it('Should return 404 if LoadPlatformCollectionItems returns an empty array', async () => {
     loadItemsUsecase.loadByUser.mockResolvedValueOnce([])
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(noContent())
+    expect(response).toEqual(notFound(new NotFound('Platform collection item')))
   })
 
   it('Should return 200 if succeds', async () => {

@@ -1,6 +1,7 @@
 import { LoadGameCollectionItems } from '@/domain/usecases/collection'
 import { LoadGameCollectionItemController } from '@/presentation/controllers/collection'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadGameCollectionItems } from '@/test/domain/usecases/mocks'
 import { MockProxy, mock } from 'jest-mock-extended'
@@ -40,10 +41,10 @@ describe('LoadGameCollectionItemController', () => {
     expect(response).toEqual(serverError(error))
   })
 
-  it('Should return 204 if LoadGameCollectionItems returns an empty array', async () => {
+  it('Should return 404 if LoadGameCollectionItems returns an empty array', async () => {
     loadItemsUsecase.loadByUser.mockResolvedValueOnce([])
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(noContent())
+    expect(response).toEqual(notFound(new NotFound('Game collection item')))
   })
 
   it('Should return 200 if succeds', async () => {

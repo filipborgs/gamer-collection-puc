@@ -1,6 +1,7 @@
 import { LoadCollections } from '@/domain/usecases/collection'
 import { LoadCollectionsController } from '@/presentation/controllers/collection'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockLoadCollections } from '@/test/domain/usecases/mocks'
 import { MockProxy, mock } from 'jest-mock-extended'
@@ -39,7 +40,7 @@ describe('LoadCollectionsController', () => {
   it('Should return 204 if LoadCollections returns null', async () => {
     loadGamesUsecase.load.mockResolvedValueOnce(null)
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(noContent())
+    expect(response).toEqual(notFound(new NotFound('Collections')))
   })
 
   it('Should return 200 if succeds', async () => {

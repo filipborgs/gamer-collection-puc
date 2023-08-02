@@ -1,6 +1,7 @@
 import { LoadFollowsByFollowerId } from '@/domain/usecases/user'
 import { LoadFollowsByFollowerIdController } from '@/presentation/controllers/follow'
-import { noContent, ok, serverError } from '@/presentation/helpers/http'
+import { NotFound } from '@/presentation/errors'
+import { notFound, ok, serverError } from '@/presentation/helpers/http'
 import { HttpRequest } from '@/presentation/protocols'
 import { mockFollowerRegistry } from '@/test/domain/entities/mocks'
 import { MockProxy, mock } from 'jest-mock-extended'
@@ -40,7 +41,7 @@ describe('LoadFollowsByFollowerIdController', () => {
   it('Should return 204 if LoadFollowsByFollowerId returns null', async () => {
     loadFollows.loadFollows.mockResolvedValueOnce(null)
     const response = await sut.handle(httpRequest)
-    expect(response).toEqual(noContent())
+    expect(response).toEqual(notFound(new NotFound('Follows')))
   })
 
   it('Should return 200 if succeds', async () => {
