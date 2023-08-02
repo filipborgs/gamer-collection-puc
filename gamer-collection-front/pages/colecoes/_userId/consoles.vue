@@ -20,12 +20,29 @@
         <v-sheet color="grey darken-4" min-height="70vh" rounded="lg">
           <v-card class="mx-auto">
             <v-card-text class="py-0">
-              <v-data-table :headers="headers" :items="items" :loading="isLoading" item-key="id" show-expand
-                class="elevation-1" :search="search" :custom-filter="filter">
+              <v-data-table
+                :headers="headers"
+                :items="items"
+                :loading="isLoading"
+                item-key="id"
+                show-expand
+                class="elevation-1"
+                :search="search"
+                :custom-filter="filter"
+              >
                 <template #top>
                   <v-toolbar flat>
-                    <VTextField v-model="search" autofocus prepend-inner-icon="mdi-magnify" label="Pesquisar"
-                      autocomplete="off" hide-details outlined clearable dense></VTextField>
+                    <VTextField
+                      v-model="search"
+                      autofocus
+                      prepend-inner-icon="mdi-magnify"
+                      label="Pesquisar"
+                      autocomplete="off"
+                      hide-details
+                      outlined
+                      clearable
+                      dense
+                    ></VTextField>
                   </v-toolbar>
                 </template>
 
@@ -55,19 +72,26 @@
                         </v-timeline-item>
                       </v-timeline>
                     </v-card-text>
-
                   </td>
                 </template>
 
                 <template #item.actions="{ item, index }">
-                  <layout-table-actions :item="item" :index="index" @delete="deleteItemConfirm"
-                    @open="openConsole">
-                    <collection-edit-console-collection-item :default-item="item" :index="index" @updated="editItem">
+                  <layout-table-actions
+                    :item="item"
+                    :index="index"
+                    @delete="deleteItemConfirm"
+                    @open="openConsole"
+                  >
+                    <collection-edit-console-collection-item
+                      :default-item="item"
+                      :index="index"
+                      @updated="editItem"
+                    >
                     </collection-edit-console-collection-item>
                   </layout-table-actions>
                 </template>
 
-                <template #no-data> Não há consoles na sua coleção </template>
+                <template #no-data> Não há jogos na sua coleção, mas você pode adicionar na aba CONSOLES </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -143,12 +167,9 @@ export default {
     },
 
     parseState(state) {
-      if (state === 'USED')
-        return 'Usado'
-      else if (state === 'NEW')
-        return 'Novo'
-      else
-        return '-'
+      if (state === 'USED') return 'Usado'
+      else if (state === 'NEW') return 'Novo'
+      else return '-'
     },
 
     async deleteItemConfirm({ index, item: { id } }) {

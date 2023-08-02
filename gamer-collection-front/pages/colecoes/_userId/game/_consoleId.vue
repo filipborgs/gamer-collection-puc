@@ -6,8 +6,12 @@
         <v-sheet color="grey darken-4" rounded="lg">
           <v-card class="mx-auto" max-width="400">
             <v-card-title> Jogos {{ platformName }}</v-card-title>
-            <v-card-subtitle> Total de jogos: {{ items.length }} </v-card-subtitle>
-            <v-card-subtitle> Total gasto: {{ totalSpend | currency }} </v-card-subtitle>
+            <v-card-subtitle>
+              Total de jogos: {{ items.length }}
+            </v-card-subtitle>
+            <v-card-subtitle>
+              Total gasto: {{ totalSpend | currency }}
+            </v-card-subtitle>
           </v-card>
         </v-sheet>
       </v-col>
@@ -16,13 +20,29 @@
         <v-sheet color="grey darken-4" min-height="70vh" rounded="lg">
           <v-card class="mx-auto">
             <v-card-text class="py-0">
-              <v-data-table :headers="headers" :items="items" :loading="isLoading" item-key="name" show-expand
-                class="elevation-1" :search="search" :custom-filter="filter">
-
+              <v-data-table
+                :headers="headers"
+                :items="items"
+                :loading="isLoading"
+                item-key="id"
+                show-expand
+                class="elevation-1"
+                :search="search"
+                :custom-filter="filter"
+              >
                 <template #top>
                   <v-toolbar flat>
-                    <VTextField v-model="search" autofocus prepend-inner-icon="mdi-magnify" label="Pesquisar"
-                      autocomplete="off" hide-details outlined clearable dense></VTextField>
+                    <VTextField
+                      v-model="search"
+                      autofocus
+                      prepend-inner-icon="mdi-magnify"
+                      label="Pesquisar"
+                      autocomplete="off"
+                      hide-details
+                      outlined
+                      clearable
+                      dense
+                    ></VTextField>
                   </v-toolbar>
                 </template>
 
@@ -35,13 +55,22 @@
                 </template>
 
                 <template #item.actions="{ item, index }">
-                  <layout-table-actions :item="item" :index="index" @delete="deleteItemConfirm" @open="openGame">
-                    <collection-edit-game-collection-item :default-item="item" :index="index" @updated="editGame">
+                  <layout-table-actions
+                    :item="item"
+                    :index="index"
+                    @delete="deleteItemConfirm"
+                    @open="openGame"
+                  >
+                    <collection-edit-game-collection-item
+                      :default-item="item"
+                      :index="index"
+                      @updated="editGame"
+                    >
                     </collection-edit-game-collection-item>
                   </layout-table-actions>
                 </template>
 
-                <template #expanded-item="{ headers, item }">
+                <template #expanded-item="{ item }">
                   <td :colspan="headers.length">
                     <v-card-text>
                       <div class="font-weight-bold ml-8 mb-2">
@@ -62,7 +91,7 @@
                   </td>
                 </template>
 
-                <template #no-data> Não há jogos na sua coleção </template>
+                <template #no-data> Não há jogos na sua coleção, mas você pode adicionar na aba GAMES </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -73,7 +102,10 @@
 </template>
 
 <script>
-import { makeApiLoadGamesCollectionItems, makeApiRemoveGameCollectionItemById } from '~/app/main/factories/domain/usecases/collection'
+import {
+  makeApiLoadGamesCollectionItems,
+  makeApiRemoveGameCollectionItemById
+} from '~/app/main/factories/domain/usecases/collection'
 
 export default {
   data: () => ({
@@ -149,12 +181,9 @@ export default {
     },
 
     parseState(state) {
-      if (state === 'USED')
-        return 'Usado'
-      else if (state === 'NEW')
-        return 'Novo'
-      else
-        return '-'
+      if (state === 'USED') return 'Usado'
+      else if (state === 'NEW') return 'Novo'
+      else return '-'
     },
 
     async deleteItemConfirm({ index, item: { id } }) {
