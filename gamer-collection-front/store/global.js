@@ -4,7 +4,7 @@ export const state = () => ({
 })
 
 export const getters = {
-  isLoading(state) {
+  isWaiting(state) {
     return state.loading
   },
 

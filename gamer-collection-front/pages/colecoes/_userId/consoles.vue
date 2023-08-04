@@ -23,7 +23,7 @@
               <v-data-table
                 :headers="headers"
                 :items="items"
-                :loading="isLoading"
+                :loading="isWaiting"
                 item-key="id"
                 show-expand
                 class="elevation-1"

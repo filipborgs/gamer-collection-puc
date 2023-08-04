@@ -4,7 +4,7 @@
       <v-col cols="12" sm="3">
         <v-sheet color="grey darken-4" rounded="lg" min-height="268">
           <v-card class="mx-auto" max-width="400">
-            <AddCollectionItem :platforms="item.platforms" />
+            <AddCollectionItem :selected-game="item" />
             <v-img class="rounded-lg" :src="image" height="400px" dark>
               <template #placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">

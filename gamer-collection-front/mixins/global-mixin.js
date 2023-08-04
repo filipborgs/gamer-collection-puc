@@ -3,7 +3,7 @@ import { mapGetters, mapMutations, mapActions } from 'vuex'
 export default {
   computed: {
     ...mapGetters({
-      isLoading: 'global/isLoading'
+      isWaiting: 'global/isWaiting'
     })
   },
 

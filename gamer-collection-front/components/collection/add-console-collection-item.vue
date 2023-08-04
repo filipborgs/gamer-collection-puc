@@ -88,7 +88,7 @@
       </v-card-text>
       <v-card-actions>
         <v-spacer></v-spacer>
-        <v-btn color="error" plain :disabled="loading" @click="resetState">
+        <v-btn color="error" plain @click="resetState">
           <v-icon class="pr-1">mdi-close</v-icon>
           Cancelar
         </v-btn>
@@ -155,6 +155,7 @@ export default {
       } catch (e) {
         this.queueMessage(e.message)
       } finally {
+        this.loading = false
         this.removeLoadingState()
       }
     },
