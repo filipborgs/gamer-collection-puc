@@ -1,22 +1,19 @@
 <template>
   <v-container>
     <v-row align="center" justify="center" dense>
-      <v-col cols="5">
-        <VTextField
+      <v-col cols="6">
+        <v-text-field
           v-model="search"
           autofocus
           label="Pesquisar"
           autocomplete="off"
+          append-icon="mdi-magnify"
           hide-details
           outlined
           clearable
           @keyup.enter="searchItem"
-        ></VTextField>
-      </v-col>
-      <v-col cols="1">
-        <v-btn icon :loading="loading" @click="searchItem">
-          <v-icon>mdi-magnify</v-icon>
-        </v-btn>
+          @click:append="searchItem"
+        ></v-text-field>
       </v-col>
     </v-row>
     <div class="row text-center">
@@ -47,16 +44,16 @@
                 ></v-progress-circular>
               </v-row>
             </template>
-            <v-card-title style="cursor: auto" name="name-label" @click.stop=""
+            <v-card-title v-show="!loading" style="cursor: auto" name="name-label" @click.stop=""
               >{{ item.name }}
             </v-card-title>
           </v-img>
-          <slot name="add-button" v-bind="item" />
+          <slot v-if="!loading" name="add-button" v-bind="item" />
 
           <v-card-text v-if="!images">
             <v-row dense>
               <v-col>
-                <v-list-item v-show="item.name" :to="`${path}/${item.id}`">
+                <v-list-item :to="loading ? null: `${path}/${item.id}`">
                   <v-list-item-content>
                     <v-list-item-title>{{ item.name }} </v-list-item-title>
                   </v-list-item-content>
@@ -131,7 +128,10 @@ export default {
     setLoading() {
       window.scrollTo(0, 0)
       this.loading = true
-      this.items = this.images ? Array(this.limit).fill({}) : []
+      this.setLoadingState()
+      this.items =  Array(this.limit).fill({
+        name: ' '
+      })
     },
 
     async searchItem() {
@@ -150,9 +150,10 @@ export default {
         this.items = items
         this.total = count
       } catch (e) {
-        alert(e.message)
+        this.queueMessage(e.message)
       } finally {
-        this.loading = false
+        this.removeLoadingState()
+      this.loading = false
       }
     },
 
