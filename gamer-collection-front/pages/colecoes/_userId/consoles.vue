@@ -91,7 +91,10 @@
                   </layout-table-actions>
                 </template>
 
-                <template #no-data> Não há jogos na sua coleção, mas você pode adicionar na aba CONSOLES </template>
+                <template #no-data>
+                  Não há jogos na sua coleção, mas você pode adicionar na aba
+                  CONSOLES
+                </template>
               </v-data-table>
             </v-card-text>
           </v-card>
@@ -149,11 +152,10 @@ export default {
   },
 
   methods: {
-    editItem({ index, updated }) {
-      const consoleItem = this.items[index]
-      consoleItem.purchasePrice = updated.purchasePrice
-      consoleItem.purchaseState = updated.purchaseState
-      consoleItem.purchaseDate = updated.purchaseDate
+    editItem({ item, updated }) {
+      item.purchasePrice = updated.purchasePrice
+      item.purchaseState = updated.purchaseState
+      item.purchaseDate = updated.purchaseDate
     },
 
     openConsole({ item }) {

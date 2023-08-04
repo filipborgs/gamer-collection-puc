@@ -163,11 +163,10 @@ export default {
   },
 
   methods: {
-    editGame({ index, updated }) {
-      const consoleItem = this.items[index]
-      consoleItem.purchasePrice = updated.purchasePrice
-      consoleItem.purchaseState = updated.purchaseState
-      consoleItem.purchaseDate = updated.purchaseDate
+    editGame({ item, updated }) {
+      item.purchasePrice = updated.purchasePrice
+      item.purchaseState = updated.purchaseState
+      item.purchaseDate = updated.purchaseDate
     },
 
     openGame({ item }) {
