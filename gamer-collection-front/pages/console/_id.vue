@@ -6,7 +6,7 @@
           <v-card class="mx-auto" max-width="400">
             <v-card-title> {{ item.name }} </v-card-title>
             <v-card-subtitle> {{ releaseDate }} </v-card-subtitle>
-            <AddCollectionItem/>
+            <AddCollectionItem :selected-console="item"/>
           </v-card>
         </v-sheet>
       </v-col>

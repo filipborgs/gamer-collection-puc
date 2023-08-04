@@ -1,33 +1,22 @@
 <template>
-  <SearchPage
+  <layout-search-page
     :service="consoleService"
     path="/console"
     :images="false"
-    :limit="24"
+    :limit="20"
   >
-    <template #add-button="{ id }">
-      <AddCollectionItem x-small :item-id="id" />
+    <template #add-button="console">
+      <collection-add-console-collection-item x-small :selected-console="console" />
     </template>
-  </SearchPage>
+  </layout-search-page>
 </template>
 
 <script>
-import { makeApiSearchConsoles } from '../app/main/factories/domain/usecases/console'
-import SearchPage from '../components/layout/search-page.vue'
-import AddCollectionItem from '../components/collection/add-console-collection-item.vue'
+import { makeApiSearchConsoles } from '~/app/main/factories/domain/usecases/console'
 
 export default {
-  components: { SearchPage, AddCollectionItem },
   data: () => ({
     consoleService: makeApiSearchConsoles()
-  }),
-
-  computed: {},
-
-  watch: {},
-
-  async mounted() {},
-
-  methods: {}
+  })
 }
 </script>
