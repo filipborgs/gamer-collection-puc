@@ -2,6 +2,7 @@ import { forbidden, ok, serverError, unauthorized } from '@/presentation/helpers
 import { HttpRequest, HttpResponse, Middleware } from '@/presentation/protocols'
 import { AccessDeniedError, UnauthorizedError } from '@/presentation/errors'
 import { TokenValidation } from '@/domain/usecases/user'
+import { TokenExpiredError } from '@/domain/entities'
 
 export class AuthMiddleware implements Middleware {
   constructor (
@@ -20,6 +21,7 @@ export class AuthMiddleware implements Middleware {
       return forbidden(new AccessDeniedError())
     } catch (error) {
       if (error instanceof UnauthorizedError) return unauthorized()
+      if (error instanceof TokenExpiredError) return forbidden(error)
       return serverError(error)
     }
   }
