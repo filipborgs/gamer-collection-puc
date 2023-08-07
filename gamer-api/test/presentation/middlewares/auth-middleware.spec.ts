@@ -5,6 +5,7 @@ import { mock, MockProxy } from 'jest-mock-extended'
 import { AuthMiddleware } from '@/presentation/middlewares'
 import { AccessDeniedError, UnauthorizedError } from '@/presentation/errors'
 import { HttpRequest } from '@/presentation/protocols'
+import { TokenExpiredError } from '@/domain/entities'
 
 describe('Auth Middleware', () => {
   let sut: AuthMiddleware
@@ -45,6 +46,13 @@ describe('Auth Middleware', () => {
     tokenValidatior.validate.mockRejectedValueOnce(new UnauthorizedError())
     const response = await sut.handle(httpRequest)
     expect(response).toEqual(unauthorized())
+  })
+
+  test('Should returns 403 if LoadAccountByToken throws an TokenExpiredError', async () => {
+    const error = new TokenExpiredError(new Date())
+    tokenValidatior.validate.mockRejectedValueOnce(error)
+    const response = await sut.handle(httpRequest)
+    expect(response).toEqual(forbidden(error))
   })
 
   test('Should returns 500 if LoadAccountByToken throws an not domain error', async () => {
