@@ -98,7 +98,7 @@ export default {
     const user = getCurrentUserAdapter()
     if (user) {
       this.$router.replace({
-        path: '/colecoes'
+        path: `/colecoes/${user.id}`
       })
     }
   },
