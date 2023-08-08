@@ -100,11 +100,13 @@ export default {
   beforeCreate() {
     this.$vuetify.theme.themes.dark.background = '#292933'
     const sessionTimer = getTokenTimerAdapter()
-    if (sessionTimer && sessionTimer < 3.6e+6) {
+    if (sessionTimer && sessionTimer < 3.6e6) {
       const user = getCurrentUserAdapter()
       this.$router.replace({
         path: `/colecoes/${user.id}`
       })
+    } else {
+      localStorage.clear()
     }
   },
 
