@@ -1,12 +1,15 @@
 <template>
   <v-app :style="{ background: '#292933' }">
     <v-content>
+      <layout-alert-message />
       <transition name="slide-y-transition" mode="out-in">
         <Nuxt />
       </transition>
     </v-content>
     <v-footer app="app">
-      <v-flex class="text-xs-center">© 2023. Luiz Filipe Borges. All rights reserved.</v-flex>
+      <v-flex class="text-xs-center"
+        >© 2023. Luiz Filipe Borges. All rights reserved.</v-flex
+      >
     </v-footer>
   </v-app>
 </template>

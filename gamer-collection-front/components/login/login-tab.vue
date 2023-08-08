@@ -32,7 +32,7 @@
             depressed
             color="blue-grey darken-3"
             dark
-            :loading="loading"
+            :loading="isWaiting"
             @click="auth"
           >
             Entrar
@@ -45,13 +45,13 @@
 </template>
 
 <script>
-import { makeApiAuthentication } from '../../app/main/factories/domain/usecases/user/api-authentication-factory'
+import { makeApiAuthentication } from '~/app/main/factories/domain/usecases/user/api-authentication-factory'
 import {
   requiredValidate,
   emailValidate,
   minValidate
-} from '../../app/infra/validation'
-import { setCurrentUserAdapter } from '../../app/main/adapters'
+} from '~/app/infra/validation'
+import { setCurrentUserAdapter } from '~/app/main/adapters'
 
 export default {
   name: 'LoginTab',
@@ -61,7 +61,6 @@ export default {
       email: 'filipborgs48@gmail.com',
       password: 'password'
     },
-    loading: false,
     showPassword: false,
     rules: {
       requiredValidate,
@@ -69,23 +68,25 @@ export default {
       minValidate: minValidate(6)
     }
   }),
+
   mounted() {
     this.authentication = makeApiAuthentication()
   },
+
   methods: {
     async auth() {
       if (!this.$refs.form.validate()) return
-      this.loading = true
+      this.setLoadingState()
       try {
         const user = await this.authentication.auth(this.login)
         this.$router.push({
           path: `/colecoes/${user.id}`
         })
         setCurrentUserAdapter(user)
-      } catch (error) {
-        alert(error.message)
-      } finally {
-        this.loading = false
+      } catch (e) {
+        this.queueMessage(e.message)
+      }finally {
+        this.removeLoadingState()
       }
     }
   }

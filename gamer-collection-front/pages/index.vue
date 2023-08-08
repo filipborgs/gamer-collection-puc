@@ -64,9 +64,12 @@
 </template>
 
 <script>
-import LoginTab from '../components/login/login-tab.vue'
-import SingupTab from '../components/login/singup-tab.vue'
-import { getCurrentUserAdapter } from '../app/main/adapters'
+import LoginTab from '~/components/login/login-tab.vue'
+import SingupTab from '~/components/login/singup-tab.vue'
+import {
+  getCurrentUserAdapter,
+  getTokenTimerAdapter
+} from '~/app/main/adapters'
 
 export default {
   components: { LoginTab, SingupTab },
@@ -93,15 +96,18 @@ export default {
       return 500
     }
   },
+
   beforeCreate() {
     this.$vuetify.theme.themes.dark.background = '#292933'
-    const user = getCurrentUserAdapter()
-    if (user) {
+    const sessionTimer = getTokenTimerAdapter()
+    if (sessionTimer && sessionTimer < 3.6e+6) {
+      const user = getCurrentUserAdapter()
       this.$router.replace({
         path: `/colecoes/${user.id}`
       })
     }
   },
+
   methods: {
     login() {
       this.tab = 0
