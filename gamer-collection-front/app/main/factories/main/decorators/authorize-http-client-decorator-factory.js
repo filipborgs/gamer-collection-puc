@@ -1,9 +1,10 @@
 import { AuthorizeHttpClientDecorator } from '../../../decorators'
-import { makeLocalStorageAdapter } from '../../infra/cache'
+import { makeLocalStorageAdapter, makeRouterAdapter } from '../../infra/browser'
 import { makeAxiosHttpClient } from '../../infra/http'
 
 export const makeAuthorizeHttpClientDecorator = () =>
   new AuthorizeHttpClientDecorator(
     makeLocalStorageAdapter(),
-    makeAxiosHttpClient()
+    makeAxiosHttpClient(),
+    makeRouterAdapter()
   )

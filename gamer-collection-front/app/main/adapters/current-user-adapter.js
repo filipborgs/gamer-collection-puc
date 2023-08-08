@@ -1,4 +1,4 @@
-import { makeLocalStorageAdapter } from "../factories/infra/cache"
+import { makeLocalStorageAdapter } from "../factories/infra/browser"
 
 export const setCurrentUserAdapter = (user) => {
   makeLocalStorageAdapter().set('user', user)

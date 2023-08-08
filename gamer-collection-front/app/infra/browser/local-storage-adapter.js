@@ -1,6 +1,6 @@
 
 export class LocalStorageAdapter {
-  set (key, value) {
+  set(key, value) {
     if (value) {
       localStorage.setItem(key, JSON.stringify(value))
     } else {
@@ -8,7 +8,11 @@ export class LocalStorageAdapter {
     }
   }
 
-  get (key) {
+  get(key) {
     return JSON.parse(localStorage.getItem(key))
+  }
+
+  clear() {
+    localStorage.clear()
   }
 }

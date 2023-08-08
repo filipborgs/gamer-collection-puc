@@ -1,8 +1,9 @@
 
 export class AuthorizeHttpClientDecorator {
-  constructor(storage, httpClient) {
+  constructor(storage, httpClient, router) {
     this.storage = storage
     this.httpClient = httpClient
+    this.router = router
   }
 
   async request(data) {
@@ -15,6 +16,10 @@ export class AuthorizeHttpClientDecorator {
       })
     }
     const httpResponse = await this.httpClient.request(data)
+    if (user && httpResponse.statusCode === 403) {
+      this.storage.clear()
+      this.router.push('/')
+    }
     return httpResponse
   }
 }
