@@ -43,15 +43,15 @@
                   :rules="[rules.maxDate, rules.minDate]"
                   label="Data da compra"
                   type="date"
-                ></v-text-field>
+                />
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <v-text-field
+                <layout-decimal-text-field
                   v-model="game.purchasePrice"
                   outlined
                   :rules="[rules.minNumber]"
                   label="Valor pago"
-                ></v-text-field>
+                />
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-radio-group v-model="game.purchaseState">
@@ -167,7 +167,7 @@ export default {
         this.resetState()
       } catch (e) {
         this.queueMessage(e.message)
-      }finally {
+      } finally {
         this.loading = false
         this.removeLoadingState()
       }

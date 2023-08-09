@@ -3,13 +3,18 @@
     <template #activator="{ on, attrs }">
       <v-tooltip bottom>
         <template #activator="{ on: onTooltip, attrs: attrsTooltip }">
-          <v-btn color="edit" icon v-bind="{ ...attrs, ...attrsTooltip }" small v-on="{ ...on, ...onTooltip }">
+          <v-btn
+            color="edit"
+            icon
+            v-bind="{ ...attrs, ...attrsTooltip }"
+            small
+            v-on="{ ...on, ...onTooltip }"
+          >
             <v-icon>mdi-pencil</v-icon>
           </v-btn>
         </template>
         <span>Editar</span>
       </v-tooltip>
-
     </template>
     <v-card>
       <v-card-title>
@@ -24,11 +29,21 @@
               </v-col>
               <v-col cols="12"> </v-col>
               <v-col cols="12" sm="6" md="6">
-                <v-text-field v-model="collectionItem.purchaseDate" label="Data da compra" type="date" outlined
-                  :rules="[rules.maxDate, rules.minDate]"></v-text-field>
+                <v-text-field
+                  v-model="collectionItem.purchaseDate"
+                  label="Data da compra"
+                  type="date"
+                  outlined
+                  :rules="[rules.maxDate, rules.minDate]"
+                />
               </v-col>
               <v-col cols="12" sm="6" md="6">
-                <v-text-field v-model="collectionItem.purchasePrice" :rules="[rules.minNumber]" label="Valor pago" outlined></v-text-field>
+                <layout-decimal-text-field
+                  v-model="collectionItem.purchasePrice"
+                  :rules="[rules.minNumber]"
+                  label="Valor pago"
+                  outlined
+                />
               </v-col>
               <v-col cols="12" sm="6" md="4">
                 <v-radio-group v-model="collectionItem.purchaseState">
@@ -58,7 +73,9 @@
                   </v-expansion-panel-header>
                   <v-expansion-panel-content>
                     <v-col cols="12" sm="6" md="6">
-                      <v-checkbox :label="`Digital? ${defaultItem ? 'Sim' : 'Não'}`"></v-checkbox>
+                      <v-checkbox
+                        :label="`Digital? ${defaultItem ? 'Sim' : 'Não'}`"
+                      ></v-checkbox>
                     </v-col>
                     <v-col cols="12">
                       <v-textarea counter label="Observações"></v-textarea>
@@ -87,7 +104,11 @@
 
 <script>
 import { makeUpdateConsoleCollectionItem } from '~/app/main/factories/domain/usecases/collection'
-import { minDateValidate, maxDateValidate, minNumberValidate } from '~/app/infra/validation'
+import {
+  minDateValidate,
+  maxDateValidate,
+  minNumberValidate
+} from '~/app/infra/validation'
 
 export default {
   name: 'EditConsoleCollectionItem',
@@ -126,7 +147,8 @@ export default {
         if (value) {
           this.collectionItem.purchasePrice = this.defaultItem.purchasePrice
           this.collectionItem.purchaseState = this.defaultItem.purchaseState
-          this.collectionItem.purchaseDate = this.defaultItem.purchaseDate?.split('T')[0]
+          this.collectionItem.purchaseDate =
+            this.defaultItem.purchaseDate?.split('T')[0]
         }
         this.dialog = value
       }

@@ -17,8 +17,12 @@ export const maxDateValidate =
   (maxDate = new Date()) => value => (!value || new Date(value) <= maxDate) || `A data deve ser menor que ${formatDate(maxDate)}`
 
 export const minNumberValidate =
-  (qtd = 10) => (value) =>
-    (!value || Number(value) >= qtd) || `O campo deve ser maior ou igual a ${qtd}`
+  (qtd = 10) => (value) => {
+    if (typeof value === 'string') {
+      value = value.replace('.', '').replace(',', '.')
+    }
+    return (!value || Number(value) >= qtd) || `O campo deve ser maior ou igual a ${qtd}`
+  }
 
 const formatDate = (value) => {
   if (!value) return;
