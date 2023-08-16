@@ -1,3 +1,6 @@
+// eslint-disable-next-line @typescript-eslint/no-var-requires
+const { version } = require('@/../package')
+
 export default {
   clientId: process.env.CLIENT_ID_IGDB ?? '',
   secret: process.env.SECRET_IGDB ?? '',
@@ -12,5 +15,6 @@ export default {
   tsNode: process.env.TS_NODE_DEV,
   salt: Number(process.env.SALT_BCRYPT) || 12,
   jwtPrivateKey: process.env.PRIVATE_JWT_KEY || 'any_key',
-  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h'
+  jwtExpiresIn: process.env.JWT_EXPIRES_IN || '1h',
+  version
 }

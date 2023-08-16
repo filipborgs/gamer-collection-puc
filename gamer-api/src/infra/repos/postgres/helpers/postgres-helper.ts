@@ -52,6 +52,10 @@ export class PostgresHelper {
     await this.connection.synchronize()
   }
 
+  isConnected (): boolean {
+    return this.connection?.isInitialized
+  }
+
   getRepository<Entity> (entity: ObjectType<Entity>): Repository<Entity> {
     if (this.connection === undefined) throw new Error('')
     return this.connection.getRepository(entity)
