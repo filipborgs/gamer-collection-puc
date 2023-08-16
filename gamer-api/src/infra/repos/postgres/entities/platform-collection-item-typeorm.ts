@@ -18,7 +18,7 @@ export class PlatformCollectionItemTypeOrm {
   @Column()
     name: string
 
-  @Column({ name: 'purchase_price', default: null, nullable: true })
+  @Column({ name: 'purchase_price', default: null, nullable: true, type: 'decimal', precision: 8, scale: 2 })
     purchasePrice?: number
 
   @Column({ name: 'purchase_state', default: null, nullable: true })
