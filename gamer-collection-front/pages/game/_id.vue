@@ -2,24 +2,20 @@
   <v-container>
     <v-row>
       <v-col cols="12" sm="3">
-        <v-sheet color="grey darken-4" rounded="lg" min-height="268">
-          <v-card class="mx-auto" max-width="400">
-            <AddCollectionItem :selected-game="item" />
+        <v-sheet min-height="268">
+          <v-card shaped :loading="!item.id" max-width="400">
+            <collection-add-game-collection-item v-if="item.id" :selected-game="item" />
             <v-img class="rounded-lg" :src="image" height="400px" dark>
               <template #placeholder>
                 <v-row class="fill-height ma-0" align="center" justify="center">
-                  <v-progress-circular
-                    indeterminate
-                    color="grey lighten-5"
-                  ></v-progress-circular>
+                  <v-progress-circular indeterminate color="grey lighten-5"></v-progress-circular>
                 </v-row>
               </template>
             </v-img>
-
             <v-card-title> {{ item.name }} </v-card-title>
             <v-card-subtitle> {{ releaseDate }} </v-card-subtitle>
             <v-card-subtitle> {{ platforms }} </v-card-subtitle>
-            <br/>
+            <br />
           </v-card>
         </v-sheet>
       </v-col>
@@ -28,7 +24,7 @@
         <v-sheet color="grey darken-4" min-height="70vh" rounded="lg">
           <v-card class="mx-auto">
             <v-card dark flat>
-              <v-card-title class="pa-2 purple lighten-3">
+              <v-card-title class="pa-2 blue-grey darken-2">
                 <h3 class="text-h6 font-weight-light text-center grow">
                   Minhas coleções
                 </h3>
@@ -67,40 +63,7 @@
 
       <v-col cols="12" sm="3">
         <v-sheet color="grey darken-4" rounded="lg" min-height="268">
-          <v-card-title>
-            <p>Outras versões</p>
-          </v-card-title>
-
-          <v-card-text>
-            <v-list two-line>
-              <v-list-item-group
-                v-model="selected"
-                active-class="pink--text"
-                multiple
-              >
-                <template v-for="(ex, index) in items">
-                  <v-list-item :key="ex.title">
-                    <v-list-item-content>
-                      <v-list-item-title>{{ ex.title }}</v-list-item-title>
-
-                      <v-list-item-subtitle class="text--primary">{{
-                        ex.headline
-                      }}</v-list-item-subtitle>
-
-                      <v-list-item-subtitle>{{
-                        ex.subtitle
-                      }}</v-list-item-subtitle>
-                    </v-list-item-content>
-                  </v-list-item>
-
-                  <v-divider
-                    v-if="index < ex.length - 1"
-                    :key="index"
-                  ></v-divider>
-                </template>
-              </v-list-item-group>
-            </v-list>
-          </v-card-text>
+          <layout-related-items />
         </v-sheet>
       </v-col>
     </v-row>
@@ -108,12 +71,10 @@
 </template>
 
 <script>
-import { makeApiLoadGameById } from '../../app/main/factories/domain/usecases/game'
-import AddCollectionItem from '../../components/collection/add-game-collection-item.vue'
+import { makeApiLoadGameById } from '~/app/main/factories/domain/usecases/game'
 
 export default {
   name: 'GamePage',
-  components: { AddCollectionItem },
   data: () => ({
     item: {
       id: null,
@@ -122,15 +83,6 @@ export default {
       releaseDate: null,
       platforms: []
     },
-    selected: [2],
-    items: [
-      {
-        action: '12 hr',
-        headline: '2002',
-        subtitle: 'PS2',
-        title: 'Devil may cry 3'
-      }
-    ],
     gameService: makeApiLoadGameById()
   }),
 
@@ -154,8 +106,14 @@ export default {
 
   async mounted() {
     const id = this.$route.params.id
-    const item = await this.gameService.loadById(id)
-    this.item = item
+    this.setLoadingState()
+    try {
+      this.item = await this.gameService.loadById(id)
+    } catch (e) {
+      this.queueMessage(e.message)
+    } finally {
+      this.removeLoadingState()
+    }
   }
 }
 </script>
