@@ -4,7 +4,7 @@
       <v-btn
         absolute
         bottom
-        color="pink"
+        color="primary"
         :x-small="xSmall"
         right
         fab
@@ -132,7 +132,7 @@ export default {
       purchaseDate: null
     },
     rules: {
-      minDate: minDateValidate(new Date('2020-01-01')),
+      minDate: minDateValidate(new Date('1972-01-01')),
       maxDate: maxDateValidate(),
       minNumber: minNumberValidate(0)
     },

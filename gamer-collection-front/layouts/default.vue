@@ -1,7 +1,7 @@
 <template>
   <v-app id="inspire">
     <v-app-bar app flat>
-      <v-tabs centered class="ml-n9" color="grey darken-1">
+      <v-tabs centered class="ml-n9" color="primary">
         <v-tab v-for="item in links" :key="item.link" :to="item.link">
           {{ item.name }}
         </v-tab>
@@ -18,11 +18,10 @@
           <v-list-item-content class="justify-center">
             <div class="mx-auto text-center">
               <v-avatar color="blue">
-                <span class="white--text text-h5">{{ user.initials }}</span>
+                <span class="white--text text-h5">{{ initials }}</span>
               </v-avatar>
-              <h3>{{ user.fullName }}</h3>
+              <h3 class="pt-5">{{ user.name }}</h3>
               <p class="text-caption mt-1">
-                {{ user.email }}
               </p>
               <v-divider class="my-3"></v-divider>
               <v-btn depressed rounded text to="/seguindo"> Seguindo </v-btn>
@@ -30,9 +29,9 @@
               <v-divider class="my-3"></v-divider>
               <v-btn depressed rounded text @click="dark"> Dark mode </v-btn>
               <v-divider class="my-3"></v-divider>
-              <v-btn depressed rounded text to="/edit-account">
+              <!-- <v-btn depressed rounded text to="/edit-account">
                 Editar conta
-              </v-btn>
+              </v-btn> -->
               <v-divider class="my-3"></v-divider>
               <v-btn depressed rounded text @click="singout"> Sair </v-btn>
             </div>
@@ -70,19 +69,21 @@ Vue.mixin(global)
 
 export default {
   data: () => ({
-    user: {
-      initials: 'FB',
-      fullName: 'Filipe Borges',
-      email: 'filipborgs48@gmail.com'
-    },
+    user: getCurrentUserAdapter(),
     links: []
   }),
 
+  computed: {
+    initials(){
+      const name = this.user?.name.slice(0, 2).toUpperCase()
+      return name
+    }
+  },
+
   mounted() {
-    const user = getCurrentUserAdapter()
     this.links = [
       {
-        link: `/colecoes/${user.id}`,
+        link: `/colecoes/${this.user.id}`,
         name: 'Minhas coleções'
       },
       {
