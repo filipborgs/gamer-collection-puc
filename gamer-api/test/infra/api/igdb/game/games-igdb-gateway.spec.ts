@@ -44,7 +44,7 @@ describe('GamesIgdbGateway', () => {
 
     it('Should make load request with correct query', async () => {
       const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
-      const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"*) & platforms != null & version_parent = null & cover.image_id != null;`
+      const where = `(slug = "${searchClean}" | slug ~ *"${searchClean}"* | alternative_names.name ~ *"${search}"* | name ~ *"${search}"*) & platforms != null & version_parent = null & cover.image_id != null & age_ratings != null & platforms != [82];`
       const data = `query games/count "count" {w ${where}}; query games "games" {f name,platforms.id,platforms.name,cover.image_id; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
 
       const config = {
