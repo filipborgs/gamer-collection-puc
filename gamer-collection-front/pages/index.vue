@@ -5,12 +5,9 @@
         <v-img contain :height="height" src="/logo-crop.jpg"></v-img>
       </v-col>
       <v-col xs="12" sm="8" md="6" lg="4">
-        <!-- <div class="display-1 mb-3">
-          <v-icon class="mr-2" large="large">mdi-account</v-icon> MyWorkspace
-        </div> -->
         <p class="text-h4 text-center">
           <v-icon large>mdi-library-shelves</v-icon>
-          Library-API
+          Gamer Collection
         </p>
         <v-sheet min-height="40vh" rounded="lg">
           <v-tabs
@@ -25,10 +22,10 @@
           </v-tabs>
           <v-tabs-items v-model="tab">
             <v-tab-item>
-              <LoginTab />
+              <login-tab />
             </v-tab-item>
             <v-tab-item>
-              <SingupTab @login-tab="login" />
+              <login-singup-tab @login-tab="login" />
             </v-tab-item>
 
             <v-tab-item>
@@ -47,7 +44,7 @@
                       required
                     />
 
-                    <v-row align="center" justify="space-around mt-2">
+                    <v-row align="center" justify="space-around" class="mt-2">
                       <v-btn depressed color="blue-grey darken-3" dark
                         >Enviar email</v-btn
                       >
@@ -64,15 +61,12 @@
 </template>
 
 <script>
-import LoginTab from '~/components/login/login-tab.vue'
-import SingupTab from '~/components/login/singup-tab.vue'
 import {
   getCurrentUserAdapter,
   getTokenTimerAdapter
 } from '~/app/main/adapters'
 
 export default {
-  components: { LoginTab, SingupTab },
   layout: 'login',
   data: () => ({
     tab: null,
