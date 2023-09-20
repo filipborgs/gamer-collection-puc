@@ -7,9 +7,8 @@ export class PlatformsIgdbGateway extends IgdbHelper implements LoadPlatformsGat
   public async load (search: string, offset: number): Promise<LoadResult<PlatformPreview>> {
     const token = this.auth()
 
-    const searchClean: string = search.replace(/\s/g, '-').replace(/:/g, '')
     const limit = 20
-    const where = `(name = "${searchClean}" | name ~ *"${searchClean}"* | abbreviation ~ *"${search}"*);`
+    const where = `(name = "${search}" | name ~ *"${search}"* | abbreviation ~ *"${search}"*) & category != 3 & category != 4;`
     const data = `query platforms/count "count" {w ${where}}; query platforms "platforms" {f name, abbreviation; sort rating desc; w ${where} limit ${limit}; offset ${offset};};`
     const config = {
       url: `${this.igdbUrl}/v4/multiquery`,
