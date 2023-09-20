@@ -13,6 +13,7 @@
           type="email"
           :rules="[rules.requiredValidate, rules.emailValidate]"
           required
+          @keyup.enter="auth"
         />
         <v-text-field
           v-model="login.password"
@@ -25,9 +26,10 @@
           label="Senha"
           :rules="[rules.requiredValidate, rules.minValidate]"
           required
+          @keyup.enter="auth"
           @click:append="showPassword = !showPassword"
         />
-        <v-row align="center" justify="space-around mt-2">
+        <v-row align="center" justify="space-around" class="mt-2">
           <v-btn
             depressed
             color="blue-grey darken-3"
@@ -45,7 +47,7 @@
 </template>
 
 <script>
-import { makeApiAuthentication } from '~/app/main/factories/domain/usecases/user/api-authentication-factory'
+import { makeApiAuthentication } from '~/app/main/factories/domain/usecases/user'
 import {
   requiredValidate,
   emailValidate,
@@ -56,10 +58,10 @@ import { setCurrentUserAdapter } from '~/app/main/adapters'
 export default {
   name: 'LoginTab',
   data: () => ({
-    authentication: null,
+    authentication: makeApiAuthentication(),
     login: {
-      email: 'filipborgs48@gmail.com',
-      password: 'password'
+      email: null,
+      password: null
     },
     showPassword: false,
     rules: {
@@ -68,10 +70,6 @@ export default {
       minValidate: minValidate(6)
     }
   }),
-
-  mounted() {
-    this.authentication = makeApiAuthentication()
-  },
 
   methods: {
     async auth() {
