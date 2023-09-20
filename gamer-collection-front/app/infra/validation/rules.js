@@ -8,7 +8,7 @@ export const requiredValidate = (value) => !!value || 'Campo Obrigatório'
 
 export const minValidate =
   (qtd = 10) => (value) =>
-    value.length >= qtd || `O campo deve ter pelo menos ${qtd} caracteres`
+    value?.length >= qtd || `O campo deve ter pelo menos ${qtd} caracteres`
 
 export const minDateValidate =
   (minDate) => value => (!value || new Date(value) >= minDate) || `A data deve ser maior que ${formatDate(minDate)}`
