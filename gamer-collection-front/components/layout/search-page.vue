@@ -16,6 +16,7 @@
         ></v-text-field>
       </v-col>
     </v-row>
+
     <div class="row text-center">
       <div
         v-for="item in items"
@@ -64,7 +65,12 @@
         </v-card>
       </div>
     </div>
-    <div class="text-center mt-12">
+
+    <div  v-if="!loading && !items.length" class="text-center mt-12">
+      Nenhum item encontrado :(
+    </div>
+
+    <div v-else class="text-center mt-12">
       <v-pagination
         v-model="page"
         :disabled="loading"
