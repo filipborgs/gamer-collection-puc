@@ -8,7 +8,7 @@
     </v-content>
     <v-footer app="app">
       <v-flex class="text-xs-center"
-        >© 2023. Luiz Filipe Borges. All rights reserved.</v-flex
+        >© 2023. Luiz Filipe Borges. All rights reserved. 0.1.2</v-flex
       >
     </v-footer>
   </v-app>
