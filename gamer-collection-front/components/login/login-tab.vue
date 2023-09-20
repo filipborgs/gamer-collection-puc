@@ -13,6 +13,7 @@
           type="email"
           :rules="[rules.requiredValidate, rules.emailValidate]"
           required
+          @keyup.enter="auth"
         />
         <v-text-field
           v-model="login.password"
@@ -25,6 +26,7 @@
           label="Senha"
           :rules="[rules.requiredValidate, rules.minValidate]"
           required
+          @keyup.enter="auth"
           @click:append="showPassword = !showPassword"
         />
         <v-row align="center" justify="space-around" class="mt-2">
