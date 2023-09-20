@@ -46,7 +46,7 @@
           counter
           prepend-icon="mdi-lock"
           dense
-          :rules="[rules.requiredValidate, rules.minValidate]"
+          :rules="[rules.requiredValidate, rules.minValidate, validatePasswordConfirmation]"
           outlined
           label="Confirmar senha"
           required
@@ -57,7 +57,7 @@
             depressed
             color="blue-grey darken-3"
             dark
-            :loading="loading"
+            :loading="isWaiting"
             @click="singup"
           >
             Criar conta
@@ -73,20 +73,20 @@ import {
   emailValidate,
   minValidate,
   requiredValidate
-} from '../../app/infra/validation'
-import { makeApiSingup } from '../../app/main/factories/domain/usecases/user/api-singup-factory'
+} from '~/app/infra/validation'
+import { makeApiSingup } from '~/app/main/factories/domain/usecases/user'
 
 export default {
   name: 'SingupTab',
+
   data: () => ({
-    apiSingup: null,
+    apiSingup: makeApiSingup(),
     account: {
-      name: 'Filipe',
-      email: 'filipborgs48@gmail.com',
-      password: 'password',
-      passwordConfirmation: 'password'
+      name: null,
+      email: null,
+      password: null,
+      passwordConfirmation: null
     },
-    loading: false,
     showPassword: false,
     rules: {
       requiredValidate,
@@ -94,23 +94,25 @@ export default {
       minValidate: minValidate(6)
     }
   }),
-  mounted() {
-    this.apiSingup = makeApiSingup()
-  },
+
   methods: {
     async singup() {
       if (!this.$refs.form.validate()) return
-      this.loading = true
+      this.setLoadingState()
       try {
         await this.apiSingup.singup(this.account)
-        alert('Conta criada com sucesso')
+        this.queueMessage('Conta criada com sucesso')
         this.$emit('login-tab')
         this.resetState()
       } catch (error) {
-        alert(error.message)
+        this.queueMessage(error.message)
       } finally {
-        this.loading = false
+        this.removeLoadingState()
       }
+    },
+
+    validatePasswordConfirmation(confirm){
+      return !confirm || confirm === this.account.password || 'As senhas devem ser iguais'
     },
 
     resetState() {
