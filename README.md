@@ -25,7 +25,7 @@
 <br/>
 Link da aplicação: https://main--gamer-collection.netlify.app/
 <br/>
-Usuário de teste: filipborgs48@gmail.com
+Usuário de teste: puc@puc.com.br
 <br/>
 senha: password
 <br/>
