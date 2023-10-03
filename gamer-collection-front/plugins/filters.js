@@ -2,7 +2,8 @@ import Vue from 'vue'
 
 Vue.filter('formatDate', (value) => {
   if (!value) return;
-  const date = new Date(value)
+  const fixDate = value.split('T')[0]
+  const date = new Date(fixDate.replace('-', '/'))
   return date.toLocaleString(['pt-BR'], {
     month: '2-digit',
     day: '2-digit',
