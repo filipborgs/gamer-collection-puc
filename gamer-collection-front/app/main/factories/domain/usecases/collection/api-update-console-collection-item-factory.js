@@ -4,6 +4,6 @@ import { makeAuthorizeHttpClientDecorator } from '../../../main/decorators'
 
 export const makeUpdateConsoleCollectionItem = () =>
   new ApiUpdateCollectionItem(
-    makeApiUrl('/collections/games/items'),
+    makeApiUrl('/collections/platforms/items'),
     makeAuthorizeHttpClientDecorator()
   )
