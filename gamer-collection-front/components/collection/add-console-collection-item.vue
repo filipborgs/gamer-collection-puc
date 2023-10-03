@@ -147,7 +147,7 @@ export default {
       this.dialog = false
       try {
         await this.collectionService.addItem({
-          ...this.item,
+          ...this.console,
           itemId: Number(this.$route.params.id || this.selectedConsole.id)
         })
         this.queueMessage('Console adicionado com sucesso')

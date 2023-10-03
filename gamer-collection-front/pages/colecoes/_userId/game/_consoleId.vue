@@ -21,28 +21,13 @@
           <v-card class="mx-auto">
             <v-card-text class="py-0">
               <v-data-table
-                :headers="headers"
-                :items="items"
-                :loading="isWaiting"
-                item-key="id"
-                show-expand
-                class="elevation-1"
-                :search="search"
-                :custom-filter="filter"
-              >
+:headers="headers" :items="items" :loading="isWaiting" item-key="id" show-expand
+                class="elevation-1" :search="search" :custom-filter="filter">
                 <template #top>
                   <v-toolbar flat>
                     <VTextField
-                      v-model="search"
-                      autofocus
-                      prepend-inner-icon="mdi-magnify"
-                      label="Pesquisar"
-                      autocomplete="off"
-                      hide-details
-                      outlined
-                      clearable
-                      dense
-                    ></VTextField>
+v-model="search" autofocus prepend-inner-icon="mdi-magnify" label="Pesquisar"
+                      autocomplete="off" hide-details outlined clearable dense></VTextField>
                   </v-toolbar>
                 </template>
 
@@ -58,14 +43,12 @@
                   <layout-table-actions
                     :item="item"
                     :index="index"
-                    @delete="deleteItemConfirm"
-                    @open="openGame"
-                  >
+                    :actions="isLoggedUser ? ['remove'] : []"
+                    @delete="deleteItemConfirm" @open="openGame">
                     <collection-edit-game-collection-item
-                      :default-item="item"
-                      :index="index"
-                      @updated="editGame"
-                    >
+                      v-if="isLoggedUser"
+                      :default-item="item" :index="index"
+                      @updated="editGame">
                     </collection-edit-game-collection-item>
                   </layout-table-actions>
                 </template>
@@ -106,6 +89,7 @@ import {
   makeApiLoadGamesCollectionItems,
   makeApiRemoveGameCollectionItemById
 } from '~/app/main/factories/domain/usecases/collection'
+import { getCurrentUserAdapter } from '~/app/main/adapters'
 
 export default {
   data: () => ({
@@ -124,7 +108,8 @@ export default {
     items: [],
     collectionService: makeApiLoadGamesCollectionItems(),
     removeService: makeApiRemoveGameCollectionItemById(),
-    search: null
+    search: null,
+    user: getCurrentUserAdapter()
   }),
 
   computed: {
@@ -138,7 +123,12 @@ export default {
     platformName() {
       const [game] = this.items
       return game?.platform.name
-    }
+    },
+
+    isLoggedUser() {
+      const { userId } = this.$route.params
+      return userId === this.user.id
+    },
   },
 
   watch: {

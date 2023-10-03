@@ -21,28 +21,13 @@
           <v-card class="mx-auto">
             <v-card-text class="py-0">
               <v-data-table
-                :headers="headers"
-                :items="items"
-                :loading="isWaiting"
-                item-key="id"
-                show-expand
-                class="elevation-1"
-                :search="search"
-                :custom-filter="filter"
-              >
+:headers="headers" :items="items" :loading="isWaiting" item-key="id" show-expand
+                class="elevation-1" :search="search" :custom-filter="filter">
                 <template #top>
                   <v-toolbar flat>
                     <VTextField
-                      v-model="search"
-                      autofocus
-                      prepend-inner-icon="mdi-magnify"
-                      label="Pesquisar"
-                      autocomplete="off"
-                      hide-details
-                      outlined
-                      clearable
-                      dense
-                    ></VTextField>
+v-model="search" autofocus prepend-inner-icon="mdi-magnify" label="Pesquisar"
+                      autocomplete="off" hide-details outlined clearable dense></VTextField>
                   </v-toolbar>
                 </template>
 
@@ -79,14 +64,13 @@
                   <layout-table-actions
                     :item="item"
                     :index="index"
-                    @delete="deleteItemConfirm"
-                    @open="openConsole"
-                  >
+                    :actions="isLoggedUser ? ['remove'] : []"
+                    @delete="deleteItemConfirm" @open="openConsole">
                     <collection-edit-console-collection-item
+                      v-if="isLoggedUser"
                       :default-item="item"
                       :index="index"
-                      @updated="editItem"
-                    >
+                      @updated="editItem">
                     </collection-edit-console-collection-item>
                   </layout-table-actions>
                 </template>
@@ -109,6 +93,7 @@ import {
   makeApiLoadConsoleCollectionItems,
   makeApiRemoveConsoleCollectionItemById
 } from '~/app/main/factories/domain/usecases/collection'
+import { getCurrentUserAdapter } from '~/app/main/adapters'
 
 export default {
   data: () => ({
@@ -127,7 +112,8 @@ export default {
     items: [],
     loadService: makeApiLoadConsoleCollectionItems(),
     removeService: makeApiRemoveConsoleCollectionItemById(),
-    search: null
+    search: null,
+    user: getCurrentUserAdapter()
   }),
 
   computed: {
@@ -136,7 +122,11 @@ export default {
         return purchasePrice ? Number(acc) + Number(purchasePrice) : acc
       }
       return this.items.reduce(callback, 0)
-    }
+    },
+    isLoggedUser() {
+      const { userId } = this.$route.params
+      return userId === this.user.id
+    },
   },
 
   async created() {
