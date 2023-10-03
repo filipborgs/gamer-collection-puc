@@ -116,7 +116,7 @@ export default {
 
   computed: {
     pages() {
-      return Math.floor(this.total / this.limit)
+      return Math.ceil(this.total / this.limit)
     }
   },
 
@@ -155,6 +155,7 @@ export default {
         })
         this.items = items
         this.total = count
+        console.log(this.total)
       } catch (e) {
         this.queueMessage(e.message)
       } finally {
